@@ -6,4 +6,5 @@ application/cache/*
 
 application/logs/*
 !application/logs/index.html
+/.idea
 !application/logs/.htaccess
