@@ -1,0 +1,211 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="current"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Daily Job Summary Report Detail</h4>
+
+                            <div class="pull-right">
+                            	<span ng-show="formInfo.$invalid" class="label label-danger">form not completed</span>
+                                <a href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+                                <a ng-href="#/jobInfoOnSiteSummaryJobList/{{_id}}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Daily Job Summary Report Form</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+                                                <label for="reportNo" class="col-sm-3 control-label">Daily Job Report Number</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="reportNo" id="reportNo" ng-maxlength="10" ng-model="obj.reportNo">
+                                                    <p ng-show="formInfo.reportNo.$invalid && !formInfo.reportNo.$pristine" class="help-block text-danger">Enter a valid Report No.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="companyRepresent" class="col-sm-3 control-label">Company Representative</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="companyRepresent" id="companyRepresent" ng-maxlength="100" ng-model="obj.companyRepresent">
+                                                    <p ng-show="formInfo.companyRepresent.$invalid && !formInfo.companyRepresent.$pristine" class="help-block text-danger">Enter a valid Company Representative.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="serialNumber" class="col-sm-3 control-label">Serial Number of Tool Used</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="serialNumber" id="serialNumber" ng-maxlength="10" ng-model="obj.serialNumber">
+                                                    <p ng-show="formInfo.serialNumber.$invalid && !formInfo.serialNumber.$pristine" class="help-block text-danger">Enter a valid Serial Number.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="totalRuns" class="col-sm-3 control-label">Total Number of Runs</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control" name="totalRuns" id="totalRuns" ng-maxlength="3" ng-model="obj.totalRuns">
+                                                    <p ng-show="formInfo.totalRuns.$invalid && !formInfo.totalRuns.$pristine" class="help-block text-danger">Enter a valid Total Number of Runs.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="totalActivation" class="col-sm-3 control-label">Total Number of Activations</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control" name="totalActivation" id="totalActivation" ng-maxlength="3" ng-model="obj.totalActivation">
+                                                    <p ng-show="formInfo.totalActivation.$invalid && !formInfo.totalActivation.$pristine" class="help-block text-danger">Enter a valid Total Number of Activations.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="wellDepth" class="col-sm-3 control-label">Total Well Depth</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="wellDepth" id="wellDepth" ng-maxlength="100" ng-model="obj.wellDepth">
+                                                    <p ng-show="formInfo.wellDepth.$invalid && !formInfo.wellDepth.$pristine" class="help-block text-danger">Enter a valid Well Depth.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="deviation" class="col-sm-3 control-label">Deviation</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="deviation" id="deviation" ng-maxlength="100" ng-model="obj.deviation">
+                                                    <p ng-show="formInfo.deviation.$invalid && !formInfo.deviation.$pristine" class="help-block text-danger">Enter a valid Deviation.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="waterDepth" class="col-sm-3 control-label">Water Depth</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="waterDepth" id="waterDepth" ng-maxlength="100" ng-model="obj.waterDepth">
+                                                    <p ng-show="formInfo.waterDepth.$invalid && !formInfo.waterDepth.$pristine" class="help-block text-danger">Enter a valid Water Depth.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="holeSize" class="col-sm-3 control-label">Hole Size</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="holeSize" id="holeSize" ng-maxlength="100" ng-model="obj.holeSize">
+                                                    <p ng-show="formInfo.holeSize.$invalid && !formInfo.holeSize.$pristine" class="help-block text-danger">Enter a valid Hole Size.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="holePress" class="col-sm-3 control-label">Bottom Hole Pressure</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="holePress" id="holePress" ng-maxlength="100" ng-model="obj.holePress">
+                                                    <p ng-show="formInfo.holePress.$invalid && !formInfo.holePress.$pristine" class="help-block text-danger">Enter a valid Hole Pressure.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="temp" class="col-sm-3 control-label">Temperature</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="temp" id="temp" ng-maxlength="100" ng-model="obj.temp">
+                                                    <p ng-show="formInfo.temp.$invalid && !formInfo.temp.$pristine" class="help-block text-danger">Enter a valid Temperature.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="mudWeight" class="col-sm-3 control-label">Mud Weight</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="mudWeight" id="mudWeight" ng-maxlength="100" ng-model="obj.mudWeight">
+                                                    <p ng-show="formInfo.mudWeight.$invalid && !formInfo.mudWeight.$pristine" class="help-block text-danger">Enter a valid Mud Weight.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="stringName" class="col-sm-3 control-label">Tool String Name</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="stringName" id="stringName" ng-maxlength="100" ng-model="obj.stringName">
+                                                    <p ng-show="formInfo.stringName.$invalid && !formInfo.stringName.$pristine" class="help-block text-danger">Enter a valid Tool String Name.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="stringLength" class="col-sm-3 control-label">Tool String Length</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="stringLength" id="stringLength" ng-maxlength="100" ng-model="obj.stringLength">
+                                                    <p ng-show="formInfo.stringLength.$invalid && !formInfo.stringLength.$pristine" class="help-block text-danger">Enter a valid Tool String Length.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+                                                <label for="pullSurface" class="col-sm-3 control-label">Max Pull at Surface (estimate before job)</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="pullSurface" id="pullSurface" ng-maxlength="100" ng-model="obj.pullSurface">
+                                                    <p ng-show="formInfo.pullSurface.$invalid && !formInfo.pullSurface.$pristine" class="help-block text-danger">Enter a valid Max Pull at Surface.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="pullHead" class="col-sm-3 control-label">Max Pull at Head (estimate before job)</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="pullHead" id="pullHead" ng-maxlength="100" ng-model="obj.pullHead">
+                                                    <p ng-show="formInfo.pullHead.$invalid && !formInfo.pullHead.$pristine" class="help-block text-danger">Enter a valid Max Pull at Head.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="weakPoint" class="col-sm-3 control-label">Weak Point</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="weakPoint" id="weakPoint" ng-maxlength="100" ng-model="obj.weakPoint">
+                                                    <p ng-show="formInfo.weakPoint.$invalid && !formInfo.weakPoint.$pristine" class="help-block text-danger">Enter a valid Weak Point.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="fluidWeight" class="col-sm-3 control-label">Tool Weight in Fluid</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="fluidWeight" id="fluidWeight" ng-maxlength="100" ng-model="obj.fluidWeight">
+                                                    <p ng-show="formInfo.fluidWeight.$invalid && !formInfo.fluidWeight.$pristine" class="help-block text-danger">Enter a valid Tool Weight in Fluid.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="airWeight" class="col-sm-3 control-label">Tool Weight in Air</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="airWeight" id="airWeight" ng-maxlength="100" ng-model="obj.airWeight">
+                                                    <p ng-show="formInfo.airWeight.$invalid && !formInfo.airWeight.$pristine" class="help-block text-danger">Enter a valid Tool Weight in Air.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="bottomWeight" class="col-sm-3 control-label">Estimated Line Weight On Bottom</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="bottomWeight" id="bottomWeight" ng-maxlength="100" ng-model="obj.bottomWeight">
+                                                    <p ng-show="formInfo.bottomWeight.$invalid && !formInfo.bottomWeight.$pristine" class="help-block text-danger">Enter a valid Line Weight On Bottom.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cableWeight" class="col-sm-3 control-label">Cable Size and Weight per 1000 ft</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="cableWeight" id="cableWeight" ng-maxlength="100" ng-model="obj.cableWeight">
+                                                    <p ng-show="formInfo.cableWeight.$invalid && !formInfo.cableWeight.$pristine" class="help-block text-danger">Enter a valid Cable Size and Weight.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="formula" class="col-sm-3 control-label">Formula Used</label>
+                                                <div class="col-sm-9">
+                                                    <textarea name="formula" id="formula" ng-maxlength="500" ng-model="obj.formula" cols="50" rows="4" class="form-control"></textarea>
+                                                    <p ng-show="formInfo.formula.$invalid && !formInfo.formula.$pristine" class="help-block text-danger">Enter a valid Formula.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="actualJar" class="col-sm-3 control-label">Actual Jar Setting</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="actualJar" id="actualJar" ng-maxlength="100" ng-model="obj.actualJar">
+                                                    <p ng-show="formInfo.actualJar.$invalid && !formInfo.actualJar.$pristine" class="help-block text-danger">Enter a valid Actual Jar Setting.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

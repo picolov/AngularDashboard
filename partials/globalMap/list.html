@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Maps</h4>
+                            <div class="btn-group pull-right">
+                            	<span>Filter : </span>
+                            	<select ng-model="technician" ng-change="changeFilter()" ng-options="technician as technician.employeeName for technician in technicianList">
+                            		<option value="">- All Technician -</option>
+                            	</select>
+                                <select ng-model="status" ng-change="changeFilter()" ng-options="status as status.name for status in statusList">
+                                	<option value="">- All Status -</option>
+                                </select>
+                                <select ng-model="company" ng-change="changeFilter()" ng-options="company as company.name for company in companyList">
+                                	<option value="">- All Oil & Gas Operator -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

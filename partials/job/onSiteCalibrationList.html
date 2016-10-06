@@ -1,0 +1,50 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="current"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Calibration Report Listing</h4>
+
+                            <div class="pull-right">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                        	<table ng-table="objTableParams" show-filter="false" class="table">
+	                            <tr ng-repeat="calibration in $data">
+	                                <td data-title="'Serial'" sortable="'serial'" filter="{ 'serial': 'text' }">
+	                                    {{calibration.serial}}
+	                                </td>
+	                                <td data-title="'Size'" sortable="'size'" filter="{ 'size': 'text' }">
+	                                    {{calibration.size}}
+	                                </td>
+	                                <td data-title="'Upload Date'" sortable="'uploadDate'" filter="{ 'uploadDate': 'text' }">
+	                                    {{formatTime(calibration.uploadDate, 'MM/dd/yy hh:mm:ss')}}
+	                                </td>
+	                                <td data-title="'Action'">
+	                                	<a href="javascript:;" ng-click="download(calibration.url)" class="btn btn-blue">Download</a>
+	                                </td>
+	                            </tr>
+                           	</table>
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

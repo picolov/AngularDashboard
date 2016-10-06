@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-user"></i>&nbsp;&nbsp;Glossary</h4>
+
+                            <div class="pull-right">
+
+                            </div>
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>New Glossary</h4>
+                                    <div class="options">
+                                        <div><small>* = Required Information</small></div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-9">
+                                        <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                            <div class="form-group">
+                                                <label for="name" class="col-sm-3 control-label">Glossary Name <span style="color:red">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" ng-maxlength="64" class="form-control"  name="name" id="name" ng-model="obj.name" placeholder="Type a Question" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Glossary Description <span style="color:red">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <textarea cols="50" rows="4" id="description" class="form-control" name="description" placeholder="Type an Description" ng-model="obj.description" required></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">&nbsp;</label>
+                                                <div class="col-sm-9">
+                                                    <span ng-show="formInfo.$invalid || formAddress.$invalid" class="label label-danger">form not completed</span>
+                                                    <a href="javascript:;" ng-click="save()" class="btn btn-primary" ng-disabled="formInfo.$invalid || formAddress.$invalid">Save</a>
+                                                    <a href="#/collaborationToolsGlossary" class="btn btn-primary" type="reset">Cancel</a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

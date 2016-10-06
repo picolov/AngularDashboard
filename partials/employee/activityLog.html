@@ -1,0 +1,51 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>
+						<ul class="nav nav-tabs">
+							<li class=""><a href="#/employeeProfilesDetail/{{_id}}">Profile</a></li>
+							<li class="active"><a href="javascript:;">Activity Log</a></li>
+						</ul>
+					</h4>
+					<div class="options">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Activity Listing</h4>
+                            <div class="btn-group pull-right">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table ng-table="objTableParams" show-filter="true" class="table">
+                                <tr ng-repeat="activityLog in $data">
+                                	<td data-title="'Date'" sortable="'time'" filter="{ 'time': 'text' }">
+                                        {{formatTime(activityLog.time)}}
+                                    </td>
+                                    <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">
+                                        {{activityLog.name}}
+                                    </td>
+                                    <td data-title="'Status'" sortable="'output.status'" filter="{ 'output.status': 'text' }">
+                                        {{activityLog.output.status == 1 ? 'Success' : 'Failed'}}
+                                    </td>
+                                    <td data-title="'Message'" sortable="'output.message'" filter="{ 'output.message': 'text' }">
+                                        {{activityLog.output.message}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

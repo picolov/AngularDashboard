@@ -1,0 +1,558 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="current"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;ISI Tech Data Sheet Detail</h4>
+
+                            <div class="pull-right">
+                            	<span ng-show="formInfo.$invalid" class="label label-danger">form not completed</span>
+                                <a href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+                                <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+						<form name="formInfo" class="formObj form-horizontal" novalidate>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Technician Name</label>
+									<div class="col-sm-9">
+										<ui-select tagging tagging-tokens="ENTER" tagging-label="('new')" ng-model="obj.technician" title="Choose existing or write new">
+											<ui-select-match allow-clear placeholder="Select existing or write new">{{$select.selected}}</ui-select-match>
+											<ui-select-choices repeat="technician in technicianList | filter: $select.search">
+												<div ng-bind-html="technician | highlight: $select.search"></div>
+											</ui-select-choices>
+										</ui-select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">RTA#</label>
+									<div class="col-sm-9">
+										<label class="control-label2">{{jobInfo.uid}}</label>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="date" class="col-sm-3 control-label">Date</label>
+									<div class="col-sm-9">
+										<div class="input-group date">
+											<input date-picko today-when-empty="true" type="text" class="form-control" ng-model="obj.date" name="date" id="date" placeholder="N/A"/>
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										</div>
+										<p ng-show="formInfo.date.$invalid && !formInfo.date.$pristine" class="help-block text-danger">not a valid Date.</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">&nbsp;
+							</div>
+							<div class="col-md-12 no-padding-horizontal">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="col-sm-3 control-label">Operator</label>
+										<div class="col-sm-9">
+											<label class="control-label2">{{jobInfo.oilCompany.name}}</label>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label">Address</label>
+										<div class="col-sm-9">
+											<label class="control-label2">{{jobInfo.oilCompany.billingStreet}}</label>
+											<br>
+											<label class="control-label2">{{mergeString(',', jobInfo.oilCompany.billingCity, jobInfo.oilCompany.billingState)}}</label>
+											<br>
+											<label class="control-label2">{{jobInfo.oilCompany.billingZip}}</label>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="col-sm-3 control-label">Service Company</label>
+										<div class="col-sm-9">
+											<label class="control-label2">{{jobInfo.serviceCompany.name}}</label>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label">Address</label>
+										<div class="col-sm-9">
+											<label class="control-label2">{{jobInfo.serviceCompany.billingStreet}}</label>
+											<br>
+											<label class="control-label2">{{mergeString(',', jobInfo.serviceCompany.billingCity, jobInfo.serviceCompany.billingState)}}</label>
+											<br>
+											<label class="control-label2">{{jobInfo.serviceCompany.billingZip}}</label>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="col-sm-3 control-label">Rig Name</label>
+										<div class="col-sm-9">
+											<label class="control-label2">{{jobInfo.rigName}}</label>
+										</div>
+									</div>
+									<div ng-if="jobInfo.country && jobInfo.country=='United States'" class="form-group">
+										<label for="region" class="col-sm-3 control-label">Location</label>
+										<div class="col-sm-9" id="region">
+											<ui-select name="region" id="region" ng-model="obj.region" ng-disabled="disabled" search-enabled="false">
+												<ui-select-match allow-clear placeholder="N/A">{{$select.selected.name}}</ui-select-match>
+												<ui-select-choices repeat="region in regionList | filter: $select.search">
+													<span ng-bind-html="region.name | highlight: $select.search"></span>
+												</ui-select-choices>
+											</ui-select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="field" class="col-sm-3 control-label">Project</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" maxlength="100" name="field" id="field" ng-model="obj.field" placeholder="N/A">
+											<p ng-show="formInfo.field.$invalid && !formInfo.field.$pristine" class="help-block text-danger">not a valid Project.</p>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="currentRevenue" class="col-sm-3 control-label">Final Job Rev</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" name="currentRevenue" id="currentRevenue" ng-maxlength="40" ng-model="obj.currentRevenue" ng-pattern="REGEX_CURRENCY" placeholder="N/A">
+											<p ng-show="formInfo.currentRevenue.$invalid && !formInfo.currentRevenue.$pristine" class="help-block text-danger">not a valid Revenue.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">&nbsp;
+							</div>
+	                        <div class="col-md-12">
+	                            <div class="panel panel-gray">
+	                                <div class="panel-heading">
+	                                    <h4>Contact Information</h4>
+	                                </div>
+	                                <div class="panel-body">
+										<div class="col-md-12 no-padding-horizontal">
+											<div class="col-md-4" ng-repeat="coman in getComanCount" style="height: 250px;">
+												<div class="panel panel-gray">
+													<div class="panel-body">
+														<div class="col-md-12 clearfix">
+															<h4 class="pull-left" style="margin: 0 0 20px;">
+																Company Man
+															</h4>
+															<div class="pull-right">
+																<a href="javascript:;" ng-click="addComan(coman.idx, 'coman', 'comanDayNight', 'comanEmail', 'comanPhone')" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+																<a href="javascript:;" ng-click="deleteComan(coman.idx, 'coman', 'comanDayNight', 'comanEmail', 'comanPhone')" class="btn btn-primary"><i class="fa fa-minus"></i></a>
+															</div>
+														</div>
+														<div class="col-md-12">
+															<div class="form-group">
+																<label for="coman_{{coman.idx}}" class="col-sm-3 control-label">Name</label>
+																<div class="col-sm-6">
+																	<ui-select name="coman_{{coman.idx}}" id="coman_{{coman.idx}}" ng-model="obj['coman_' + coman.idx]" ng-disabled="disabled" on-select="selectComan($item, $model, coman.idx)">
+																		<ui-select-match allow-clear placeholder="Search...">{{$select.selected.titleName + ' ' + $select.selected.firstName + ' ' + $select.selected.middleName + ' ' + $select.selected.lastName}}</ui-select-match>
+																		<ui-select-choices repeat="contact in contactList | filter: $select.search">
+																			<span ng-bind-html="contact.titleName + ' ' + contact.firstName + ' ' + contact.middleName + ' ' + contact.lastName | highlight: $select.search"></span>
+																		</ui-select-choices>
+																	</ui-select>
+																	<p ng-show="formInfo.coman_{{coman.idx}}.$invalid && !formInfo.coman_{{coman.idx}}.$pristine" class="help-block text-danger">not a valid Contact Name.</p>
+																</div>
+																<div class="col-sm-3">
+																	<a href="javascript:;" ng-click="addNewContact('newCompanyMan', coman.idx)" class="control-label fa fa-plus"> New</a>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-sm-3 control-label">Day/Night</label>
+																<div class="col-sm-9">
+																	<ui-select name="comanDayNight_{{coman.idx}}" id="comanDayNight_{{coman.idx}}" ng-model="obj['comanDayNight_' + coman.idx]" ng-disabled="disabled" search-enabled="false">
+																		<ui-select-match allow-clear placeholder="-Pick a value-">{{$select.selected}}</ui-select-match>
+																		<ui-select-choices repeat="dayNight in dayNightList | filter: $select.search">
+																			<span ng-bind-html="dayNight | highlight: $select.search"></span>
+																		</ui-select-choices>
+																	</ui-select>
+																</div>
+															</div>
+															<div class="form-group">
+																<label for="comanEmail_{{coman.idx}}" class="col-sm-3 control-label">Email</label>
+																<div class="col-sm-9">
+																	<input type="text" maxlength="100" class="form-control" ng-pattern="REGEX_EMAIL" name="comanEmail_{{coman.idx}}" id="comanEmail_{{coman.idx}}" ng-model="obj['comanEmail_' + coman.idx]" model-view-value="true">
+																	<p ng-show="formInfo.comanEmail_{{coman.idx}}.$invalid && !formInfo.comanEmail_{{coman.idx}}.$pristine" class="help-block text-danger">Enter a valid email.</p>
+																</div>
+															</div>
+															<div class="form-group">
+																<label for="comanPhone_{{coman.idx}}" class="col-sm-3 control-label">Phone</label>
+																<div class="col-sm-9">
+																	<div phone-picko name="comanPhone_{{coman.idx}}" id="comanPhone_{{coman.idx}}" ng-model="obj['comanPhone_' + coman.idx]" model-view-value="true"></div>
+																	<p ng-show="formInfo.comanPhone_{{coman.idx}}.$invalid && !formInfo.comanPhone_{{coman.idx}}.$pristine" class="help-block text-danger">not a valid phone number.</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12 no-padding-horizontal">
+											<div class="col-md-4" ng-repeat="engineer in getEngineerCount" style="height: 250px;">
+												<div class="panel panel-gray">
+													<div class="panel-body">
+														<div class="col-md-12 clearfix">
+															<h4 class="pull-left" style="margin: 0 0 20px;">
+																Wireline Engineer
+															</h4>
+															<div class="pull-right">
+																<a href="javascript:;" ng-click="addEngineer(engineer.idx, 'engineer', 'engineerTitle', 'engineerEmail', 'engineerPhone')" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+																<a href="javascript:;" ng-click="deleteEngineer(engineer.idx, 'engineer', 'engineerTitle', 'engineerEmail', 'engineerPhone')" class="btn btn-primary"><i class="fa fa-minus"></i></a>
+															</div>
+														</div>
+														<div class="col-md-12">
+															<div class="form-group">
+																<label for="engineer_{{engineer.idx}}" class="col-sm-3 control-label">Name</label>
+																<div class="col-sm-6">
+																	<ui-select name="engineer_{{engineer.idx}}" id="engineer_{{engineer.idx}}" ng-model="obj['engineer_' + engineer.idx]" ng-disabled="disabled" on-select="selectEngineer($item, $model, engineer.idx)">
+																		<ui-select-match allow-clear placeholder="Search...">{{$select.selected.titleName + ' ' + $select.selected.firstName + ' ' + $select.selected.middleName + ' ' + $select.selected.lastName}}</ui-select-match>
+																		<ui-select-choices repeat="contact in contactList | filter: $select.search">
+																			<span ng-bind-html="contact.titleName + ' ' + contact.firstName + ' ' + contact.middleName + ' ' + contact.lastName | highlight: $select.search"></span>
+																		</ui-select-choices>
+																	</ui-select>
+																	<p ng-show="formInfo.engineer_{{engineer.idx}}.$invalid && !formInfo.engineer_{{engineer.idx}}.$pristine" class="help-block text-danger">not a valid Contact Name.</p>
+																</div>
+																<div class="col-sm-3">
+																	<a href="javascript:;" ng-click="addNewContact('newEngineer', engineer.idx)" class="control-label fa fa-plus"> New</a>
+																</div>
+															</div>
+															<div class="form-group">
+																<label for="engineerTitle_{{engineer.idx}}" class="col-sm-3 control-label">Title</label>
+																<div class="col-sm-9">
+																	<input type="text" maxlength="100" class="form-control" name="engineerTitle_{{engineer.idx}}" id="engineerTitle_{{engineer.idx}}" ng-model="obj['engineerTitle_' + engineer.idx]" model-view-value="true">
+																	<p ng-show="formInfo.engineerTitle_{{engineer.idx}}.$invalid && !formInfo.engineerTitle_{{engineer.idx}}.$pristine" class="help-block text-danger">Enter a valid Title.</p>
+																</div>
+															</div>
+															<div class="form-group">
+																<label for="engineerEmail_{{engineer.idx}}" class="col-sm-3 control-label">Email</label>
+																<div class="col-sm-9">
+																	<input type="text" maxlength="100" class="form-control" ng-pattern="REGEX_EMAIL" name="engineerEmail_{{engineer.idx}}" id="engineerEmail_{{engineer.idx}}" ng-model="obj['engineerEmail_' + engineer.idx]" model-view-value="true">
+																	<p ng-show="formInfo.engineerEmail_{{engineer.idx}}.$invalid && !formInfo.engineerEmail_{{engineer.idx}}.$pristine" class="help-block text-danger">Enter a valid email.</p>
+																</div>
+															</div>
+															<div class="form-group">
+																<label for="engineerPhone_{{engineer.idx}}" class="col-sm-3 control-label">Phone</label>
+																<div class="col-sm-9">
+																	<div phone-picko name="engineerPhone_{{engineer.idx}}" id="engineerPhone_{{engineer.idx}}" ng-model="obj['engineerPhone_' + engineer.idx]" model-view-value="true"></div>
+																	<p ng-show="formInfo.engineerPhone_{{engineer.idx}}.$invalid && !formInfo.engineerPhone_{{engineer.idx}}.$pristine" class="help-block text-danger">not a valid phone number.</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12 no-padding-horizontal">
+											<div class="col-md-4" ng-repeat="geo in getGeoCount" style="height: 250px;">
+												<div class="panel panel-gray">
+													<div class="panel-body">
+														<div class="col-md-12 clearfix">
+															<h4 class="pull-left" style="margin: 0 0 20px;">
+																Geologist
+															</h4>
+															<div class="pull-right">
+																<a href="javascript:;" ng-click="addGeo(geo.idx, 'geo', 'geoTitle', 'geoEmail', 'geoPhone')" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+																<a href="javascript:;" ng-click="deleteGeo(geo.idx, 'geo', 'geoTitle', 'geoEmail', 'geoPhone')" class="btn btn-primary"><i class="fa fa-minus"></i></a>
+															</div>
+														</div>
+														<div class="col-md-12">
+															<div class="form-group">
+																<label for="geo_{{geo.idx}}" class="col-sm-3 control-label">Name</label>
+																<div class="col-sm-6">
+																	<ui-select name="geo_{{geo.idx}}" id="geo_{{geo.idx}}" ng-model="obj['geo_' + geo.idx]" ng-disabled="disabled" on-select="selectGeo($item, $model, geo.idx)">
+																		<ui-select-match allow-clear placeholder="Search...">{{$select.selected.titleName + ' ' + $select.selected.firstName + ' ' + $select.selected.middleName + ' ' + $select.selected.lastName}}</ui-select-match>
+																		<ui-select-choices repeat="contact in contactList | filter: $select.search">
+																			<span ng-bind-html="contact.titleName + ' ' + contact.firstName + ' ' + contact.middleName + ' ' + contact.lastName | highlight: $select.search"></span>
+																		</ui-select-choices>
+																	</ui-select>
+																	<p ng-show="formInfo.geo_{{geo.idx}}.$invalid && !formInfo.geo_{{geo.idx}}.$pristine" class="help-block text-danger">not a valid Contact Name.</p>
+																</div>
+																<div class="col-sm-3">
+																	<a href="javascript:;" ng-click="addNewContact('newGeo', geo.idx)" class="control-label fa fa-plus"> New</a>
+																</div>
+															</div>
+															<div class="form-group">
+																<label for="geoTitle_{{geo.idx}}" class="col-sm-3 control-label">Title</label>
+																<div class="col-sm-9">
+																	<input type="text" maxlength="100" class="form-control" name="geoTitle_{{geo.idx}}" id="geoTitle_{{geo.idx}}" ng-model="obj['geoTitle_' + geo.idx]" model-view-value="true">
+																	<p ng-show="formInfo.geoTitle_{{geo.idx}}.$invalid && !formInfo.geoTitle_{{geo.idx}}.$pristine" class="help-block text-danger">Enter a valid Title.</p>
+																</div>
+															</div>
+															<div class="form-group">
+																<label for="geoEmail_{{geo.idx}}" class="col-sm-3 control-label">Email</label>
+																<div class="col-sm-9">
+																	<input type="text" maxlength="100" class="form-control" ng-pattern="REGEX_EMAIL" name="geoEmail_{{geo.idx}}" id="geoEmail_{{geo.idx}}" ng-model="obj['geoEmail_' + geo.idx]" model-view-value="true">
+																	<p ng-show="formInfo.geoEmail_{{geo.idx}}.$invalid && !formInfo.geoEmail_{{geo.idx}}.$pristine" class="help-block text-danger">Enter a valid email.</p>
+																</div>
+															</div>
+															<div class="form-group">
+																<label for="geoPhone_{{geo.idx}}" class="col-sm-3 control-label">Phone</label>
+																<div class="col-sm-9">
+																	<div phone-picko name="geoPhone_{{geo.idx}}" id="geoPhone_{{geo.idx}}" ng-model="obj['geoPhone_' + geo.idx]" model-view-value="true"></div>
+																	<p ng-show="formInfo.geoPhone_{{geo.idx}}.$invalid && !formInfo.geoPhone_{{geo.idx}}.$pristine" class="help-block text-danger">not a valid phone number.</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12 no-padding-horizontal">
+											<div class="col-md-4" ng-repeat="other in getOtherCount" style="height: 250px;">
+												<div class="panel panel-gray">
+													<div class="panel-body">
+														<div class="col-md-12 clearfix">
+															<h4 class="pull-left" style="margin: 0 0 20px;">
+																<input type="text" maxlength="100" name="otherRole_{{other.idx}}" id="otherRole_{{other.idx}}" ng-model="obj['otherRole_' + other.idx]" model-view-value="true" placeholder="Insert Role Here"><p ng-show="formInfo.otherRole_{{other.idx}}.$invalid && !formInfo.otherRole_{{other.idx}}.$pristine" class="help-block text-danger">Enter a valid Role.</p>
+															</h4>
+															<div class="pull-right">
+																<a href="javascript:;" ng-click="addOther(other.idx, 'other', 'otherRole', 'otherTitle', 'otherEmail', 'otherPhone')" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+																<a href="javascript:;" ng-click="deleteOther(other.idx, 'other', 'otherRole', 'otherTitle', 'otherEmail', 'otherPhone')" class="btn btn-primary"><i class="fa fa-minus"></i></a>
+															</div>
+														</div>
+														<div class="col-md-12">
+															<div class="form-group">
+																<label for="other_{{other.idx}}" class="col-sm-3 control-label">Name</label>
+																<div class="col-sm-6">
+																	<ui-select name="other_{{other.idx}}" id="other_{{other.idx}}" ng-model="obj['other_' + other.idx]" ng-disabled="disabled" on-select="selectOther($item, $model, other.idx)">
+																		<ui-select-match allow-clear placeholder="Search...">{{$select.selected.titleName + ' ' + $select.selected.firstName + ' ' + $select.selected.middleName + ' ' + $select.selected.lastName}}</ui-select-match>
+																		<ui-select-choices repeat="contact in contactList | filter: $select.search">
+																			<span ng-bind-html="contact.titleName + ' ' + contact.firstName + ' ' + contact.middleName + ' ' + contact.lastName | highlight: $select.search"></span>
+																		</ui-select-choices>
+																	</ui-select>
+																	<p ng-show="formInfo.other_{{other.idx}}.$invalid && !formInfo.other_{{other.idx}}.$pristine" class="help-block text-danger">not a valid Contact Name.</p>
+																</div>
+																<div class="col-sm-3">
+																	<a href="javascript:;" ng-click="addNewContact('newOther', other.idx)" class="control-label fa fa-plus"> New</a>
+																</div>
+															</div>
+															<div class="form-group">
+																<label for="otherTitle_{{other.idx}}" class="col-sm-3 control-label">Title</label>
+																<div class="col-sm-9">
+																	<input type="text" maxlength="100" class="form-control" name="otherTitle_{{other.idx}}" id="otherTitle_{{other.idx}}" ng-model="obj['otherTitle_' + other.idx]" model-view-value="true">
+																	<p ng-show="formInfo.otherTitle_{{other.idx}}.$invalid && !formInfo.otherTitle_{{other.idx}}.$pristine" class="help-block text-danger">Enter a valid Title.</p>
+																</div>
+															</div>
+															<div class="form-group">
+																<label for="otherEmail_{{other.idx}}" class="col-sm-3 control-label">Email</label>
+																<div class="col-sm-9">
+																	<input type="text" maxlength="100" class="form-control" ng-pattern="REGEX_EMAIL" name="otherEmail_{{other.idx}}" id="otherEmail_{{other.idx}}" ng-model="obj['otherEmail_' + other.idx]" model-view-value="true">
+																	<p ng-show="formInfo.otherEmail_{{other.idx}}.$invalid && !formInfo.otherEmail_{{other.idx}}.$pristine" class="help-block text-danger">Enter a valid email.</p>
+																</div>
+															</div>
+															<div class="form-group">
+																<label for="otherPhone_{{other.idx}}" class="col-sm-3 control-label">Phone</label>
+																<div class="col-sm-9">
+																	<div phone-picko name="otherPhone_{{other.idx}}" id="otherPhone_{{other.idx}}" ng-model="obj['otherPhone_' + other.idx]" model-view-value="true"></div>
+																	<p ng-show="formInfo.otherPhone_{{other.idx}}.$invalid && !formInfo.otherPhone_{{other.idx}}.$pristine" class="help-block text-danger">not a valid phone number.</p>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+	                                </div>
+	                            </div>
+	                        </div>
+                       		<div class="col-md-12">
+	                            <div class="panel panel-gray">
+	                                <div class="panel-heading">
+	                                    <h4>Job Information</h4>
+	                                </div>
+	                                <div class="panel-body">
+										<div class="col-xs-12"><h4>Job Summary</h4></div>
+										<div class="col-xs-12">
+											<!-- "Header" -->
+											<div class="col-xs-12 nopadding">
+												<div class="col-xs-2 no-padding-horizontal text-center">Run #</div>
+												<div class="col-xs-4 no-padding-horizontal text-center">ToolString</div>
+												<div class="col-xs-2 no-padding-horizontal text-center">Activation</div>
+												<div class="col-xs-2 no-padding-horizontal text-center">Tools Freed</div>
+												<div class="col-xs-2 no-padding-horizontal text-center">Fishing</div>
+											</div>
+											<!-- "Col 1" -->
+											<div ng-repeat="summary in getSummaryCount">
+												<div class="col-xs-2 no-padding-horizontal">
+													<input type="text" class="full-width" name="run_{{summary.idx}}" id="run_{{summary.idx}}" ng-maxlength="100" ng-model="obj['run_' + summary.idx]" style="height: 30px;">
+												</div>
+												<div class="col-xs-4 no-padding-horizontal">
+													<ui-select multiple ng-model="obj['toolstring_' + summary.idx]" ng-disabled="disabled" reset-search-input="true">
+														<ui-select-match allow-clear placeholder="N/A">{{$item.code}}</ui-select-match>
+														<ui-select-choices repeat="toolstring.code as toolstring in toolstringList[summary.idx] | filter: $select.search | filterByCategory: approval['jarSerial_' + summary.idx]: jobInfo.type">
+															<span ng-bind-html="toolstring.code + ' - ' + toolstring.name | highlight: $select.search"></span>
+														</ui-select-choices>
+													</ui-select>
+												</div>
+												<div class="col-xs-2 no-padding-horizontal">
+													<select id="activation_{{summary.idx}}" name="activation_{{summary.idx}}" ng-model="obj['activation_' + summary.idx]" style="width: 100%; height: 30px;">
+														<option value="1">Yes</option>
+														<option value="0">No</option>
+													</select>
+												</div>
+												<div class="col-xs-2 no-padding-horizontal">
+													<select id="toolsfreed_{{summary.idx}}" name="toolsfreed_{{summary.idx}}" ng-model="obj['toolsfreed_' + summary.idx]" style="width: 100%; height: 30px;">
+														<option value="1">Yes</option>
+														<option value="0">No</option>
+														<option value="2">N/A</option>
+													</select>
+												</div>
+												<div class="col-xs-2 no-padding-horizontal">
+													<select id="fishing_{{summary.idx}}" name="fishing_{{summary.idx}}" ng-model="obj['fishing_' + summary.idx]" style="width: 100%; height: 30px;">
+														<option value="1">Yes</option>
+														<option value="0">No</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="col-xs-12">&nbsp;</div>
+										<div class="col-xs-12"><h4>Rig Moving</h4></div>
+										<div class="col-xs-12">
+											<!-- "Header" -->
+											<div class="col-xs-12 nopadding">
+												<div class="col-xs-8 no-padding-horizontal text-center">Future Location</div>
+												<div class="col-xs-3 no-padding-horizontal text-center">Estimated Move Date</div>
+												<div class="col-xs-1 no-padding-horizontal text-center">&nbsp;</div>
+											</div>
+											<!-- "Col 1" -->
+											<div class="col-xs-12 no-padding-horizontal" ng-repeat="rigMoving in getRigMovingCount">
+												<div class="col-xs-8 no-padding-horizontal"><input type="text" class="full-width" name="futureLocation_{{rigMoving.idx}}" id="futureLocation_{{rigMoving.idx}}" ng-maxlength="100" ng-model="obj['futureLocation_' + rigMoving.idx]"></div>
+												<div class="col-xs-3 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj['moveDate_' + rigMoving.idx]" ng-repeat-model="obj.moveDate_{{rigMoving.idx}}" name="moveDate_{{rigMoving.idx}}" id="moveDate_{{rigMoving.idx}}"/></div>
+												<div class="col-xs-1 no-padding-horizontal">
+													<div class="pull-right">
+														<a href="javascript:;" ng-click="addRigMoving(rigMoving.idx, 'futureLocation', 'moveDate')" class="btn btn-primary" style="height: 24px"><i class="fa fa-plus"></i></a>
+														<a href="javascript:;" ng-click="deleteRigMoving(rigMoving.idx, 'futureLocation', 'moveDate')" class="btn btn-primary" style="height: 24px"><i class="fa fa-minus"></i></a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-xs-12">&nbsp;</div>
+										<div class="col-xs-12"><h4>Rig Status</h4></div>
+										<div class="col-xs-12">
+											<!-- "Header" -->
+											<div class="col-xs-12 nopadding">
+												<div class="col-xs-6 no-padding-horizontal text-center">Status</div>
+												<div class="col-xs-5 no-padding-horizontal text-center">Length</div>
+												<div class="col-xs-1 no-padding-horizontal text-center">&nbsp;</div>
+											</div>
+											<!-- "Col 1" -->
+											<div class="col-xs-12 no-padding-horizontal" ng-repeat="rigStatus in getRigStatusCount">
+												<div class="col-xs-6 no-padding-horizontal"><input type="text" class="full-width" name="status_{{rigStatus.idx}}" id="status_{{rigStatus.idx}}" ng-maxlength="100" ng-model="obj['status_' + rigStatus.idx]"></div>
+												<div class="col-xs-5 no-padding-horizontal"><input type="text" class="full-width" name="length_{{rigStatus.idx}}" id="length_{{rigStatus.idx}}" ng-maxlength="100" ng-model="obj['length_' + rigStatus.idx]"></div>
+												<div class="col-xs-1 no-padding-horizontal">
+													<div class="pull-right">
+														<a href="javascript:;" ng-click="addRigStatus(rigStatus.idx, 'status', 'length')" class="btn btn-primary" style="height: 24px"><i class="fa fa-plus"></i></a>
+														<a href="javascript:;" ng-click="deleteRigStatus(rigStatus.idx, 'status', 'length')" class="btn btn-primary" style="height: 24px"><i class="fa fa-minus"></i></a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-xs-12">&nbsp;</div>
+										<div class="col-xs-12"><h4>Upcoming Logging on Rig</h4></div>
+										<div class="col-xs-12">
+											<!-- "Header" -->
+											<div class="col-xs-12 nopadding">
+												<div class="col-xs-2 no-padding-horizontal text-center">Future Logging Date</div>
+												<div class="col-xs-3 no-padding-horizontal text-center">Project Name</div>
+												<div class="col-xs-3 no-padding-horizontal text-center">Location</div>
+												<div class="col-xs-2 no-padding-horizontal text-center">Equipment Needed</div>
+												<div class="col-xs-1 no-padding-horizontal text-center">HPHT/Standard</div>
+												<div class="col-xs-1 no-padding-horizontal text-center">&nbsp;</div>
+											</div>
+											<!-- "Col 1" -->
+											<div class="col-xs-12 no-padding-horizontal" ng-repeat="rigUpcoming in getRigUpcomingCount">
+												<div class="col-xs-2 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj['loggingDate_' + rigUpcoming.idx]" ng-repeat-model="obj.loggingDate_{{rigUpcoming.idx}}" name="loggingDate_{{rigUpcoming.idx}}" id="loggingDate_{{rigUpcoming.idx}}"/></div>
+												<div class="col-xs-3 no-padding-horizontal"><input type="text" class="full-width" name="projectName_{{rigUpcoming.idx}}" id="projectName_{{rigUpcoming.idx}}" ng-maxlength="100" ng-model="obj['projectName_' + rigUpcoming.idx]"></div>
+												<div class="col-xs-3 no-padding-horizontal"><input type="text" class="full-width" name="location_{{rigUpcoming.idx}}" id="location_{{rigUpcoming.idx}}" ng-maxlength="100" ng-model="obj['location_' + rigUpcoming.idx]"></div>
+												<div class="col-xs-2 no-padding-horizontal"><input type="text" class="full-width" name="equipment_{{rigUpcoming.idx}}" id="equipment_{{rigUpcoming.idx}}" ng-maxlength="100" ng-model="obj['equipment_' + rigUpcoming.idx]"></div>
+												<div class="col-xs-1 no-padding-horizontal">
+													<select id="hphtStandard_{{rigUpcoming.idx}}" name="hphtStandard_{{rigUpcoming.idx}}" ng-model="obj['hphtStandard_' + rigUpcoming.idx]" style="width: 100%; height: 24px;">
+														<option value="HPHT">HPHT</option>
+														<option value="Standard">Standard</option>
+													</select>
+												</div>
+												<div class="col-xs-1 no-padding-horizontal">
+													<div class="pull-right">
+														<a href="javascript:;" ng-click="addRigUpcoming(rigUpcoming.idx, 'loggingDate', 'projectName', 'location', 'equipment', 'hphtStandard')" class="btn btn-primary" style="height: 24px"><i class="fa fa-plus"></i></a>
+														<a href="javascript:;" ng-click="deleteRigUpcoming(rigUpcoming.idx, 'loggingDate', 'projectName', 'location', 'equipment', 'hphtStandard')" class="btn btn-primary" style="height: 24px"><i class="fa fa-minus"></i></a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-xs-12">&nbsp;</div>
+										<div class="col-xs-12"><h4>Other Rig Status</h4></div>
+										<div class="col-xs-12">
+											<!-- "Header" -->
+											<div class="col-xs-12 nopadding">
+												<div class="col-xs-1 no-padding-horizontal text-center">Rig Name</div>
+												<div class="col-xs-2 no-padding-horizontal text-center">Operator</div>
+												<div class="col-xs-1 no-padding-horizontal text-center">Service Company</div>
+												<div class="col-xs-1 no-padding-horizontal text-center">Current Status</div>
+												<div class="col-xs-1 no-padding-horizontal text-center">Equipment Needed</div>
+												<div class="col-xs-1 no-padding-horizontal text-center">Estimated Callout</div>
+												<div class="col-xs-1 no-padding-horizontal text-center">Project Name</div>
+												<div class="col-xs-1 no-padding-horizontal text-center">Location</div>
+												<div class="col-xs-1 no-padding-horizontal text-center">Moving Location</div>
+												<div class="col-xs-1 no-padding-horizontal text-center">Moving Date</div>
+												<div class="col-xs-1 no-padding-horizontal text-center">&nbsp;</div>
+											</div>
+											<!-- "Col 1" -->
+											<div class="col-xs-12 no-padding-horizontal" ng-repeat="rigOther in getRigOtherCount">
+												<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="otherRigName_{{rigOther.idx}}" id="otherRigName_{{rigOther.idx}}" ng-maxlength="100" ng-model="obj['otherRigName_' + rigOther.idx]"></div>
+												<div class="col-xs-2 no-padding-horizontal"><input type="text" class="full-width" name="otherOperator_{{rigOther.idx}}" id="otherOperator_{{rigOther.idx}}" ng-maxlength="100" ng-model="obj['otherOperator_' + rigOther.idx]"></div>
+												<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="otherServiceCompany_{{rigOther.idx}}" id="otherServiceCompany_{{rigOther.idx}}" ng-maxlength="100" ng-model="obj['otherServiceCompany_' + rigOther.idx]"></div>
+												<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="otherCurrentStatus_{{rigOther.idx}}" id="otherCurrentStatus_{{rigOther.idx}}" ng-maxlength="100" ng-model="obj['otherCurrentStatus_' + rigOther.idx]"></div>
+												<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="otherEquipment_{{rigOther.idx}}" id="otherEquipment_{{rigOther.idx}}" ng-maxlength="100" ng-model="obj['otherEquipment_' + rigOther.idx]"></div>
+												<div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj['otherCallout_' + rigOther.idx]" ng-repeat-model="obj.otherCallout_{{rigOther.idx}}" name="otherCallout_{{rigOther.idx}}" id="otherCallout_{{rigOther.idx}}"/></div>
+												<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="otherProjectName_{{rigOther.idx}}" id="otherProjectName_{{rigOther.idx}}" ng-maxlength="100" ng-model="obj['otherProjectName_' + rigOther.idx]"></div>
+												<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="otherLocation_{{rigOther.idx}}" id="otherLocation_{{rigOther.idx}}" ng-maxlength="100" ng-model="obj['otherLocation_' + rigOther.idx]"></div>
+												<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="otherMoveLocation_{{rigOther.idx}}" id="otherMoveLocation_{{rigOther.idx}}" ng-maxlength="100" ng-model="obj['otherMoveLocation_' + rigOther.idx]"></div>
+												<div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj['otherMoveDate_' + rigOther.idx]" ng-repeat-model="obj.otherMoveDate_{{rigOther.idx}}" name="otherMoveDate_{{rigOther.idx}}" id="otherMoveDate_{{rigOther.idx}}"/></div>
+												<div class="col-xs-1 no-padding-horizontal">
+													<div class="pull-right">
+														<a href="javascript:;" ng-click="addRigOther(rigOther.idx, 'otherRigName', 'otherOperator', 'otherServiceCompany', 'otherCurrentStatus', 'otherEquipment', 'otherCallout', 'otherProjectName', 'otherLocation', 'otherMoveLocation', 'otherMoveDate')" class="btn btn-primary" style="height: 24px"><i class="fa fa-plus"></i></a>
+														<a href="javascript:;" ng-click="deleteRigOther(rigOther.idx, 'otherRigName', 'otherOperator', 'otherServiceCompany', 'otherCurrentStatus', 'otherEquipment', 'otherCallout', 'otherProjectName', 'otherLocation', 'otherMoveLocation', 'otherMoveDate')" class="btn btn-primary" style="height: 24px"><i class="fa fa-minus"></i></a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-xs-12">&nbsp;</div>
+										<div class="col-xs-12"><h4>Additional Info</h4></div>
+										<div class="col-xs-12">
+	                                                <textarea name="loggingComment" id="loggingComment" maxlength="400" ng-model="obj.loggingComment" cols="50" rows="4" class="form-control"></textarea>
+	                                                <p ng-show="formInfo.loggingComment.$invalid && !formInfo.loggingComment.$pristine" class="help-block text-danger">Enter a valid Comment.</p>
+
+	                                	</div>
+	                                </div>
+	                            </div>
+	                        </div>
+
+	                        <div class="col-md-12">
+	                        	<br>
+	                        	<br>
+	                        	<br>
+	                        	<br>
+	                        	<br>
+	                        	<br>
+	                        	<br>
+	                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

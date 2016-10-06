@@ -1,0 +1,276 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Price Manager</h4>
+
+                            <div class="pull-right">
+                                <a href="#/priceManagerEdit/{{obj._id}}" class="btn btn-primary">Edit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 ">
+                        	<form class="form-horizontal">
+	                            <div class="panel panel-gray">
+	                                <div class="panel-heading">
+	                                    <h4>Open Hole Land Pricing</h4>
+	                                </div>
+	                                <div class="panel-body">
+	                                    <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Run Charge: 1st Day Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.landFirstDay | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Run Charge: Additional Day Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.landAdditionalDay | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Standby Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.landStandby | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Technician Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.landTechnician | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Activation Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.landActivation | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Mileage Charge</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.landMileage | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Lost in Hole Charge</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.landLost | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Impact Pro Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.landImpactPro | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+	                                    </div>
+	                                </div>
+	                        	</div>
+	                        	
+	                        	<div class="panel panel-gray">
+	                                <div class="panel-heading">
+	                                    <h4>Open Hole HP/HT Land Pricing</h4>
+	                                </div>
+	                                <div class="panel-body">
+	                                    <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Tool Preparation Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.hphtLandTool | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Run Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.hphtLandRun | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Standby Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.hphtLandStandby | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Technician Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.hphtLandTechnician | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Activation Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.hphtLandActivation | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Mileage Charge</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.hphtLandMileage | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Lost in Hole Charge</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.hphtLandLost | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Impact Pro Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.hphtLandImpactPro | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+	                                    </div>
+	                                </div>
+	                        	</div>
+	                        	
+	                        	<div class="panel panel-gray">
+	                                <div class="panel-heading">
+	                                    <h4>Open Hole Offshore Pricing</h4>
+	                                </div>
+	                                <div class="panel-body">
+	                                    <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Run Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.offshoreRun | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Standby Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.offshoreStandby | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Technician Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.offshoreTechnician | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Activation Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.offshoreActivation | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Mileage Charge</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.offshoreMileage | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Lost in Hole Charge</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.offshoreLost | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Impact Pro Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.offshoreImpactPro | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+	                                    </div>
+	                                </div>
+	                        	</div>
+	                        	
+	                        	<div class="panel panel-gray">
+	                                <div class="panel-heading">
+	                                    <h4>Open Hole HP/HT Offshore Pricing</h4>
+	                                </div>
+	                                <div class="panel-body">
+	                                    <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Tool Preparation Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.hphtOffshoreTool | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Run Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.hphtOffshoreRun | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Standby Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.hphtOffshoreStandby | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Technician Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.hphtOffshoreTechnician | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Activation Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.hphtOffshoreActivation | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Mileage Charge</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.hphtOffshoreMileage | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Lost in Hole Charge</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.hphtOffshoreLost | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Impact Pro Charge</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.hphtOffshoreImpactPro | currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+	                                    </div>
+	                                </div>
+	                        	</div>
+	                        </form>
+                            
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>System Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Created By</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.createdBy}}</label>
+                                                    <br>
+                                                    <label class="control-label2">{{formatTime(obj.createdTime)}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Updated By</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.updatedBy}}</label>
+                                                    <br>
+                                                    <label class="control-label2">{{formatTime(obj.updatedTime)}}</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

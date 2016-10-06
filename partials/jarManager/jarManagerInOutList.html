@@ -1,0 +1,102 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Outgoing Jar Sign In/Sign Out Listing</h4>
+
+                            <div class="pull-right">
+                                <a ng-href="#/jarManagerInOutNew/{{_id}}" class="btn btn-primary">Add New</a>
+                                <a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Outgoing Jar Sign In/Sign Out Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<form name="formInfo" class="formObj form-horizontal" novalidate>
+                                		<div class="col-md-12">
+                                			<div class="form-group">
+                                                <label for="date" class="col-sm-3 control-label">From Date</label>
+                                                <div class="col-sm-9">
+                                                    <div class="input-group date">
+					                                    <input date-picko type="text" class="form-control" ng-model="fromDate" name="fromDate" id="fromDate"/>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+                                                    <p ng-show="formInfo.fromDate.$invalid && !formInfo.fromDate.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="date" class="col-sm-3 control-label">To Date</label>
+                                                <div class="col-sm-9">
+                                                    <div class="input-group date">
+					                                    <input date-picko type="text" class="form-control" ng-model="toDate" name="toDate" id="toDate"/>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+                                                    <p ng-show="formInfo.toDate.$invalid && !formInfo.toDate.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="date" class="col-sm-3 control-label">&nbsp;</label>
+                                                <div class="col-sm-9">
+                                                    <a ng-href="#/jarManagerInOutList/{{fromDate}}|{{toDate}}" class="btn btn-primary">Search</a>
+                                                </div>
+                                            </div>
+                                		</div>
+                                      	<div class="col-md-12"><hr></div>
+                                      	<div class="col-md-12">
+				                            <table ng-table="objTableParams" show-filter="true" class="table">
+				                                <tr ng-repeat="item in $data">
+				                                    <td data-title="'Jar/Basket/Sling Serial #'" sortable="'serial'" filter="{ 'serial': 'text' }">
+				                                        <a ng-href="#/jarManagerInOutDetail/{{item._id}}">
+				                                        {{item.job?(item.job.type=='0'? (item.serialType == '0'?item.serial:item.serialType == '1'?'Basket: ' + item.basket:item.serialType == '2'?'Sling: ' + item.sling:'') : item.serial) : (item.serialType == '0'?item.jarType + ' - ' + item.serial:item.serialType == '1'?'Basket: ' + item.basket:item.serialType == '2'?'Sling: ' + item.sling:'')}}
+				                                        </a>
+				                                    </td>
+				                                    <td data-title="'Destination'" sortable="'destination'" filter="{ 'destination': 'text' }">
+				                                        {{item.destination}}
+				                                    </td>
+				                                    <td data-title="'Date'" sortable="'date'" filter="{ 'date': 'text' }">
+				                                        {{formatTime(item.date, 'MM/dd/yy')}}
+				                                    </td>
+				                                    <td data-title="'In/Out'" sortable="'inOut'" filter="{ 'inOut': 'text' }">
+				                                        {{item.inOut == "0"? 'In' : item.inOut == "1"? 'Out' : ''}}
+				                                    </td>
+				                                    <td data-title="'Ran(Y/N)'" sortable="'ran'" filter="{ 'ran': 'text' }">
+				                                        {{item.ran == "0"? 'Y' : item.ran == "1"? 'N' : ''}}
+				                                    </td>
+				                                    <td data-title="'Level'" sortable="'level'" filter="{ 'level': 'text' }">
+				                                        {{item.level}}
+				                                    </td>
+				                                    <td data-title="'FA#'" sortable="'fa'" filter="{ 'fa': 'text' }">
+				                                        {{item.fa}}
+				                                    </td>
+				                                    <td data-title="'ET#'" sortable="'et'" filter="{ 'et': 'text' }">
+				                                        {{item.et}}
+				                                    </td>
+				                                    <td data-title="'Initials'" sortable="'name'" filter="{ 'name': 'text' }">
+				                                        {{item.name}}
+				                                    </td>
+				                                    <td data-title="'RTA#'" sortable="'job.uid'" filter="{ 'job.uid': 'text' }">
+				                                        {{item.job.uid}}
+				                                    </td>
+				                                    <td data-title="'Action'">
+				                                    	<a ng-if="!item.job" ng-href="#/jarManagerInOutEdit/{{item._id}}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+				                                        <a ng-if="!item.job" href="javascript:;" ng-click="deleteObj(item._id)" class="btn btn-primary"><i class="fa fa-minus"></i></a>
+				                                    </td>
+				                                </tr>
+				                            </table>
+				                        </div>
+                                   	</form>
+                               	</div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

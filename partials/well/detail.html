@@ -1,0 +1,90 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;{{obj.name}}</h4>
+
+                            <div class="pull-right">
+                                <a href="#/wellEdit/{{obj._id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="deleteObj()" class="btn btn-primary">Delete</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Well Detail</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Number</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.number}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">name</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Country</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.country}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Latitude</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.latitude}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Longitude</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.longitude}}</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>System Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Created By</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.createdBy}}</label>
+                                                    <br>
+                                                    <label class="control-label2">{{formatTime(obj.createdTime)}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Updated By</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.updatedBy}}</label>
+                                                    <br>
+                                                    <label class="control-label2">{{formatTime(obj.updatedTime)}}</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

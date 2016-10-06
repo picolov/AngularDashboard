@@ -1,0 +1,231 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="current"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;First Alert Report Detail</h4>
+
+                            <div class="pull-right">
+                            	<span ng-show="formInfo.$invalid" class="label label-danger">form not completed</span>
+                                <a href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+                                <a ng-href="#/jobInfoOnSiteAlertList/{{_id}}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>First Alert Report Form</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+                                                <label for="technician" class="col-sm-3 control-label">Technician Name</label>
+                                                <div class="col-sm-9">
+                                                    <ui-select tagging tagging-tokens="ENTER" tagging-label="('new')" ng-model="obj.technician" title="Choose existing or write new">
+														<ui-select-match allow-clear placeholder="Select existing or write new">{{$select.selected}}</ui-select-match>
+														<ui-select-choices repeat="technician in technicianList | filter: $select.search">
+															<div ng-bind-html="technician | highlight: $select.search"></div>
+														</ui-select-choices>
+													</ui-select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+				                                 <label for="date" class="col-sm-3 control-label">Date of Occurrence</label>
+				                                 <div class="col-sm-9">
+				                                 	<div class="input-group date">
+					                                    <input date-picko today-when-empty="true" type="text" class="form-control" ng-model="obj.date" name="date" id="date"/>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+				                                     <p ng-show="formInfo.date.$invalid && !formInfo.date.$pristine" class="help-block text-danger">not a valid Date.</p>
+				                                 </div>
+				                        	</div>
+                                            <div class="form-group">
+                                                <label for="oilCompany" class="col-sm-3 control-label">Oil Company</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.oilCompany.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="serviceCompany" class="col-sm-3 control-label">Service Company</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.serviceCompany.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nature" class="col-sm-3 control-label">Nature of Alert</label>
+                                                <div class="col-sm-9">
+                                                	<ui-select ng-model="obj.nature" ng-disabled="disabled" search-enabled="false">
+			                                            <ui-select-match allow-clear placeholder="-Pick a value-">{{$select.selected.name}}</ui-select-match>
+			                                            <ui-select-choices repeat="nature.name as nature in natureAlertList | filter: $select.search">
+			                                                <span ng-bind-html="nature.name | highlight: $select.search"></span>
+			                                            </ui-select-choices>
+			                                        </ui-select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="run" class="col-sm-3 control-label">Run #</label>
+                                                <div class="col-sm-9">
+                                                	<ui-select ng-model="obj.run" search-enabled="false">
+                                                        <ui-select-match allow-clear placeholder="-Pick a value-">{{$select.selected.name}}</ui-select-match>
+                                                        <ui-select-choices repeat="run.id as run in runList | filter: $select.search">
+                                                            <span ng-bind-html="run.name | highlight: $select.search"></span>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Hole Size (in)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{dailyJob.holeSize}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="deviation" class="col-sm-3 control-label">Deviation (deg)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.deviation}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="mudWeight" class="col-sm-3 control-label">Mud Weight (lb/gal)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{svo.mudWt}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="temperature" class="col-sm-3 control-label">Temperature (F)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.temp}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tvd" class="col-sm-3 control-label">TVD (ft)</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" only-num class="form-control" name="tvd" id="tvd" maxlength="100" ng-model="obj.tvd">
+                                                    <p ng-show="formInfo.tvd.$invalid && !formInfo.tvd.$pristine" class="help-block text-danger">Enter a valid TVD.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="casingShoe" class="col-sm-3 control-label">Casing Shoe Depth (ft)</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" only-num class="form-control" name="casingShoe" id="casingShoe" maxlength="100" ng-model="obj.casingShoe">
+                                                    <p ng-show="formInfo.casingShoe.$invalid && !formInfo.casingShoe.$pristine" class="help-block text-danger">Enter a valid Casing Shoe Depth.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="depthStuck" class="col-sm-3 control-label">Depth Stuck (ft)</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" only-num class="form-control" name="depthStuck" id="depthStuck" maxlength="100" ng-model="obj.depthStuck">
+                                                    <p ng-show="formInfo.depthStuck.$invalid && !formInfo.depthStuck.$pristine" class="help-block text-danger">Enter a valid Depth Stuck.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="weightAir" class="col-sm-3 control-label">Tool String Weight in Air (lb)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{approval['wia_' + obj.run]}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+                                                <label for="weightFluid" class="col-sm-3 control-label">Tool String Weight In Fluid (lb)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{approval['wif_' + obj.run]}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="weakPoint" class="col-sm-3 control-label">Weak Point (lb)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{approval['wp_' + obj.run]}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nameTool" class="col-sm-3 control-label">Name of Tool String</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">
+                                                		<span ng-repeat="toolstring in approval['toolstringName_' + obj.run]">
+	                                   						{{$first ? toolstring : (", " + toolstring)}}
+	                                   					</span>
+                                                	</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="pullSurface" class="col-sm-3 control-label">Lbs Pulled on Cable at Surface (lb)</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" only-num class="form-control" name="pullSurface" id="pullSurface" maxlength="100" ng-model="obj.pullSurface">
+                                                    <p ng-show="formInfo.pullSurface.$invalid && !formInfo.pullSurface.$pristine" class="help-block text-danger">Enter a valid Lbs.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="headTension" class="col-sm-3 control-label">Head Tension (lb)</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" only-num class="form-control" name="headTension" id="headTension" maxlength="100" ng-model="obj.headTension">
+                                                    <p ng-show="formInfo.headTension.$invalid && !formInfo.headTension.$pristine" class="help-block text-danger">Enter a valid Tension.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jarNo" class="col-sm-3 control-label">Jar Number</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{approval['jarSerial_' + obj.run]}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jarSetting" class="col-sm-3 control-label">Jar Setting (lb)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{approval['actualJar_' + obj.run]}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="holePressure" class="col-sm-3 control-label">Bottom Hole Pressure (psi)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{svo.bhp}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="comanComment" class="col-sm-3 control-label">Company Man's Comments</label>
+                                                <div class="col-sm-9">
+                                                    <textarea name="comanComment" id="comanComment" maxlength="300" ng-model="obj.comanComment" cols="50" rows="4" class="form-control"></textarea>
+                                                    <p ng-show="formInfo.comanComment.$invalid && !formInfo.comanComment.$pristine" class="help-block text-danger">Enter a valid Comments.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="additionalComment" class="col-sm-3 control-label">Additional Comments</label>
+                                                <div class="col-sm-9">
+                                                    <textarea name="additionalComment" id="additionalComment" maxlength="300" ng-model="obj.additionalComment" cols="50" rows="4" class="form-control"></textarea>
+                                                    <p ng-show="formInfo.additionalComment.$invalid && !formInfo.additionalComment.$pristine" class="help-block text-danger">Enter a valid Comments.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Mail To</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="mailTo" id="mailTo" maxlength="100" ng-model="obj.mailTo">
+                                                    <p ng-show="formInfo.mailTo.$invalid && !formInfo.mailTo.$pristine" class="help-block text-danger">Enter a valid Email Address.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

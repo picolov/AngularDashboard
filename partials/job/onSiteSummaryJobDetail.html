@@ -1,0 +1,187 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="current"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Daily Job Summary Report Detail</h4>
+
+                            <div class="pull-right">
+                            	<a ng-if="(jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit')) && (myJob(jobInfo) || haveAllAccess('@onSiteEdit'))" ng-href="#/jobInfoOnSiteSummaryJobEdit/{{_id + '|' + obj_id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Daily Job Summary Report Detail</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+                                                <label for="reportNo" class="col-sm-3 control-label">Daily Job Report Number</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.reportNo}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="companyRepresent" class="col-sm-3 control-label">Company Representative</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.companyRepresent}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="serialNumber" class="col-sm-3 control-label">Serial Number of Tool Used</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.serialNumber}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="totalRuns" class="col-sm-3 control-label">Total Number of Runs</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.totalRuns}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="totalActivation" class="col-sm-3 control-label">Total Number of Activations</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.totalActivation}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="wellDepth" class="col-sm-3 control-label">Total Well Depth</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.wellDepth}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="deviation" class="col-sm-3 control-label">Deviation</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.deviation}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="waterDepth" class="col-sm-3 control-label">Water Depth</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.waterDepth}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="holeSize" class="col-sm-3 control-label">Hole Size</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.holeSize}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="holePress" class="col-sm-3 control-label">Bottom Hole Pressure</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.holePress}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="temp" class="col-sm-3 control-label">Temperature</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.temp}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="mudWeight" class="col-sm-3 control-label">Mud Weight</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.mudWeight}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="stringName" class="col-sm-3 control-label">Tool String Name</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.stringName}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="stringLength" class="col-sm-3 control-label">Tool String Length</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.stringLength}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+                                                <label for="pullSurface" class="col-sm-3 control-label">Max Pull at Surface (estimate before job)</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.pullSurface}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="pullHead" class="col-sm-3 control-label">Max Pull at Head (estimate before job)</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.pullHead}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="weakPoint" class="col-sm-3 control-label">Weak Point</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.weakPoint}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="fluidWeight" class="col-sm-3 control-label">Tool Weight in Fluid</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.fluidWeight}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="airWeight" class="col-sm-3 control-label">Tool Weight in Air</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.airWeight}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="bottomWeight" class="col-sm-3 control-label">Estimated Line Weight On Bottom</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.bottomWeight}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cableWeight" class="col-sm-3 control-label">Cable Size and Weight per 1000 ft</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.cableWeight}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="formula" class="col-sm-3 control-label">Formula Used</label>
+                                                <div class="col-sm-9">
+                                                    <textarea name="formula" id="formula" ng-model="obj.formula" cols="50" rows="4" class="form-control" readonly></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="actualJar" class="col-sm-3 control-label">Actual Jar Setting</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.actualJar}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

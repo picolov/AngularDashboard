@@ -1,0 +1,51 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <a ng-href="#/jobInfoJarSets/{{_id}}" class="current"><span>Jar Settings</span></a>
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Jar Settings</h4>
+
+                            <div class="pull-right">
+                            </div>
+                        </div>
+                        <form name="formInfo" class="formObj form-horizontal" novalidate>
+	                        <div class="col-md-12">
+	                            <div class="form-group">
+	                                <label class="col-sm-6 control-label">Impact Pro Service Order </label>
+	                                <div class="col-sm-6">
+	                                	<a ng-if="!impact && (jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit')) && (myJob(jobInfo) || haveAllAccess('@onSiteEdit'))" ng-href="#/jobInfoJarSetsImpactOrderNew/{{_id}}" class="btn btn-primary">Add</a>
+	                                    <a ng-if="impact && (jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit')) && (myJob(jobInfo) || haveAllAccess('@onSiteEdit'))" ng-href="#/jobInfoJarSetsImpactOrderEdit/{{_id}}" class="btn btn-primary">Edit</a>
+	                                    <a ng-if="impact" ng-href="#/jobInfoJarSetsImpactOrderDetail/{{_id}}" class="btn btn-primary">View</a>
+	                                </div>
+	                            </div>
+	                            <div class="form-group">
+	                                <label class="col-sm-6 control-label">Open Hole Jar Pre-Set Approval </label>
+	                                <div class="col-sm-6">
+	                                	<a ng-if="!approval && (jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit')) && (myJob(jobInfo) || haveAllAccess('@onSiteEdit'))" ng-href="#/jobInfoJarSetsOpenHoleNew/{{_id}}" class="btn btn-primary">Add</a>
+	                                    <a ng-if="approval && (jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit')) && (myJob(jobInfo) || haveAllAccess('@onSiteEdit'))" ng-href="#/jobInfoJarSetsOpenHoleEdit/{{_id}}" class="btn btn-primary">Edit</a>
+	                                    <a ng-if="approval" ng-href="#/jobInfoJarSetsOpenHoleDetail/{{_id}}" class="btn btn-primary">View</a>
+	                                </div>
+	                            </div>
+	                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

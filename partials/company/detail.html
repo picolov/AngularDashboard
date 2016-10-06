@@ -1,0 +1,202 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>
+						<ul class="nav nav-tabs">
+							<li class=""><a href="#/contact">Individual</a></li>
+							<li class="active"><a href="#/company" style="cursor: pointer;">Company</a></li>
+							<li class=""><a href="#/isiEmployee">ISI Employee</a></li>
+						</ul>
+					</h4>
+					<div class="options">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;{{obj.name}}</h4>
+
+                            <div class="pull-right">
+                                <a href="#/companyEdit/{{obj._id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="deleteObj()" class="btn btn-primary">Delete</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Company Detail</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Name</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Parent Company</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.parentCompany.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Status</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.status.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Business</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.business.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div ng-if="obj.business && obj.business._id == '1'" class="form-group">
+                                                <label class="col-sm-3 control-label">Type</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.type.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">ISI Territory</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.territory.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Website</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.website}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Email</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.email}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Phone</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.phone}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Fax</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.fax}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Description</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.description}}</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Address Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Billing Street</label>
+                                                <div class="col-sm-9">
+                                                    <div class="control-label2">{{obj.billingStreet}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Billing City</label>
+                                                <div class="col-sm-9">
+                                                    <div class="control-label2">{{obj.billingCity}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Billing State</label>
+                                                <div class="col-sm-9">
+                                                    <div class="control-label2">{{obj.billingState}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Billing Zip Code</label>
+                                                <div class="col-sm-9">
+                                                    <div class="control-label2">{{obj.billingZip}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Shipping Street</label>
+                                                <div class="col-sm-9">
+                                                    <div class="control-label2">{{obj.shippingStreet}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Shipping City</label>
+                                                <div class="col-sm-9">
+                                                    <div class="control-label2">{{obj.shippingCity}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Shipping State</label>
+                                                <div class="col-sm-9">
+                                                    <div class="control-label2">{{obj.shippingState}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Shipping Zip Code</label>
+                                                <div class="col-sm-9">
+                                                    <div class="control-label2">{{obj.shippingZip}}</div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>System Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Created By</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.createdBy}}</label>
+                                                    <br>
+                                                    <label class="control-label2">{{formatTime(obj.createdTime)}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Updated By</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.updatedBy}}</label>
+                                                    <br>
+                                                    <label class="control-label2">{{formatTime(obj.updatedTime)}}</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

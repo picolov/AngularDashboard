@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Employee Listing</h4>
+                            <div class="btn-group pull-right">
+                                <a href="#/employeeProfilesNew" class="btn btn-primary btn-sm ">New Employee</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table ng-table="objTableParams" show-filter="true" class="table">
+                                <tr ng-repeat="profile in $data">
+                                    <td data-title="'Employee Name'" sortable="'employeeName'" filter="{ 'employeeName': 'text' }">
+                                        <a href="#/employeeProfilesDetail/{{profile.user + '|' + profile._id}}">{{profile.employeeName}}</a>
+                                    </td>
+                                    <td data-title="'Employee Role'" sortable="'position'" filter="{ 'position': 'text' }">
+                                    	{{profile.position}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

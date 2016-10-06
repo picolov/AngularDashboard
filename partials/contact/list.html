@@ -1,0 +1,53 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#/contact" style="cursor: pointer;">Individual</a></li>
+							<li class=""><a href="#/company">Company</a></li>
+							<li class=""><a href="#/isiEmployee">ISI Employee</a></li>
+						</ul>
+					</h4>
+					<div class="options">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Individual Listing</h4>
+                            <div class="btn-group pull-right">
+                                <a href="#/contactNew" class="btn btn-primary btn-sm ">New Individual</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table ng-table="objTableParams" show-filter="true" class="table">
+                                <tr ng-repeat="contact in $data">
+                                    <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">
+                                        <a href="#/contactDetail/{{contact._id}}">{{contact.name}}</a>
+                                    </td>
+                                    <td data-title="'Company Name'" sortable="'company.name'" filter="{ 'company.name': 'text' }">
+                                        {{contact.company.name}}
+                                    </td>
+                                    <td data-title="'Phone'" sortable="'phone'" filter="{ 'phone': 'text' }">
+                                        {{contact.phone}}
+                                    </td>
+                                    <td data-title="'Mobile'" sortable="'mobile'" filter="{ 'mobile': 'text' }">
+                                        {{contact.mobile}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<html>
+<head>
+    <!-- <script src="http://192.168.0.102:8080/target/target-script-min.js#anonymous"></script> -->
+    <script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="assets/js/utility.js"></script>
+    <script>
+        var serverURL = "http://localhost/api/";
+        $.ajax({
+            type: "POST",
+            url: serverURL + "my/login",
+            dataType:"json",
+            success: function(result) {
+                //console.log("success login " + dumpObject(result, 5));
+                if (result.status == 1) {
+                    window.location.href = "main.html";
+                } else {
+                    window.location.href = "login.html";
+                }
+            },
+            error: function (x, status, error) {
+            	//console.log("error x " + dumpObject(x, 5));
+                if (x.status == 401) {
+                    window.location.href = "login.html";
+                } else {
+                    window.location.href = "login.html";
+                }
+            },
+            beforeSend: function(xhr) {
+            	if (sessionStorage.tokenKey) {
+                	xhr.setRequestHeader('X-TOKEN-KEY', sessionStorage.tokenKey);
+            	}
+            }
+        });
+
+    </script>
+</head>
+<body></body>
+</html>

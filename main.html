@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='dashboardApp'>
+<head>
+    <meta charset="utf-8">
+    <title>Spekta Dashboard</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Spekta Dashboard">
+    <meta name="author" content="Spekta">
+    <link rel="icon" href="assets/img/favicon.ico">
+
+    <link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+	<link rel="stylesheet" href="assets/css/locationpicker.css">
+    <link rel="stylesheet" href="assets/plugins/angular-select/select.css">
+    <link rel="stylesheet" href="assets/plugins/angular-select/select2.css">
+    <link rel="stylesheet" href="assets/plugins/ngDialog/css/ngDialog.min.css">
+    <link rel="stylesheet" href="assets/plugins/ngDialog/css/ngDialog-theme-default.css">
+    <link rel="stylesheet" href="assets/plugins/qtip/qtip.css">
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+
+    <link href="assets/demo/variations/header-blue.css" rel='stylesheet' type='text/css' media='all' id='styleswitcher'>
+    <link href="assets/demo/variations/default.css" rel='stylesheet' type='text/css' media='all' id='headerswitcher'>
+    <script>
+        var assetsURL = "assets/";
+        var username = "kimkim";
+        var logoutURL = "/isi";
+        var serverURL = "http://localhost/api/";
+        var chatPhotoURL = "assets/demo/avatar/potter.png";
+        //---------- job query url ------//
+        var getJobQueryURL = serverURL + "jobQuery/list";
+        var getJobQueryCsvURL = serverURL + "jobQuery/listCsv";
+        //---------- forecast url -------//
+        var getThisMonthJobURL = serverURL + "job/listThisMonth";
+        var getJobMonthThisYearURL = serverURL + "job/listMonthThisYear";
+        var getJobSvoDjrURL = serverURL + "job/listWithSvoDjr";
+        //---------- my url -------------//
+        var getMyInfoURL = serverURL + "my/info";
+        var getMyAccessURL = serverURL + "access/listMine";
+        var getMyRecentActivityURL = serverURL + "activityLog/listRecentMine";
+        var getMyActivityURL = serverURL + "activityLog/listMine";
+        var changePasswordURL = serverURL + "user/changePassword"
+        var getMyProfileURL = serverURL + "profile/getMine";
+        var saveMyProfileURL = serverURL + "profile/saveMine";
+      	//---------- job url ----------//
+        //var getMyJobURL = serverURL + "job/listMine"; // now everybody can see all job
+        var getMyJobURL = serverURL + "job/listWithSvoDjr";
+        var getJobListingURL = serverURL + "job/listWithPre";
+        var getJobDetailsListingURL = serverURL + "job/listWithPreSvoDjr";
+        var getAllWellURL = serverURL + "well/list";
+        var saveJobURL = serverURL + "job/saveMine";
+        var getJobDetailURL = serverURL + "job/detail";
+        var deleteJobURL = serverURL + "job/delete";
+        var updateJobURL = serverURL + "job/update";
+        var getServiceOrderByJobURL = serverURL + "serviceOrder/detailByJob";
+        var saveServiceOrderURL = serverURL + "serviceOrder/save";
+        var updateServiceOrderURL = serverURL + "serviceOrder/update";
+        var getRTAByJobURL = serverURL + "rta/detailByJob";
+        var saveRTAURL = serverURL + "rta/save";
+        var updateRTAURL = serverURL + "rta/update";
+        var getServiceOrderOpenDetailPdfURL = serverURL + "my/detailServiceOrderOpenPdf";
+        var getServiceOrderCasedDetailPdfURL = serverURL + "my/detailServiceOrderCasedPdf";
+        var getRTADetailPdfURL = serverURL + "my/detailRtaPdf";
+        //----------- Jar Setting ----------------//
+        var getJarSetsByJobURL = serverURL + "jarSets/detailByJob";
+        var saveJarSetsURL = serverURL + "jarSets/save";
+        var updateJarSetsURL = serverURL + "jarSets/update";
+        var getJarSetsDetailPdfURL = serverURL + "jarSets/detailJarSetsPdf";
+        
+        var getJarSetsImpactOrderByJobURL = serverURL + "jarSetsImpactOrder/detailByJob";
+        var saveJarSetsImpactOrderURL = serverURL + "jarSetsImpactOrder/save";
+        var updateJarSetsImpactOrderURL = serverURL + "jarSetsImpactOrder/update";
+        var getJarSetsImpactOrderDetailPdfURL = serverURL + "my/detailJarSetsImpactOrderPdf";
+        
+        var getJarSetsOpenHoleByJobURL = serverURL + "jarSetsOpenHole/detailByJob";
+        var saveJarSetsOpenHoleURL = serverURL + "jarSetsOpenHole/save";
+        var updateJarSetsOpenHoleURL = serverURL + "jarSetsOpenHole/update";
+        var getJarSetsOpenHoleDetailPdfURL = serverURL + "my/detailJarSetsOpenHolePdf";
+      	//---------- Outgoing Tools url ----------//
+        //var getOutgoingToolsInspectionByJobURL = serverURL + "outgoingToolsInspection/detailByJob";
+        //var saveOutgoingToolsInspectionURL = serverURL + "outgoingToolsInspection/save";
+        //var updateOutgoingToolsInspectionURL = serverURL + "outgoingToolsInspection/update";
+        
+        var getOutgoingToolsOpenInspectionByJobURL = serverURL + "outgoingToolsOpenInspection/detailByJob";
+        var getOutgoingToolsOpenInspectionURL = serverURL + "outgoingToolsOpenInspection/detail";
+        var saveOutgoingToolsOpenInspectionURL = serverURL + "outgoingToolsOpenInspection/save";
+        var updateOutgoingToolsOpenInspectionURL = serverURL + "outgoingToolsOpenInspection/update";
+        var deleteOutgoingToolsOpenInspectionURL = serverURL + "outgoingToolsOpenInspection/delete";
+        var getInspectionOpenDetailPdfURL = serverURL + "my/detailInspectionOpenPdf";
+        
+        var getOutgoingToolsCasedInspectionByJobURL = serverURL + "outgoingToolsCasedInspection/detailByJob";
+        var getOutgoingToolsCasedInspectionURL = serverURL + "outgoingToolsCasedInspection/detail";
+        var saveOutgoingToolsCasedInspectionURL = serverURL + "outgoingToolsCasedInspection/save";
+        var updateOutgoingToolsCasedInspectionURL = serverURL + "outgoingToolsCasedInspection/update";
+        var deleteOutgoingToolsCasedInspectionURL = serverURL + "outgoingToolsCasedInspection/delete";
+        var getInspectionCasedDetailPdfURL = serverURL + "my/detailInspectionCasedPdf";
+        
+        var getOutgoingToolsInOutByJobURL = serverURL + "outgoingToolsInOut/listByJob";
+        var getOutgoingToolsInOutURL = serverURL + "outgoingToolsInOut/detail";
+        var saveOutgoingToolsInOutURL = serverURL + "outgoingToolsInOut/save";
+        var updateOutgoingToolsInOutURL = serverURL + "outgoingToolsInOut/update";
+        var deleteOutgoingToolsInOutURL = serverURL + "outgoingToolsInOut/delete";
+        var getInOutDetailPdfURL = serverURL + "my/detailInOutPdf";
+        
+        //var getOutgoingToolsLeakBakerByJobURL = serverURL + "outgoingToolsLeakBaker/listByJob";
+        //var getOutgoingToolsLeakBakerURL = serverURL + "outgoingToolsLeakBaker/detail";
+        //var saveOutgoingToolsLeakBakerURL = serverURL + "outgoingToolsLeakBaker/save";
+        //var updateOutgoingToolsLeakBakerURL = serverURL + "outgoingToolsLeakBaker/update";
+        //var deleteOutgoingToolsLeakBakerURL = serverURL + "outgoingToolsLeakBaker/delete";
+        
+        var getOutgoingToolsOpenLeakBakerByJobURL = serverURL + "outgoingToolsOpenLeakBaker/listByJob";
+        var getPrevOutgoingToolsOpenLeakBakerByJobURL = serverURL + "outgoingToolsOpenLeakBaker/lastCreateByJob";
+        var getOutgoingToolsOpenLeakBakerURL = serverURL + "outgoingToolsOpenLeakBaker/detail";
+        var getPrevOutgoingToolsOpenLeakBakerURL = serverURL + "outgoingToolsOpenLeakBaker/lastCreate";
+        var saveOutgoingToolsOpenLeakBakerURL = serverURL + "outgoingToolsOpenLeakBaker/save";
+        var updateOutgoingToolsOpenLeakBakerURL = serverURL + "outgoingToolsOpenLeakBaker/update";
+        var deleteOutgoingToolsOpenLeakBakerURL = serverURL + "outgoingToolsOpenLeakBaker/delete";
+        var getLeakBakerOpenDetailPdfURL = serverURL + "my/detailLeakBakerOpenPdf";
+        
+        var getOutgoingToolsCasedLeakBakerByJobURL = serverURL + "outgoingToolsCasedLeakBaker/listByJob";
+        var getPrevOutgoingToolsCasedLeakBakerByJobURL = serverURL + "outgoingToolsCasedLeakBaker/lastCreateByJob";
+        var getOutgoingToolsCasedLeakBakerURL = serverURL + "outgoingToolsCasedLeakBaker/detail";
+        var getPrevOutgoingToolsCasedLeakBakerURL = serverURL + "outgoingToolsCasedLeakBaker/lastCreate";
+        var saveOutgoingToolsCasedLeakBakerURL = serverURL + "outgoingToolsCasedLeakBaker/save";
+        var updateOutgoingToolsCasedLeakBakerURL = serverURL + "outgoingToolsCasedLeakBaker/update";
+        var deleteOutgoingToolsCasedLeakBakerURL = serverURL + "outgoingToolsCasedLeakBaker/delete";
+        var getLeakBakerCasedDetailPdfURL = serverURL + "my/detailLeakBakerCasedPdf";
+        
+        var getOutgoingToolsLeakBergerByJobURL = serverURL + "outgoingToolsLeakBerger/listByJob";
+        var getPrevOutgoingToolsLeakBergerByJobURL = serverURL + "outgoingToolsLeakBerger/lastCreateByJob";
+        var getOutgoingToolsLeakBergerURL = serverURL + "outgoingToolsLeakBerger/detail";
+        var getPrevOutgoingToolsLeakBergerURL = serverURL + "outgoingToolsLeakBerger/lastCreate";
+        var saveOutgoingToolsLeakBergerURL = serverURL + "outgoingToolsLeakBerger/save";
+        var updateOutgoingToolsLeakBergerURL = serverURL + "outgoingToolsLeakBerger/update";
+        var deleteOutgoingToolsLeakBergerURL = serverURL + "outgoingToolsLeakBerger/delete";
+        var getLeakBergerOpenDetailPdfURL = serverURL + "my/detailLeakBergerOpenPdf";
+        
+        var getOutgoingToolsLeakBurtonByJobURL = serverURL + "outgoingToolsLeakBurton/listByJob";
+        var getPrevOutgoingToolsLeakBurtonByJobURL = serverURL + "outgoingToolsLeakBurton/lastCreateByJob";
+        var getOutgoingToolsLeakBurtonURL = serverURL + "outgoingToolsLeakBurton/detail";
+        var getPrevOutgoingToolsLeakBurtonURL = serverURL + "outgoingToolsLeakBurton/lastCreate";
+        var saveOutgoingToolsLeakBurtonURL = serverURL + "outgoingToolsLeakBurton/save";
+        var updateOutgoingToolsLeakBurtonURL = serverURL + "outgoingToolsLeakBurton/update";
+        var deleteOutgoingToolsLeakBurtonURL = serverURL + "outgoingToolsLeakBurton/delete";
+        var getLeakBurtonOpenDetailPdfURL = serverURL + "my/detailLeakBurtonOpenPdf";
+        //---------- On Site -----------------//
+        var getOnSiteDailyJobByJobURL = serverURL + "onSiteDailyJob/listByJob";
+        var getOnSiteDailyJobURL = serverURL + "onSiteDailyJob/detail";
+        var saveOnSiteDailyJobURL = serverURL + "onSiteDailyJob/save";
+        var updateOnSiteDailyJobURL = serverURL + "onSiteDailyJob/update";
+        var deleteOnSiteDailyJobURL = serverURL + "onSiteDailyJob/delete";
+        var getDailyJobDetailPdfURL = serverURL + "my/detailDailyJobPdf";
+        
+        var getOnSiteSummaryJobByJobURL = serverURL + "onSiteSummaryJob/listByJob";
+        var getOnSiteSummaryJobURL = serverURL + "onSiteSummaryJob/detail";
+        var saveOnSiteSummaryJobURL = serverURL + "onSiteSummaryJob/save";
+        var updateOnSiteSummaryJobURL = serverURL + "onSiteSummaryJob/update";
+        var deleteOnSiteSummaryJobURL = serverURL + "onSiteSummaryJob/delete";
+        var getSummaryJobDetailPdfURL = serverURL + "my/detailSummaryJobPdf";
+        
+        var getOnSiteTechDataByJobURL = serverURL + "onSiteTechData/detailByJob";
+        var saveOnSiteTechDataURL = serverURL + "onSiteTechData/save";
+        var updateOnSiteTechDataURL = serverURL + "onSiteTechData/update";
+        var getTechDataDetailPdfURL = serverURL + "my/detailTechDataPdf";
+        
+        var getOnSiteJSEAByJobURL = serverURL + "onSiteJSEA/listByJob";
+        var getOnSiteJSEAURL = serverURL + "onSiteJSEA/detail";
+        var saveOnSiteJSEAURL = serverURL + "onSiteJSEA/save";
+        var updateOnSiteJSEAURL = serverURL + "onSiteJSEA/update";
+        var deleteOnSiteJSEAURL = serverURL + "onSiteJSEA/delete";
+        var getJSEADetailPdfURL = serverURL + "my/detailJSEAPdf";
+        
+        var getOnSiteCustomerByJobURL = serverURL + "onSiteCustomer/detailByJob";
+        var saveOnSiteCustomerURL = serverURL + "onSiteCustomer/save";
+        var updateOnSiteCustomerURL = serverURL + "onSiteCustomer/update";
+        var getCustomerDetailPdfURL = serverURL + "my/detailCustomerPdf";
+        
+        var getOnSiteAlertByJobURL = serverURL + "onSiteAlert/listByJob";
+        var getOnSiteAlertURL = serverURL + "onSiteAlert/detail";
+        var saveOnSiteAlertURL = serverURL + "onSiteAlert/save";
+        var updateOnSiteAlertURL = serverURL + "onSiteAlert/update";
+        var deleteOnSiteAlertURL = serverURL + "onSiteAlert/delete";
+        var getAlertDetailPdfURL = serverURL + "my/detailAlertPdf";
+        
+      	//---------- expense report ----------//
+        var getExpenseReportByJobURL = serverURL + "expenseReport/detailByJob";
+        var saveExpenseReportURL = serverURL + "expenseReport/saveMine";
+        var updateExpenseReportURL = serverURL + "expenseReport/update";
+        var getExpenseReportDetailPdfURL = serverURL + "my/detailExpenseReportPdf";
+        
+      	//---------- global map url ----------//
+        var getAllJobURL = serverURL + "job/list";
+      	var getAllJobByMapFilterURL = serverURL + "job/listByMapFilter";
+      	//---------- well url ----------//
+        var getAllWellURL = serverURL + "well/list";
+        var getWellDetailURL = serverURL + "well/detail";
+        var saveWellURL = serverURL + "well/save";
+        var updateWellURL = serverURL + "well/update";
+        var deleteWellURL = serverURL + "well/delete";
+      	//---------- toolstring url ----------//
+        var getAllToolstringURL = serverURL + "toolstring/list";
+        var getToolstringDetailURL = serverURL + "toolstring/detail";
+        var saveToolstringURL = serverURL + "toolstring/save";
+        var updateToolstringURL = serverURL + "toolstring/update";
+        var deleteToolstringURL = serverURL + "toolstring/delete";
+        //---------- contact url ----------//
+        var getAllContactURL = serverURL + "contact/list";
+        var getContactDetailURL = serverURL + "contact/detail";
+        var saveContactURL = serverURL + "contact/save";
+        var updateContactURL = serverURL + "contact/update";
+        var deleteContactURL = serverURL + "contact/delete";
+        //---------- company url ----------//
+        var getAllCompanyURL = serverURL + "company/list";
+        var getCompanyDetailURL = serverURL + "company/detail";
+        var saveCompanyURL = serverURL + "company/save";
+        var updateCompanyURL = serverURL + "company/update";
+        var deleteCompanyURL = serverURL + "company/delete";
+      	//---------- isi employee url ----------//
+        var getISIEmployeeDetailURL = serverURL + "profile/detail";
+      	//---------- work log url ----------//
+        var getAllWorkLogURL = serverURL + "workLog/list";
+        var getWorkLogDetailURL = serverURL + "workLog/detail";
+        var saveWorkLogURL = serverURL + "workLog/save";
+        var updateWorkLogURL = serverURL + "workLog/update";
+        var deleteWorkLogURL = serverURL + "workLog/delete";
+        var saveWorkLogDailyURL = serverURL + "workLog/saveDaily";
+        var saveWorkLogWeeklyURL = serverURL + "workLog/saveWeekly";
+        var updateWorkLogDailyURL = serverURL + "workLog/updateDaily";
+        var updateWorkLogWeeklyURL = serverURL + "workLog/updateWeekly";
+      	//---------- user url ----------//
+        var getAllUserURL = serverURL + "user/list";
+        var getUserDetailURL = serverURL + "user/detail";
+        var saveUserURL = serverURL + "user/save";
+        var updateUserURL = serverURL + "user/update";
+        var deleteUserURL = serverURL + "user/delete";
+        var resetPasswordURL = serverURL + "user/resetPassword"; 
+      	//---------- access url ----------//
+        var getAllRoleURL = serverURL + "role/list";
+        var getRoleDetailURL = serverURL + "role/detail";
+        var getAllAccessByRoleURL = serverURL + "access/listByRole";
+        var getAllAccessURL = serverURL + "access/list";
+        var addRoleAccessURL = serverURL + "access/addRole";
+        var removeRoleAccessURL = serverURL + "access/removeRole";
+        var saveRoleURL = serverURL + "role/save";
+        var updateRoleURL = serverURL + "role/update";
+        var deleteRoleURL = serverURL + "role/delete";
+      	//---------- employee url ----------//
+        var getAllProfileURL = serverURL + "profile/list";
+        var getProfileDetailByUserURL = serverURL + "profile/detailByUser";
+        var getProfileDetailURL = serverURL + "profile/detail";
+        var saveProfileURL = serverURL + "profile/save";
+        var updateEmployeeURL = serverURL + "profile/update";
+        var deleteEmployeeURL = serverURL + "profile/delete";
+        var getActivityByUserURL = serverURL + "activityLog/listByUser";
+      	//---------- forum url ----------//
+        var getAllForumTopicURL = serverURL + "forumTopic/list";
+        var getForumTopicDetailURL = serverURL + "forumTopic/detail";
+        var getForumPostByTopicURL = serverURL + "forumPost/listByTopic";
+        var saveForumTopicURL = serverURL + "forumTopic/saveMine";
+        var updateForumTopicURL = serverURL + "forumTopic/update";
+        var deleteForumTopicURL = serverURL + "forumTopic/delete";
+        var saveForumPostURL = serverURL + "forumPost/saveMine";
+        var getForumPostDetailURL = serverURL + "forumPost/detail";
+        var updateForumPostURL = serverURL + "forumPost/update";
+        var deleteForumPostURL = serverURL + "forumPost/delete";
+      	//---------- price manager url ----------//
+        var getPriceManagerDetailURL = serverURL + "priceManager/detail";
+        var updatePriceManagerURL = serverURL + "priceManager/update";
+        //---------- jar manager url ------------//
+        var getOutgoingToolsCasedLeakBakerListURL = serverURL + "outgoingToolsCasedLeakBaker/listWithJob";
+        var getOutgoingToolsOpenLeakBakerListURL = serverURL + "outgoingToolsOpenLeakBaker/listWithJob";
+        var getOutgoingToolsLeakBergerListURL = serverURL + "outgoingToolsLeakBerger/listWithJob";
+        var getOutgoingToolsLeakBurtonListURL = serverURL + "outgoingToolsLeakBurton/listWithJob";
+        var getOutgoingToolsOpenInspectionListURL = serverURL + "outgoingToolsOpenInspection/listWithJob";
+        var getOutgoingToolsCasedInspectionListURL = serverURL + "outgoingToolsCasedInspection/listWithJob";
+        var getOutgoingToolsInOutListURL = serverURL + "outgoingToolsInOut/listWithJobAndSvo";
+        
+        var getOutgoingToolsTransferByJobURL = serverURL + "outgoingToolsTransfer/listByJob";
+        var getOutgoingToolsTransferURL = serverURL + "outgoingToolsTransfer/detail";
+        var saveOutgoingToolsTransferURL = serverURL + "outgoingToolsTransfer/save";
+        var updateOutgoingToolsTransferURL = serverURL + "outgoingToolsTransfer/update";
+        var deleteOutgoingToolsTransferURL = serverURL + "outgoingToolsTransfer/delete";
+        var getTransferDetailPdfURL = serverURL + "my/detailTransferPdf";
+        var getOutgoingToolsTransferListURL = serverURL + "outgoingToolsTransfer/listWithJob";
+        
+        var getOutgoingToolsExpenseURL = serverURL + "outgoingToolsExpense/detail";
+        var saveOutgoingToolsExpenseURL = serverURL + "outgoingToolsExpense/saveMine";
+        var updateOutgoingToolsExpenseURL = serverURL + "outgoingToolsExpense/update";
+        var deleteOutgoingToolsExpenseURL = serverURL + "outgoingToolsExpense/delete";
+        var getExpenseDetailPdfURL = serverURL + "my/detailExpensePdf";
+        var getOutgoingToolsExpenseListURL = serverURL + "outgoingToolsExpense/listMineWithJob";
+        
+        
+		//---------- maintenance url ------//
+		var getPluralListURL = serverURL + "plural/list";
+		var getAllAccountTypeURL = serverURL + "accountType/list";
+        var getAllIndustryURL = serverURL + "industry/list";
+        var getAllCountryURL = serverURL + "country/list";
+        var getAllStateURL = serverURL + "state/list";
+        var getAllStateByCountryURL = serverURL + "state/listByCountry";
+        var getAllCityURL = serverURL + "city/list";
+        var getAllCityByStateURL = serverURL + "city/listByState";
+        var getAllRoleURL = serverURL + "role/list";
+        
+        //---------- others ----------------//
+        var getOutgoingToolsOpenLeakBakerByJobAndSerialURL = serverURL + "outgoingToolsOpenLeakBaker/listByJobAndSerial";
+        var getOutgoingToolsCasedLeakBakerByJobAndSerialURL = serverURL + "outgoingToolsCasedLeakBaker/listByJobAndSerial";
+        var getOutgoingToolsLeakBergerByJobAndSerialURL = serverURL + "outgoingToolsLeakBerger/listByJobAndSerial";
+        var getOutgoingToolsLeakBurtonByJobAndSerialURL = serverURL + "outgoingToolsLeakBurton/listByJobAndSerial";
+        
+        //---------- jobSheet --------------//
+        var getAllJobSheetURL = serverURL + "jobSheet/list";
+        var getJobSheetDetailURL = serverURL + "jobSheet/detail";
+        var saveJobSheetURL = serverURL + "jobSheet/save";
+        var saveMultiJobSheetURL = serverURL + "jobSheet/saveOrUpdateMulti";
+        var updateJobSheetURL = serverURL + "jobSheet/update";
+        var deleteJobSheetURL = serverURL + "jobSheet/delete";
+        var getJobSheetMaxLineURL = serverURL + "jobSheet/maxLine";
+        
+      //---------- collaborationTools url ------//
+        var getAllFaqURL = serverURL + "faq/list";
+        var saveFaqURL = serverURL + "faq/save";
+        var updateFaqURL = serverURL + "faq/update";
+        var deleteFaqURL = serverURL + "faq/delete";
+        var getAllGlossaryURL = serverURL + "glossary/list";
+        var saveGlossaryURL = serverURL + "glossary/save";
+        var updateGlossaryURL = serverURL + "glossary/update";
+        var deleteGlossaryURL = serverURL + "glossary/delete";
+        var getAllManualURL = serverURL + "manual/list";
+        var saveManualURL = serverURL + "manual/save";
+        var deleteManualURL = serverURL + "manual/delete";
+        var getManualDetailURL = serverURL + "manual/detail";
+        var updateManualURL = serverURL + "manual/update";
+        
+        var uploadForumURL = serverURL + "upload/forum";
+        var uploadOperationManualURL = serverURL + "upload/operationManual";
+        var uploadJSEAURL = serverURL + "upload/jsea";
+        var uploadCalibrationURL = serverURL + "upload/calibration";
+        var uploadJobURL = serverURL + "upload/job";
+        var uploadJobFromDetailURL = serverURL + "upload/jobFromDetail";
+        var deleteFileJobURL = serverURL + "job/deleteFile";
+
+        var getBreadcrumbURL = "/api/breadcrumb/get";
+        var newBreadcrumbURL = "/api/breadcrumb/insertNew";
+        var addBreadcrumbURL = "/api/breadcrumb/add";
+        var setToBreadcrumbURL = "/api/breadcrumb/setTo";
+    </script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries. Placeholdr.js enables the placeholder attribute -->
+    <!--[if lt IE 9]>
+        <link rel="stylesheet" href="assets/css/ie8.css">
+		<script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.1.0/respond.min.js"></script>
+        <script type="text/javascript" src="assets/plugins/charts-flot/excanvas.min.js"></script>
+	<![endif]-->
+
+    <!-- The following CSS are included as plugins and can be removed if unused-->
+    <style type="text/css">
+    	.select2 > .select2-choice.ui-select-match {
+      		/* Because of the inclusion of Bootstrap */
+      		height: 29px;
+    	}
+    </style>
+
+	<link rel='stylesheet' type='text/css' href='assets/plugins/form-datepicker/css/bootstrap-datepicker3.css' />
+    <link rel='stylesheet' type='text/css' href='assets/plugins/form-markdown/css/bootstrap-markdown.min.css' />
+    <link rel='stylesheet' type='text/css' href='assets/plugins/codeprettifier/prettify.css' />
+    <link rel='stylesheet' type='text/css' href='assets/plugins/form-toggle/toggles.css' />
+    <link rel='stylesheet' type='text/css' href='assets/css/ng-table.css' />
+
+    <link rel='stylesheet' type='text/css' href='assets/css/main.css' />
+</head>
+
+<body class="" ng-controller="MainController">
+
+<header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+    <a id="leftmenu-trigger" class="tooltips" data-toggle="tooltip" data-placement="right" title="Toggle Sidebar"></a>
+    <a id="rightmenu-trigger" class="tooltips" data-toggle="tooltip" data-placement="left" title="Toggle Infobar"></a>
+
+    <div class="navbar-header pull-left">
+        <a class="navbar-brand" href="#">Dashboard</a>
+    </div>
+
+    <ul class="nav navbar-nav pull-right toolbar">
+        <li class="dropdown">
+            <a href="javascript:;" class="dropdown-toggle username" data-toggle="dropdown"><span class="">{{stringUtil('join', " ", currentUser.titleName, currentUser.firstName, currentUser.middleName, currentUser.lastName)}} <i class="fa fa-caret-down"></i></span></a>
+            <ul class="dropdown-menu userinfo arrow">
+                <li class="username">
+                    <a href="javascript:;">
+                        <div class="pull-left"><img id="myPhoto" class="img-responsive" alt="      " src=""></div>
+                        <div class="pull-right"><h5>Hi, {{currentUser.firstName}}!</h5><small>Logged in as <span>{{currentUser.username}}</span></small></div>
+                    </a>
+                </li>
+                <li class="userlinks">
+                    <ul class="dropdown-menu">
+                        <li><a href="#/myProfile">Profile <i class="pull-right fa fa-user"></i></a></li>
+                        <li><a href="#/changePassword">Change Password <i class="pull-right fa fa-pencil"></i></a></li>
+                        <li><a href="#">Help <i class="pull-right fa fa-question-circle"></i></a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript: disconnect();" class="text-right">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        
+        <li class="dropdown">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle='dropdown'><i class="fa fa-history"></i></a>
+            <ul class="dropdown-menu notifications arrow">
+                <li class="dd-header">
+                    <span>Your recent activity</span>
+                    <span><a href="#"></a></span>
+                </li>
+                <div class="scrollthis">
+                	<li ng-repeat="recentActivity in recentActivities">
+                        <a href="javascript:;" ng-class="{'notification-success': recentActivity.output.status == 1, 'notification-danger': recentActivity.output.status != 1}" style="cursor: default;">
+                            <span class="time">{{formatTime(recentActivity.time, 'MM/dd hh:mm')}}</span>
+                            <i class="fa" ng-class="{'fa-check': recentActivity.output.status == 1, 'fa-close': recentActivity.output.status != 1}"></i>
+                            <span class="msg">{{recentActivity.name}}</span>
+                        </a>
+                    </li>
+                </div>
+                <li class="dd-footer"><a href="#/myActivityLog">View All Activities</a></li>
+            </ul>
+        </li>
+        <li class="dropdown demodrop">
+            <a href="javascript:;" class="dropdown-toggle tooltips" data-toggle="dropdown"><i class="fa fa-paint-brush"></i></a>
+
+            <ul class="dropdown-menu arrow dropdown-menu-form" id="demo-dropdown">
+                <li>
+                    <label for="demo-header-variations" class="control-label">Header Colors</label>
+                    <ul class="list-inline demo-color-variation" id="demo-header-variations">
+                        <li><a class="color-black" href="javascript:;"  data-headertheme="header-black.css"></a></li>
+                        <li><a class="color-dark" href="javascript:;"  data-headertheme="default.css"></a></li>
+                        <li><a class="color-red" href="javascript:;" data-headertheme="header-red.css"></a></li>
+                        <li><a class="color-blue" href="javascript:;" data-headertheme="header-blue.css"></a></li>
+                    </ul>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <label for="demo-color-variations" class="control-label">Sidebar Colors</label>
+                    <ul class="list-inline demo-color-variation" id="demo-color-variations">
+                        <li><a class="color-lite" href="javascript:;"  data-theme="default.css"></a></li>
+                        <li><a class="color-steel" href="javascript:;" data-theme="sidebar-steel.css"></a></li>
+                        <li><a class="color-lavender" href="javascript:;" data-theme="sidebar-lavender.css"></a></li>
+                        <li><a class="color-green" href="javascript:;" data-theme="sidebar-green.css"></a></li>
+                    </ul>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <label for="fixedheader">Fixed Header</label>
+                    <div id="fixedheader" style="margin-top:5px;"></div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</header>
+
+<div id="page-container">
+<!-- BEGIN SIDEBAR -->
+<nav id="page-leftbar" role="navigation">
+    <!-- BEGIN SIDEBAR MENU -->
+    <ul class="acc-menu" id="sidebar">
+        <!-- <li id="search">
+            <a href="javascript:;"><i class="fa fa-search opacity-control"></i></a>
+            <form>
+                <input type="text" class="search-query" placeholder="Search...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </li>
+        <li class="divider"></li> -->
+        <!-- <li ng-class="menuClass('home')"><a href="#/home"><i class="fa fa-home"></i> <span>Home</span></a></li> -->
+        <li ng-if="haveAllAccess('@queryView')" ng-class="menuClass('query')"><a href="#/query"> <i class="fa fa-search"></i> <span>Job Query</span></a></li>
+        <li ng-if="haveAllAccess('@dailyStatusView')" ng-class="menuClass('dailyStatus')"><a href="#/dailyStatus"> <i class="fa fa-eye"></i> <span>Daily Status Report</span></a></li>
+        <li ng-if="haveAllAccess('@forecastView')" ng-class="menuClass('forecast')"><a href="#/forecast"> <i class="fa fa-binoculars"></i> <span>Forecast Report</span></a></li>
+        <li ng-if="haveAllAccess('@jobInfoView')" ng-class="menuClass('jobInfo')"><a href="#/jobInfo"> <i class="fa fa-tasks"></i> <span>Job Information</span></a></li>
+        <li ng-if="haveAllAccess('@globalMapView')" ng-class="menuClass('globalMap')"><a href="#/globalMap"> <i class="fa fa-globe"></i> <span>Global Operation Map</span></a></li>
+        <li ng-if="haveAllAccess('@contactView')" ng-class="menuClass('contact')"><a href="#/contact"> <i class="fa fa-tty"></i> <span>Directory</span></a></li>
+        <li ng-if="haveAllAccess('@userView')" ng-class="menuClass('user')"><a href="#/user"><i class="fa fa-users"></i> <span>Users</span></a></li>
+        <li ng-if="haveAllAccess('@accessView')" ng-class="menuClass('access')"><a href="#/access"><i class="fa fa-key"></i> <span>Access Management</span></a></li>
+        <li ng-if="haveAllAccess('@employeeView')" ng-class="menuClass('employee')" class="hasChild"><a href="javascript:;"><i class="fa fa-table"></i> <span>Employee Management</span></a>
+	        <ul class="acc-menu" style="display: none;">
+	            <li ng-class="menuClass('employee:profiles')"><a href="#/employeeProfiles">Employee Profiles</a></li>
+	        </ul>
+        </li>
+        <li ng-if="haveAllAccess('@forumView')" ng-class="menuClass('forum')"><a href="#/forum"><i class="fa fa-newspaper-o"></i> <span>Forum</span></a></li>
+        <li ng-if="haveAllAccess('@priceManagerView')" ng-class="menuClass('priceManager')"><a href="#/priceManagerDetail/price"><i class="fa fa-money"></i> <span>Price Manager</span></a></li>
+        <li ng-if="haveAllAccess('@collaborationTools')" ng-class="menuClass('collaborationTools')" class="hasChild"><a href="javascript:;"> <i class="fa fa-share-alt"></i> <span>Collaboration Tools</span></a>
+            <ul class="acc-menu" style="display: none;">
+                <li ng-class="menuClass('collaborationTools:faq')"><a href="#/collaborationToolsFaq">FAQ</a></li>
+                <li ng-class="menuClass('collaborationTools:glossary')"><a href="#/collaborationToolsGlossary">Glossary</a></li>
+                <li ng-class="menuClass('collaborationTools:manual')"><a href="#/collaborationToolsManual">Field Operation Manual</a></li>
+            </ul>
+        </li>
+        <li ng-if="haveAllAccess('@jarManagerView')" ng-class="menuClass('jarManager')"><a href="#/jarManager"><i class="fa fa-list-alt"></i> <span>Jar Manager</span></a></li>
+        <li ng-if="haveAllAccess('@toolstringView')" ng-class="menuClass('toolstring')"><a href="#/toolstring"><i class="fa fa-cogs"></i> <span>Toolstring</span></a></li>
+        <li ng-if="haveAllAccess('@jobSheetView')" ng-class="menuClass('jobSheet')"><a href="#/jobSheet"><i class="fa fa-file-excel-o"></i> <span>Job DataSheet</span></a></li>
+    </ul>
+    <!-- END SIDEBAR MENU -->
+</nav>
+
+<!-- BEGIN RIGHTBAR -->
+<div id="page-rightbar">
+
+    <div class="h_iframe">
+        	<iframe id="chatFrame" src="" frameborder="0"></iframe>
+        </div>
+</div>
+<!-- END RIGHTBAR -->
+<div id="page-content">
+<div id='wrap'>
+
+
+<div id="page-heading">
+    <div>
+    <!-- <ol class="breadcrumb">
+        <li ng-repeat="breadcrumb in breadcrumbs"><a href="javascript:;" ng-click="setToBreadcrumb($index)" ng-if="!$last">{{breadcrumb.name}}</a><span ng-if="$last">{{breadcrumb.name}}</span></li>
+    </ol>  -->
+    <h1>{{menuTitle}}</h1>
+    </div>
+    <!-- <div class="options">
+        <div class="btn-toolbar">
+            <div class="btn-group hidden-xs">
+                <a href='javascript:;' class="btn btn-default dropdown-toggle" data-toggle='dropdown'><i class="fa fa-cloud-download"></i><span class="hidden-xs hidden-sm hidden-md"> Export as</span> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Text File (*.txt)</a></li>
+                    <li><a href="#">Excel File (*.xlsx)</a></li>
+                    <li><a href="#">PDF File (*.pdf)</a></li>
+                </ul>
+            </div>
+            <a href="javascript:;" class="btn btn-default hidden-xs"><i class="fa fa-cog"></i></a>
+        </div>
+    </div> -->
+</div>
+<div ng-view id="views"></div>
+
+</div> <!--wrap -->
+</div> <!-- page-content -->
+
+<footer role="contentinfo">
+    <div class="clearfix">
+        <ul class="list-unstyled list-inline pull-left">
+            <li>Spekta &copy; 2014</li>
+        </ul>
+        <button class="pull-right btn btn-inverse-alt btn-xs hidden-print" id="back-to-top"><i class="fa fa-arrow-up"></i></button>
+    </div>
+</footer>
+
+</div> <!-- page-container -->
+
+
+<script type='text/javascript' src='assets/js/jquery-1.10.2.min.js'></script>
+<script type='text/javascript' src='assets/js/jqueryui-1.10.3.min.js'></script>
+<script type='text/javascript' src='assets/js/bootstrap.min.js'></script>
+<script type='text/javascript' src='assets/js/underscore.string.min.js'></script>
+<script type='text/javascript' src='assets/js/date.js'></script>
+<script type='text/javascript' src='assets/js/nicEdit.js'></script>
+<script type='text/javascript' src='assets/js/enquire.js'></script>
+<script type='text/javascript' src='assets/js/jquery.cookie.js'></script>
+<script type='text/javascript' src='assets/js/jquery.nicescroll.js'></script>
+<script type='text/javascript' src='assets/js/jquery.locationpicker.js'></script>
+<script type='text/javascript' src='assets/plugins/codeprettifier/prettify.js'></script>
+<script type='text/javascript' src='assets/plugins/form-toggle/toggle.min.js'></script>
+<script type='text/javascript' src='assets/plugins/fullcalendar/fullcalendar.min.js'></script>
+<script type='text/javascript' src='assets/plugins/bootbox/bootbox.min.js'></script>
+<script type='text/javascript' src='assets/plugins/datatables/jquery.dataTables.min.js'></script>
+<script type='text/javascript' src='assets/plugins/datatables/dataTables.bootstrap.js'></script>
+<script type='text/javascript' src='assets/plugins/form-datepicker/js/bootstrap-datepicker.js'></script>
+<script type='text/javascript' src='assets/plugins/qtip/qtip.js'></script>
+<script type='text/javascript' src='http://maps.google.com/maps/api/js?sensor=true'></script>
+<script type='text/javascript' src='assets/plugins/sheetjs/xlsx.core.min.js'></script>
+
+<script type='text/javascript' src='assets/js/placeholdr.js'></script>
+<script type='text/javascript' src='assets/js/application.js'></script>
+<script type='text/javascript' src='assets/demo/demo.js'></script>
+
+<script src="assets/js/angular.min.js"></script>
+<script src="assets/js/angular-sanitize.min.js"></script>
+<script src="assets/js/angular-route.min.js"></script>
+<script src="assets/js/angular-ui-util-mask.js"></script>
+<script src="assets/js/angular-input-masks.js"></script>
+<script src="assets/js/angular-filter.min.js"></script>
+
+<!-- dropdown search box -->
+<script type='text/javascript' src='assets/plugins/angular-select/select.js'></script>
+<!-- angular pop up dialog -->
+<script type='text/javascript' src='assets/plugins/ngDialog/js/ngDialog.min.js'></script>
+
+<script type="text/javascript" src="assets/js/Blob.js"></script>
+<script type="text/javascript" src="assets/js/FileSaver.js"></script>
+
+<script src="assets/js/apps.js"></script>
+<script src="assets/js/controllers/BaseController.js"></script>
+<script src="assets/js/controllers/Main.js"></script>
+<script src="assets/js/controllers/My.js"></script>
+<script src="assets/js/controllers/Home.js"></script>
+<script src="assets/js/controllers/Query.js"></script>
+<script src="assets/js/controllers/DailyStatus.js"></script>
+<script src="assets/js/controllers/Forecast.js"></script>
+<script src="assets/js/controllers/GlobalMap.js"></script>
+<script src="assets/js/controllers/Job.js"></script>
+<script src="assets/js/controllers/ServiceOrder.js"></script>
+<script src="assets/js/controllers/OutgoingTools.js"></script>
+<script src="assets/js/controllers/JarSets.js"></script>
+<script src="assets/js/controllers/OnSite.js"></script>
+<script src="assets/js/controllers/Expense.js"></script>
+<script src="assets/js/controllers/Well.js"></script>
+<script src="assets/js/controllers/Company.js"></script>
+<script src="assets/js/controllers/Contact.js"></script>
+<script src="assets/js/controllers/ISIEmployee.js"></script>
+<script src="assets/js/controllers/WorkLog.js"></script>
+<script src="assets/js/controllers/User.js"></script>
+<script src="assets/js/controllers/Access.js"></script>
+<script src="assets/js/controllers/Employee.js"></script>
+<script src="assets/js/controllers/Forum.js"></script>
+<script src="assets/js/controllers/PriceManager.js"></script>
+<script src="assets/js/controllers/CollaborationTools.js"></script>
+<script src="assets/js/controllers/JarManager.js"></script>
+<script src="assets/js/controllers/Toolstring.js"></script>
+<script src="assets/js/controllers/JobSheet.js"></script>
+<script src="assets/js/services.js"></script>
+<script src="assets/js/ng-table.js"></script>
+
+<script type='text/javascript' src='assets/js/main.js'></script>
+<script type='text/javascript' src='assets/js/utility.js'></script>
+
+</body>
+</html>

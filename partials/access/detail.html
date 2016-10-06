@@ -1,0 +1,94 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;Role Details</h4>
+                            <div class="pull-right">
+								<a href="#/accessEdit/{{obj._id}}" class="btn btn-primary">Edit Role</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Role Detail</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Name</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.name}}</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Parent Role</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.parent}}</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Index</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.idx}}</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Access List</h4>
+                                    <div class="options">
+                                        <div></div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                        <span ng-repeat="access in accessLeft"><input type="checkbox" ng-model="access.checked" ng-change="access.checked ? addRole(access._id, _id) : removeRole(access._id, _id)"> &nbsp;&nbsp;{{access.name}}<br></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                    	<span ng-repeat="access in accessRight"><input type="checkbox" ng-model="access.checked" ng-change="access.checked ? addRole(access._id, _id) : removeRole(access._id, _id)"> &nbsp;&nbsp;{{access.name}}<br></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>System Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Created By</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.createdBy}}</label>
+                                                    <br>
+                                                    <label>{{formatTime(obj.createdTime)}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Updated By</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.updatedBy}}</label>
+                                                    <br>
+                                                    <label>{{formatTime(obj.updatedTime)}}</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

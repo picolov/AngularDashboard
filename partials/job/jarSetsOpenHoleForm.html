@@ -1,0 +1,353 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}" class="current"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="current"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Jar Settings Detail</h4>
+
+                            <div class="pull-right">
+                            	<span ng-show="formInfo.$invalid" class="label label-danger">form not completed</span>
+                                <a href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+                                <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Jar Pre-Set Approval Form</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-12" ng-repeat="item in getItemCount">
+                                            <hr>
+                                            <div class="panel panel-gray"> 
+				                                <div class="panel-body">
+				                                	<div class="col-md-12 clearfix">
+							                            <h4 class="pull-left" style="margin: 0 0 20px;">Run # <input type="text" name="run_{{item.idx}}" id="run_{{item.idx}}" maxlength="2" ng-model="obj['run_' + item.idx]" placeholder="N/A"><p ng-show="formInfo.run_{{item.idx}}.$invalid && !formInfo.run_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid Run #.</p></h4>
+							
+							                            <div class="pull-right">
+							                            	<a href="javascript:;" ng-click="addItem(item.idx, 'run', 'fromDate', 'toDate', 'wif', 'msp', 'wob', 'wp', 'wia', 'pullHead', 'jarSerial', 'toolstringName', 'toolstringLength', 'numOfActivation', 'activation', 'toolsFreed', 'fishing', 'impactPro', 'impactProSlotSize', 'start', 'end', 'allowance', 'recommended', 'actualJar', 'ifPreset', 'signatureName', 'signatureDate', 'techName', 'techDate', 'wlcoName', 'wlcoDate', 'oilName', 'oilDate')" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+							                            	<a href="javascript:;" ng-click="deleteItem(item.idx, 'run', 'fromDate', 'toDate', 'wif', 'msp', 'wob', 'wp', 'wia', 'pullHead', 'jarSerial', 'toolstringName', 'toolstringLength', 'numOfActivation', 'activation', 'toolsFreed', 'fishing', 'impactPro', 'impactProSlotSize', 'start', 'end', 'allowance', 'recommended', 'actualJar', 'ifPreset', 'signatureName', 'signatureDate', 'techName', 'techDate', 'wlcoName', 'wlcoDate', 'oilName', 'oilDate')" class="btn btn-primary"><i class="fa fa-minus"></i></a>												    		
+							                            </div>
+							                        </div>
+				                                	<div class="col-md-6">
+				                                		<div class="form-group">
+			                                                <label class="col-sm-3 control-label">Date</label>
+			                                                <div class="col-sm-5">
+			                                                    <div class="input-group date">
+								                                    <input date-picko type="text" class="form-control" ng-model="obj['fromDate_' + item.idx]" ng-repeat-model="obj.fromDate_{{item.idx}}" name="fromDate_{{item.idx}}" id="fromDate_{{item.idx}}" placeholder="N/A"/>
+								                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+								                                </div>
+			                                                    <p ng-show="formInfo.fromDate_{{item.idx}}.$invalid && !formInfo.fromDate_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+			                                                </div>
+			                                                <div class="col-sm-4">
+			                                                    <div class="input-group date">
+								                                    <input date-picko type="text" class="form-control" ng-model="obj['toDate_' + item.idx]" ng-repeat-model="obj.toDate_{{item.idx}}" name="toDate_{{item.idx}}" id="toDate_{{item.idx}}" placeholder="N/A"/>
+								                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+								                                </div>
+			                                                    <p ng-show="formInfo.toDate_{{item.idx}}.$invalid && !formInfo.toDate_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="from" class="col-sm-3 control-label">Start Time</label>
+			                                                <div class="col-sm-9">
+			                                                    <input type="text" class="form-control" name="start_{{item.idx}}" id="start_{{item.idx}}" maxlength="10" ng-model="obj['start_' + item.idx]" ui-mask="99:99" model-view-value="true">
+			                                                    <p ng-show="formInfo.start_{{item.idx}}.$invalid && !formInfo.start_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid Start time.</p>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="to" class="col-sm-3 control-label">End Time</label>
+			                                                <div class="col-sm-9">
+			                                                    <input type="text" class="form-control" name="end_{{item.idx}}" id="end_{{item.idx}}" maxlength="10" ng-model="obj['end_' + item.idx]" ui-mask="99:99" model-view-value="true">
+			                                                    <p ng-show="formInfo.end_{{item.idx}}.$invalid && !formInfo.end_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid End time.</p>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="wif_{{item.idx}}" class="col-sm-3 control-label">WIF (lb)</label>
+			                                                <div class="col-sm-9">
+			                                                    <input type="text" only-num maxlength="20" class="form-control" name="wif_{{item.idx}}" id="wif_{{item.idx}}" ng-model="obj['wif_' + item.idx]" placeholder="N/A">
+			                                                    <p ng-show="formInfo.wif_{{item.idx}}.$invalid && !formInfo.wif_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid WIF.</p>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="msp_{{item.idx}}" class="col-sm-3 control-label">MSP (lb)</label>
+			                                                <div class="col-sm-9">
+			                                                    <input type="text" only-num maxlength="20" class="form-control" name="msp_{{item.idx}}" id="msp_{{item.idx}}" ng-model="obj['msp_' + item.idx]" placeholder="N/A">
+			                                                    <p ng-show="formInfo.msp_{{item.idx}}.$invalid && !formInfo.msp_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid MSP.</p>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="wob_{{item.idx}}" class="col-sm-3 control-label">WOB (lb)</label>
+			                                                <div class="col-sm-9">
+			                                                    <input type="text" only-num maxlength="20" class="form-control" name="wob_{{item.idx}}" id="wob_{{item.idx}}" ng-model="obj['wob_' + item.idx]" placeholder="N/A">
+			                                                    <p ng-show="formInfo.wob_{{item.idx}}.$invalid && !formInfo.wob_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid WOB.</p>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="wp_{{item.idx}}" class="col-sm-3 control-label">WP (lb)</label>
+			                                                <div class="col-sm-9">
+			                                                    <input type="text" only-num maxlength="20" class="form-control" name="wp_{{item.idx}}" id="wp_{{item.idx}}" ng-model="obj['wp_' + item.idx]" placeholder="N/A">
+			                                                    <p ng-show="formInfo.wp_{{item.idx}}.$invalid && !formInfo.wp_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid WP.</p>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="wia_{{item.idx}}" class="col-sm-3 control-label">WIA (lb)</label>
+			                                                <div class="col-sm-9">
+			                                                    <input type="text" only-num maxlength="20" class="form-control" name="wia_{{item.idx}}" id="wia_{{item.idx}}" ng-model="obj['wia_' + item.idx]" placeholder="N/A">
+			                                                    <p ng-show="formInfo.wia_{{item.idx}}.$invalid && !formInfo.wia_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid WP.</p>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="pullHead_{{item.idx}}" class="col-sm-3 control-label">Max Pull at head (lb)</label>
+			                                                <div class="col-sm-9">
+			                                                    <input type="text" only-num maxlength="20" class="form-control" name="pullHead_{{item.idx}}" id="pullHead_{{item.idx}}" ng-model="obj['pullHead_' + item.idx]" placeholder="N/A">
+			                                                    <p ng-show="formInfo.pullHead_{{item.idx}}.$invalid && !formInfo.pullHead_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid WP.</p>
+			                                                </div>
+			                                            </div>
+			                                        </div>
+			                                        <div class="col-md-6">
+			                                            <div class="form-group">
+			                                                <label class="col-sm-3 control-label">Jar Serial #</label>
+			                                                <div class="col-sm-9">
+			                                                	<ui-select ng-model="obj['jarSerial_' + item.idx]" ng-disabled="disabled" search-enabled="false" on-select="selectSerial($item, $model, item.idx)">
+			                                                        <ui-select-match allow-clear placeholder="N/A">{{$select.selected}}</ui-select-match>
+			                                                        <ui-select-choices repeat="serial in serialList track by $index | filter: $select.search">
+			                                                            <span ng-bind-html="serial | highlight: $select.search"></span>
+			                                                        </ui-select-choices>
+			                                                    </ui-select>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label class="col-sm-3 control-label">Toolstring Name</label>
+			                                                <div class="col-sm-9">
+			                                                	<ui-select multiple ng-model="obj['toolstringName_' + item.idx]" ng-disabled="disabled" reset-search-input="true">
+						                                            <ui-select-match allow-clear placeholder="N/A">{{$item.code}}</ui-select-match>
+						                                            <ui-select-choices repeat="toolstring.code as toolstring in toolstringList[item.idx] | filter: $select.search | filterByCategory: obj['jarSerial_' + item.idx]: jobInfo.type">
+						                                                <span ng-bind-html="toolstring.code + ' - ' + toolstring.name | highlight: $select.search"></span>
+						                                            </ui-select-choices>
+						                                        </ui-select>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label class="col-sm-3 control-label">Toolstring Length (ft)</label>
+			                                                <div class="col-sm-9">
+			                                                    <input type="text" only-num maxlength="20" class="form-control" name="toolstringLength_{{item.idx}}" id="toolstringLength_{{item.idx}}" ng-model="obj['toolstringLength_' + item.idx]" placeholder="N/A">
+			                                                    <p ng-show="formInfo.toolstringLength_{{item.idx}}.$invalid && !formInfo.toolstringLength_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid Toolstring Length.</p>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label class="col-sm-3 control-label"># of Activation</label>
+			                                                <div class="col-sm-9">
+			                                                    <input type="text" only-num maxlength="20" class="form-control" name="numOfActivation_{{item.idx}}" id="numOfActivation_{{item.idx}}" ng-model="obj['numOfActivation_' + item.idx]" placeholder="N/A">
+			                                                    <p ng-show="formInfo.numOfActivation_{{item.idx}}.$invalid && !formInfo.numOfActivation_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid number of activation.</p>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+						                                	<label for="activation_{{item.idx}}" class="col-sm-3 control-label">Activation</label>
+						                                	<div class="col-sm-9">
+						                                   		<label class="radio-inline">
+																	<input uncheckable-radio type="radio" name="activation_{{item.idx}}" id="activation_{{item.idx}}1" ng-model="obj['activation_' + item.idx]" ng-repeat-model="obj.activation_{{item.idx}}" value="1"> Yes
+																</label>
+																<label class="radio-inline">
+																	<input uncheckable-radio type="radio" name="activation_{{item.idx}}" id="activation_{{item.idx}}2" ng-model="obj['activation_' + item.idx]" ng-repeat-model="obj.activation_{{item.idx}}" value="0" ng-change='activationChange(item.idx)'> No
+																</label>
+						                                   </div>
+						                              	</div>
+						                              	<div class="form-group">
+						                                	<label for="toolsFreed_{{item.idx}}" class="col-sm-3 control-label">Tools Freed</label>
+						                                	<div class="col-sm-9">
+						                                   		<label class="radio-inline">
+																	<input uncheckable-radio type="radio" name="toolsFreed_{{item.idx}}" id="toolsFreed_{{item.idx}}1" ng-model="obj['toolsFreed_' + item.idx]" ng-repeat-model="obj.toolsFreed_{{item.idx}}" value="1"> Yes
+																</label>
+																<label class="radio-inline">
+																	<input uncheckable-radio type="radio" name="toolsFreed_{{item.idx}}" id="toolsFreed_{{item.idx}}2" ng-model="obj['toolsFreed_' + item.idx]" ng-repeat-model="obj.toolsFreed_{{item.idx}}" value="0"> No
+																</label>
+																<label class="radio-inline">
+																	<input uncheckable-radio type="radio" name="toolsFreed_{{item.idx}}" id="toolsFreed_{{item.idx}}3" ng-model="obj['toolsFreed_' + item.idx]" ng-repeat-model="obj.toolsFreed_{{item.idx}}" value="2"> N/A
+																</label>
+						                                   </div>
+						                              	</div>
+						                              	<div class="form-group">
+						                                	<label for="fishing_{{item.idx}}" class="col-sm-3 control-label">Fishing</label>
+						                                	<div class="col-sm-9">
+						                                   		<label class="radio-inline">
+																	<input uncheckable-radio type="radio" name="fishing_{{item.idx}}" id="fishing_{{item.idx}}1" ng-model="obj['fishing_' + item.idx]" ng-repeat-model="obj.fishing_{{item.idx}}" value="1"> Yes
+																</label>
+																<label class="radio-inline">
+																	<input uncheckable-radio type="radio" name="fishing_{{item.idx}}" id="fishing_{{item.idx}}2" ng-model="obj['fishing_' + item.idx]" ng-repeat-model="obj.fishing_{{item.idx}}" value="0"> No
+																</label>
+						                                   </div>
+						                              	</div>
+						                              	<div class="form-group">
+						                                	<label for="impactPro_{{item.idx}}" class="col-sm-3 control-label">Impact Pro</label>
+						                                	<div class="col-sm-9">
+						                                   		<label class="radio-inline">
+																	<input uncheckable-radio type="radio" name="impactPro_{{item.idx}}" id="impactPro_{{item.idx}}1" ng-model="obj['impactPro_' + item.idx]" ng-repeat-model="obj.impactPro_{{item.idx}}" value="1"> Yes
+																</label>
+																<label class="radio-inline">
+																	<input uncheckable-radio type="radio" name="impactPro_{{item.idx}}" id="impactPro_{{item.idx}}2" ng-model="obj['impactPro_' + item.idx]" ng-repeat-model="obj.impactPro_{{item.idx}}" value="0"> No
+																</label>
+						                                   </div>
+						                              	</div>
+						                              	<div class="form-group">
+						                                    <label for="impactProSlotSize_{{item.idx}}" class="col-sm-3 control-label">Impact Pro Slot Size</label>
+						                                    <div class="col-sm-9">
+						                                        <ui-select ng-model="obj['impactProSlotSize_' + item.idx]" ng-disabled="disabled" search-enabled="false">
+						                                            <ui-select-match allow-clear placeholder="N/A">{{$select.selected.name}}</ui-select-match>
+						                                            <ui-select-choices repeat="slotSize._id as slotSize in slotSizeList | filter: $select.search">
+						                                                <span ng-bind-html="slotSize.name | highlight: $select.search"></span>
+						                                            </ui-select-choices>
+						                                        </ui-select>
+						                                    </div>
+						                                </div>
+			                                        </div>
+			                                        <div class="col-md-12">
+			                                            <hr>
+			                                        </div>
+			                                        <div class="col-md-12">
+			                                            <div ng-hide="jobInfo.type == '1'" class="form-group">
+			                                                <div class="col-sm-12">
+			                                                    <label class="control-label2">A. {{obj['wif_' + item.idx]?obj['wif_' + item.idx]:'WIF'}} Plus (2,000lbs) = Total (A) {{obj['wif_' + item.idx]?((1*obj['wif_' + item.idx]) + 2000): '' | roundPoint:2}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div ng-hide="jobInfo.type == '1'" class="form-group">
+			                                                <div class="col-sm-12">
+			                                                    <label class="control-label2">B. {{obj['msp_' + item.idx]?(1*obj['msp_' + item.idx]):'MSP'}} Minus ({{obj['wob_' + item.idx]?(1*obj['wob_' + item.idx]):'WOB'}} Minus {{obj['wif_' + item.idx]?(1*obj['wif_' + item.idx]):'WIF'}}) Minus (2,000lbs) = Total (B) {{obj['msp_' + item.idx] && obj['wob_' + item.idx] && obj['wif_' + item.idx]?(1*obj['msp_' + item.idx] - (1*obj['wob_' + item.idx] - 1*obj['wif_' + item.idx]) - 2000): '' | roundPoint:2}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div ng-hide="jobInfo.type == '1'" class="form-group">
+			                                                <div class="col-sm-12">
+			                                                    <label class="control-label2">C. {{obj['wp_' + item.idx]?(1*obj['wp_' + item.idx]):'WP'}} Minus (2,000lbs) = Total (C) {{obj['wp_' + item.idx]?(1*obj['wp_' + item.idx] - 2000): '' | roundPoint:2}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div ng-hide="jobInfo.type == '1'" class="form-group">
+			                                                <label class="col-sm-6 control-label">Maximum Tool Setting (lowest value of Total’s A, B & C above) =</label>
+			                                                <div class="col-sm-6">
+			                                                    <label class="control-label2" >{{obj['wif_' + item.idx] && obj['msp_' + item.idx] && obj['wob_' + item.idx] && obj['wp_' + item.idx]? (minimum([(1*obj['wif_' + item.idx]) + 2000, '(A)'], [(1*obj['msp_' + item.idx] - (1*obj['wob_' + item.idx] - 1*obj['wif_' + item.idx]) - 2000), '(B)'], [(1*obj['wp_' + item.idx] - 2000), '(C)']) ):''}} {{obj['wif_' + item.idx] && obj['msp_' + item.idx] && obj['wob_' + item.idx] && obj['wp_' + item.idx]? (minimum((1*obj['wif_' + item.idx]) + 2000, 1*obj['msp_' + item.idx] - (1*obj['wob_' + item.idx] - 1*obj['wif_' + item.idx]) - 2000, 1*obj['wp_' + item.idx] - 2000) ):'' | roundPoint:2}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div ng-hide="jobInfo.type == '1'" class="form-group">
+			                                                <label for="allowance_{{item.idx}}" class="col-sm-6 control-label">Allowance for drag/well conditions</label>
+			                                                <div class="col-sm-6">
+			                                                    <input type="text" class="form-control" name="allowance_{{item.idx}}" id="allowance_{{item.idx}}" maxlength="100" ng-model="obj['allowance_' + item.idx]" placeholder="N/A">
+			                                                    <p ng-show="formInfo.allowance_{{item.idx}}.$invalid && !formInfo.allowance_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid 'Allowance for drag/well conditions'.</p>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="tool_{{item.idx}}" class="col-sm-6 control-label">Tool string weight in air</label>
+			                                                <div class="col-sm-6">
+			                                                    <label class="control-label2">{{obj['wia_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="recommended_{{item.idx}}" class="col-sm-6 control-label">Recommended pre-set maximum impact effect</label>
+			                                                <div class="col-sm-6">
+			                                                    <input type="text" class="form-control" name="recommended_{{item.idx}}" id="recommended_{{item.idx}}" maxlength="100" ng-model="obj['recommended_' + item.idx]" placeholder="N/A">
+			                                                    <p ng-show="formInfo.recommended_{{item.idx}}.$invalid && !formInfo.recommended_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid 'Recommended pre-set maximum impact effect'.</p>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="actualJar_{{item.idx}}" class="col-sm-6 control-label">Pre-set actually used on jar</label>
+			                                                <div class="col-sm-6">
+			                                                    <input type="text" class="form-control" name="actualJar_{{item.idx}}" id="actualJar_{{item.idx}}" maxlength="100" ng-model="obj['actualJar_' + item.idx]" placeholder="N/A">
+			                                                    <p ng-show="formInfo.actualJar_{{item.idx}}.$invalid && !formInfo.actualJar_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid 'Pre-set actually used on jar'.</p>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="ifPreset_{{item.idx}}" class="col-sm-6 control-label">If pre-set selected is other than recommend maximum explain</label>
+			                                                <div class="col-sm-6">
+			                                                    <input type="text" class="form-control" name="ifPreset_{{item.idx}}" id="ifPreset_{{item.idx}}" maxlength="200" ng-model="obj['ifPreset_' + item.idx]" placeholder="N/A">
+			                                                    <p ng-show="formInfo.ifPreset_{{item.idx}}.$invalid && !formInfo.ifPreset_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid 'If pre-set selected is other than recommend maximum explain'.</p>
+			                                                </div>
+			                                            </div>
+			                                        </div>
+			                                        <div class="col-md-12">
+			                                        	<hr>
+				                                        <div class="form-group">
+				                                        	<label for="signatureName_{{item.idx}}" class="col-sm-6 control-label">Signature Name</label>
+				                                        	<div class="col-sm-3">
+				                                        		<input type="text" class="form-control" name="signatureName_{{item.idx}}" id="signatureName_{{item.idx}}" maxlength="100" ng-model="obj['signatureName_' + item.idx]" placeholder="N/A">
+				                                        		<p ng-show="formInfo.signatureName_{{item.idx}}.$invalid && !formInfo.signatureName_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid Signature Name.</p>
+				                                        	</div>
+				                                        	<div class="col-sm-3">
+				                                        		<div class="input-group date">
+				                                        			<input date-picko type="text" class="form-control" ng-model="obj['signatureDate_' + item.idx]" ng-repeat-model="obj.signatureDate_{{item.idx}}" name="signatureDate_{{item.idx}}" id="signatureDate_{{item.idx}}" placeholder="N/A"/>
+				                                        			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				                                        		</div>
+				                                        	</div>
+				                                        </div>
+				                                        <div class="form-group">
+				                                        	<label for="techName_{{item.idx}}" class="col-sm-6 control-label">ISI Technician</label>
+				                                        	<div class="col-sm-3">				                                        
+				                                        		<ui-select tagging tagging-tokens="ENTER" tagging-label="('new')" ng-model="obj['techName_' + item.idx]" title="Choose existing or write new">
+																	<ui-select-match allow-clear placeholder="N/A">{{$select.selected}}</ui-select-match>
+																	<ui-select-choices repeat="technician in technicianList | filter: $select.search">
+																		<div ng-bind-html="technician | highlight: $select.search"></div>
+																	</ui-select-choices>
+																</ui-select>
+				                                        	</div>
+				                                        	<div class="col-sm-3">
+				                                        		<div class="input-group date">
+				                                        			<input date-picko type="text" class="form-control" ng-model="obj['techDate_' + item.idx]" ng-repeat-model="obj.techDate_{{item.idx}}" name="techDate_{{item.idx}}" id="techDate_{{item.idx}}" placeholder="N/A"/>
+				                                        			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				                                        		</div>
+				                                        	</div>
+				                                        </div>
+				                                        <div class="form-group">
+				                                        	<label for="wlcoName_{{item.idx}}" class="col-sm-6 control-label">W/L Co. Engineer</label>
+				                                        	<div class="col-sm-3">
+				                                        		<input type="text" class="form-control" name="wlcoName_{{item.idx}}" id="wlcoName_{{item.idx}}" maxlength="100" ng-model="obj['wlcoName_' + item.idx]" placeholder="N/A">
+				                                        		<p ng-show="formInfo.wlcoName_{{item.idx}}.$invalid && !formInfo.wlcoName_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid W/L Co. Engineer Name.</p>
+				                                        	</div>
+				                                        	<div class="col-sm-3">
+				                                        		<div class="input-group date">
+				                                        			<input date-picko type="text" class="form-control" ng-model="obj['wlcoDate_' + item.idx]" ng-repeat-model="obj.wlcoDate_{{item.idx}}" name="wlcoDate_{{item.idx}}" id="wlcoDate_{{item.idx}}" placeholder="N/A"/>
+				                                        			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				                                        		</div>
+				                                        	</div>
+				                                        </div>
+				                                        <div class="form-group">
+				                                        	<label for="oilName_{{item.idx}}" class="col-sm-6 control-label">Oil & Gas Co. Rep</label>
+				                                        	<div class="col-sm-3">
+				                                        		<input type="text" class="form-control" name="oilName_{{item.idx}}" id="oilName_{{item.idx}}" maxlength="100" ng-model="obj['oilName_' + item.idx]" placeholder="N/A">
+				                                        		<p ng-show="formInfo.oilName_{{item.idx}}.$invalid && !formInfo.oilName_{{item.idx}}.$pristine" class="help-block text-danger">Enter a valid Oil & Gas Co. Rep Name.</p>
+				                                        	</div>
+				                                        	<div class="col-sm-3">
+				                                        		<div class="input-group date">
+				                                        			<input date-picko type="text" class="form-control" ng-model="obj['oilDate_' + item.idx]" ng-repeat-model="obj.oilDate_{{item.idx}}" name="oilDate_{{item.idx}}" id="oilDate_{{item.idx}}" placeholder="N/A"/>
+				                                        			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+				                                        		</div>
+				                                        	</div>
+				                                        </div>
+			                                        </div>
+				                                </div>
+			                                </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

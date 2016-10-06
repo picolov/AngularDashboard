@@ -1,0 +1,428 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}" class="current"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{obj.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-if="svo" ng-href="#/jobInfoOutgoingTools{{obj.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-if="svo" ng-href="#/jobInfoOnSiteReport/{{_id}}"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+	    <div class="col-md-12 panel panel-info">
+	        <div class="panel-body">
+	            <div class="row">
+	                <div class="col-md-12 clearfix">
+                        <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Job Detail</h4>
+
+                        <div class="pull-right">
+                            <a ng-if="obj.status._id != '2' || haveAllAccess('@completeJobEdit')" href="#/jobInfoEdit/{{_id}}" class="btn btn-primary">Edit</a>
+                            <span ng-if="statusJob != '2' || haveAllAccess('@completeJobUpload')" class="btn btn-primary btn-file">
+                                    Upload <input type="file" id="upload" name="upload" onchange="angular.element(this).scope().upload()"/>
+                            </span>
+                            <a ng-if="haveAllAccess('@jobDelete')" href="javascript:;" ng-click="deleteObj()" class="btn btn-primary">Delete</a>
+                            <a href="#/jobInfo" class="btn btn-primary">Job List</a>
+                        </div>
+                    </div>
+	                <form name="formInfo" class="formObj form-horizontal" novalidate>
+	                	<div class="col-md-12" ng-show="obj.uploadedFile && obj.uploadedFile.length > 0">
+                            <table class="table table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td class="col-md-3">File Name</td>
+                                        <td class="col-md-3">Size</td>
+                                        <td class="col-md-3">Upload Date</td>
+                                        <td class="col-md-3">Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="uploadedFile in obj.uploadedFile">
+                                        <td data-title="'Name'">
+                                            {{uploadedFile.name}}
+                                        </td>
+                                        <td data-title="'Size'">
+                                            {{uploadedFile.size}}
+                                        </td>
+                                        <td data-title="'Upload Date'">
+                                            {{formatTime(uploadedFile.uploadDate, 'MM/dd/yy hh:mm:ss')}}
+                                        </td>
+                                        <td data-title="'Action'">
+                                            <a href="javascript:;" ng-click="download(uploadedFile.url)" class="btn btn-blue">Download</a>
+                                            <a ng-if="statusJob != '2' || haveAllAccess('@completeJobUpload')" href="javascript:;" ng-click="deleteFile(uploadedFile)" class="btn btn-blue">Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+		           		<div class="col-md-6 panel panel-gray">
+		                    <div class="panel-heading">
+		                        <h4>Job Information</h4>
+		                        <div class="options">
+		                            <div><small>* = Required Information</small></div>
+		                        </div>
+		                    </div>
+		                    <div class="panel-body">
+		                    	<div class="form-group">
+								    <label class="col-sm-3 control-label">Job UID</label>
+								    <div class="col-sm-9">
+								        <label class="control-label2">{{obj.uid | ifEmpty:'N/A'}}</label>
+								    </div>
+								</div>
+								<div class="form-group">
+                                	<label class="col-sm-3 control-label">Service Order Type</label>
+                                	<div class="col-sm-9">
+                                   		<label class="control-label2">{{obj.type == '0' ? 'Open Hole' : obj.type == '1' ? 'Cased Hole' : '' | ifEmpty:'N/A'}}</label>
+                                   </div>
+                              	</div>
+                              	<div class="form-group">
+                                	<label class="col-sm-3 control-label">Job Type</label>
+                                 	<div class="col-sm-9">
+                                    	<label class="control-label2">{{obj.environment == '0' ? 'Land' : obj.environment == '1' ? 'Offshore' : obj.environment == '2' ? 'International' : '' | ifEmpty:'N/A'}}</label>
+                                	</div>
+                              	</div>
+                              	<div class="form-group">
+                                	<label class="col-sm-3 control-label">Environment</label>
+                                 	<div class="col-sm-9">
+                                    	<label class="control-label2">{{obj.jobEnv == '0' ? 'Land' : obj.jobEnv == '1' ? 'Inland Waters' : obj.jobEnv == '2' ? 'Shelf' : obj.jobEnv == '3' ? 'Deepwater' : '' | ifEmpty:'N/A'}}</label>
+                                	</div>
+                              	</div>
+                              	<div class="form-group">
+                                	<label class="col-sm-3 control-label">Well Condition</label>
+                                	<div class="col-sm-9">
+                                    	<label class="control-label2">{{mergeString(', ', obj.isCO2?'CO2':'', obj.isH2S?'H2S':'', obj.isHighTemp?'High Temperature':'', obj.isHighPress?'High Pressure':'', obj.isOther?obj.isOtherVal:'') | ifEmpty:'N/A'}}</label>
+                                 	</div>
+                             	</div>
+                             	<div class="form-group">
+                                    <label class="col-sm-3 control-label">Well Type</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.wellType == '0' ? 'Developmental' : obj.wellType == '1' ? 'Exploration' : obj.wellType == '2' ? 'Appraisal' : '' | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                             	<div class="form-group">
+                                    <label class="col-sm-3 control-label">Rig Name</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.rigName | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                             	<div class="form-group">
+                                    <label class="col-sm-3 control-label">Platform</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.rigType.name | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Well Name/#</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.wellName | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Block</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.block | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Lease</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.lease | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Field</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.field | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">AFE#</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.afe | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">OCSG</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.ocsg | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">State Lease #</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.stateLease | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">API</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.api | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">PO#</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.po | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+	                                 <label class="col-sm-3 control-label">Potential Dates</label>
+	                                 <div class="col-sm-9">
+	                                     <label class="control-label2">{{formatTime(obj.startDate, 'MM/dd/yy') | ifEmpty:'N/A'}}</label>
+	                                 </div>
+	                        	</div>
+	                        	<div class="form-group">
+                                    <label class="col-sm-3 control-label"># of Runs</label>
+                                    <div class="col-sm-9">
+                                    	<!-- For Land -->
+                                        <label ng-if="obj.environment == '0' && !obj.isHighTemp && !obj.isHighPress" class="control-label2">{{obj.runs | ifEmpty:'N/A'}}</label>
+                                        <!-- Other than Land -->
+                                        <label ng-if="obj.environment != '0' || obj.isHighTemp || obj.isHighPress" class="control-label2">{{obj.runs | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                	<label class="col-sm-3 control-label">Estimated Revenue</label>
+                                	<div class="col-sm-9">
+                                   		<label class="control-label2">{{obj.estimatedRevenue | ifEmpty:'N/A'}}</label>
+                                   </div>
+                              	</div>
+                                <div class="form-group">
+                                	<label class="col-sm-3 control-label">Impact Pro</label>
+                                	<div class="col-sm-9">
+                                   		<label class="control-label2">{{obj.impactPro == '0' ? 'No' : obj.impactPro == '1' ? 'Yes' : '' | ifEmpty:'N/A'}}</label>
+                                   </div>
+                              	</div>
+	                        	<div class="form-group">
+                                    <label class="col-sm-3 control-label">Deviation (deg)</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.deviation | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Temp (F)</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.temp | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Job Status</label>
+                                    <div class="col-sm-9" id="status">
+                                        <label class="control-label2">{{obj.status.name | ifEmpty:'N/A'}}</label>
+                                    </div>
+                                </div>
+                                <div ng-if="obj.status && obj.status._id == '0'" class="form-group">
+                                    <label class="col-sm-3 control-label">Comments</label>
+                                    <div class="col-sm-9">
+                                        <textarea cols="50" rows="4" class="full-width disabled-textarea" readonly>{{obj.comment | ifEmpty:'N/A'}}</textarea>
+                                    </div>
+                                </div>
+		                    </div>
+		               	</div>
+						<div class="col-md-6">
+							<div class="col-md-12 panel panel-gray">
+			                    <div class="panel-heading">
+			                        <h4>Location</h4>
+			                        <div class="options">
+			                        </div>
+			                    </div>
+			                    <div class="panel-body">
+			                    	<div class="form-group">
+									    <label class="col-sm-3 control-label">Country</label>
+									    <div class="col-sm-9">
+									        <label class="control-label2">{{obj.country | ifEmpty:'N/A'}}</label>
+									    </div>
+									</div>
+									<div class="form-group">
+	                                    <label class="col-sm-3 control-label">Region</label>
+	                                    <div class="col-sm-9">
+	                                        <label class="control-label2">{{obj.region.name | ifEmpty:'N/A'}}</label>
+	                                    </div>
+	                                </div>
+									<div class="form-group">
+									    <label class="col-sm-3 control-label">County</label>
+									    <div class="col-sm-9">
+									        <label class="control-label2">{{obj.county | ifEmpty:'N/A'}}</label>
+									    </div>
+									</div>
+									<div class="form-group">
+									    <label class="col-sm-3 control-label">City</label>
+									    <div class="col-sm-9">
+									        <label class="control-label2">{{obj.city | ifEmpty:'N/A'}}</label>
+									    </div>
+									</div>
+									<div class="form-group">
+									    <label class="col-sm-3 control-label">State</label>
+									    <div class="col-sm-9">
+									        <label class="control-label2">{{obj.state | ifEmpty:'N/A'}}</label>
+									    </div>
+									</div>
+									<div class="form-group">
+									    <label class="col-sm-3 control-label">Parish</label>
+									    <div class="col-sm-9">
+									        <label class="control-label2">{{obj.parish | ifEmpty:'N/A'}}</label>
+									    </div>
+									</div>
+									<div class="form-group">
+									    <label class="col-sm-3 control-label">Longitude</label>
+									    <div class="col-sm-9">
+									        <label class="control-label2">{{obj.longitude | ifEmpty:'N/A'}}</label>
+									    </div>
+									</div>
+									<div class="form-group">
+									    <label class="col-sm-3 control-label">Latitude</label>
+									    <div class="col-sm-9">
+									        <label class="control-label2">{{obj.latitude | ifEmpty:'N/A'}}</label>
+									    </div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12 panel panel-gray">
+			                    <div class="panel-heading">
+			                        <h4>Contact Information</h4>
+			                        <div class="options">
+			                        </div>
+			                    </div>
+			                    <div class="panel-body">
+			                    	<div class="form-group">
+                                        <label class="col-sm-3 control-label">Rig Phone#</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{obj.rigPhone | ifEmpty:'N/A'}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Rig Fax#</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{obj.rigFax | ifEmpty:'N/A'}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Rig Email</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{obj.rigEmail | ifEmpty:'N/A'}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Engineer Phone#</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{obj.wirelineEngineer.phone?obj.wirelineEngineer.phone:obj.wirelineEngineer.mobile?obj.wirelineEngineer.mobile:obj.wirelineEngineer.homePhone?obj.wirelineEngineer.homePhone:obj.wirelineEngineer.otherPhone?obj.wirelineEngineer.otherPhone:obj.wirelineEngineer.assistPhone?obj.wirelineEngineer.assistPhone:'' | ifEmpty:'N/A'}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Engineer Email</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{obj.wirelineEngineer.email | ifEmpty:'N/A'}}</label>
+                                        </div>
+                                    </div>
+								</div>
+							</div>
+							<div class="col-md-12 panel panel-gray">
+			                    <div class="panel-heading">
+			                        <h4>Other Information</h4>
+			                        <div class="options">
+			                        </div>
+			                    </div>
+			                    <div class="panel-body">
+			                    	<div class="form-group">
+                                        <label class="col-sm-3 control-label">Oil & Gas Company</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{obj.oilCompany.name | ifEmpty:'N/A'}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Service Company</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{obj.serviceCompany.name | ifEmpty:'N/A'}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+	                                    <label class="col-sm-3 control-label">Wireline Engineer</label>
+	                                    <div class="col-sm-9">
+	                                        <label class="control-label2">{{(obj.wirelineEngineer.titleName + " " + obj.wirelineEngineer.firstName + " " + obj.wirelineEngineer.middleName + " " + obj.wirelineEngineer.lastName) | ifEmpty:'N/A'}}</label>
+	                                    </div>
+	                                </div>
+	                                <div class="form-group">
+	                                    <label class="col-sm-3 control-label">Company Man</label>
+	                                    <div class="col-sm-9">
+	                                        <label class="control-label2">{{(obj.companyMan.titleName + " " + obj.companyMan.firstName + " " + obj.companyMan.middleName + " " + obj.companyMan.lastName) | ifEmpty:'N/A'}}</label>
+	                                    </div>
+	                                </div>
+	                                <div class="form-group">
+	                                    <label class="col-sm-3 control-label">Dispatcher</label>
+	                                    <div class="col-sm-9">
+	                                        <label class="control-label2">{{(obj.dispatcher.titleName + " " + obj.dispatcher.firstName + " " + obj.dispatcher.middleName + " " + obj.dispatcher.lastName) | ifEmpty:'N/A'}}</label>
+	                                    </div>
+	                                </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Technician 1</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{obj.technician | ifEmpty:'N/A'}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Technician 2</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{obj.technician2 | ifEmpty:'N/A'}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sales" class="col-sm-3 control-label">Sales</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{obj.sales.employeeName | ifEmpty:'N/A'}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+	                                    <label class="col-sm-3 control-label">Contact</label>
+	                                    <div class="col-sm-9">
+	                                        <label class="control-label2">{{obj.contact.titleName + " " + obj.contact.firstName + " " + obj.contact.middleName + " " + obj.contact.lastName | ifEmpty:'N/A'}}</label>
+	                                    </div>
+	                                </div>
+	                                <div class="form-group">
+		                                 <label class="col-sm-3 control-label">Last Contact Date</label>
+		                                 <div class="col-sm-9">
+		                                     <label class="control-label2">{{formatTime(obj.contactDate, 'MM/dd/yy') | ifEmpty:'N/A'}}</label>
+		                                 </div>
+		                        	</div>
+		                        	<div class="form-group">
+		                                 <label class="col-sm-3 control-label">Follow Up Date</label>
+		                                 <div class="col-sm-9">
+		                                     <label class="control-label2">{{formatTime(obj.followDate, 'MM/dd/yy') | ifEmpty:'N/A'}}</label>
+		                                 </div>
+		                        	</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>System Information</h4>
+                                </div>
+                                <div class="panel-body">
+	                                <div class="form-group">
+	                                    <label class="col-sm-3 control-label">Created By</label>
+	                                    <div class="col-sm-9">
+	                                        <label class="control-label2">{{obj.createdBy}}</label>
+	                                        <br>
+	                                        <label class="control-label2">{{formatTime(obj.createdTime)}}</label>
+	                                    </div>
+	                                </div>
+	                                <div class="form-group">
+	                                    <label class="col-sm-3 control-label">Updated By</label>
+	                                    <div class="col-sm-9">
+	                                        <label class="control-label2">{{obj.updatedBy}}</label>
+	                                        <br>
+	                                        <label class="control-label2">{{formatTime(obj.updatedTime)}}</label>
+	                                    </div>
+	                                </div>
+                                </div>
+                            </div>
+                    	</div>
+	                </form>
+	            </div>
+	     	</div>
+	  	</div>
+ 	</div>
+</div>
+

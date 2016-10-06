@@ -1,0 +1,204 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}" class="current"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Open Hole Jar Leak & Continuity Check - BAKER Detail</h4>
+
+                            <div class="pull-right">
+                            	<a href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+                                <a ng-href="#/jobInfoOutgoingTools0/{{_id}}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Open Hole Jar Leak & Continuity Check - BAKER Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<form name="formInfo" class="formObj form-horizontal" novalidate>
+                                		<div class="col-md-6">
+                                			<div class="form-group">
+                                                <label for="jarModel" class="col-sm-3 control-label">Jar Model</label>
+                                                <div class="col-sm-9">
+													<label class="radio-inline">
+														<input uncheckable-radio type="radio" name="jarModel" id="jarModelb" ng-model="obj.jarModel" value="1" disabled> MCX
+													</label>
+													<label class="radio-inline">
+														<input uncheckable-radio type="radio" name="jarModel" id="jarModelb" ng-model="obj.jarModel" value="2" disabled> BMFT
+													</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jarType" class="col-sm-3 control-label">Jar Type</label>
+                                                <div class="col-sm-9">
+                                                	<label class="radio-inline">
+														<input uncheckable-radio type="radio" name="jarType" id="jarTypea" ng-model="obj.jarType" value="0" disabled> 10-pin
+													</label>
+													<label class="radio-inline">
+														<input uncheckable-radio type="radio" name="jarType" id="jarTypeb" ng-model="obj.jarType" value="1" disabled> 26-pin
+													</label>
+                                                </div>
+                                            </div>
+                                			<div class="form-group">
+	                                            <label for="jarSerial" class="col-sm-3 control-label">Jar Serial #</label>
+	                                            <div class="col-sm-9">
+	                                            	<ui-select ng-model="obj.jarSerial" ng-disabled="disabled" search-enabled="false" on-select="selectSerial($item, $model)">
+                                                        <ui-select-match allow-clear placeholder="-Pick a value-">{{$select.selected}}</ui-select-match>
+                                                        <ui-select-choices repeat="serial in serialList track by $index | filter: $select.search">
+                                                            <span ng-bind-html="serial | highlight: $select.search"></span>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+	                                            </div>
+                                            </div>
+                                			<div class="form-group">
+                                                <label for="date" class="col-sm-3 control-label">Date</label>
+                                                <div class="col-sm-9">
+					                                <div class="input-group date">
+					                                    <input date-picko today-when-empty="true" type="text" class="form-control" ng-model="obj.date" name="date" id="date"/>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+                                                    <p ng-show="formInfo.date.$invalid && !formInfo.date.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="rta" class="col-sm-3 control-label">RTA</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.uid}}</label>
+                                                </div>
+                                            </div>
+                                		</div>
+                                		<div class="col-md-6">
+                                			<div class="form-group">
+	                                            <label for="megSerial" class="col-sm-3 control-label">Meg-Meter Serial #</label>
+	                                            <div class="col-sm-6">
+	                                                <input type="text" maxlength="100" class="form-control"  name="megSerial" id="megSerial" ng-model="obj.megSerial">
+	                                                <p ng-show="formInfo.megSerial.$invalid && !formInfo.megSerial.$pristine" class="help-block text-danger">Enter a valid Serial.</p>
+	                                            </div>
+	                                            <div class="col-sm-3">
+	                                            	<a href="javascript:;" ng-click="copyPrevMeg()" class="btn btn-primary full-width">Copy Previous</a>
+	                                            </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="megDate" class="col-sm-3 control-label">Meg-Meter Calibration Date</label>
+                                                <div class="col-sm-9">
+					                                <div class="input-group date">
+					                                    <input date-picko type="text" class="form-control" ng-model="obj.megDate" name="megDate" id="megDate"/>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+                                                    <p ng-show="formInfo.megDate.$invalid && !formInfo.megDate.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inOut" class="col-sm-3 control-label">In/Out</label>
+                                                <div class="col-sm-9">
+                                                	<div class="radio">
+                                                		<label class="radio-inline"><input uncheckable-radio type="radio" name="inOut" id="inOuta" ng-model="obj.inOut" value="0"> Incoming from </label>
+                                                		<input type="text" class="" name="inOut0Value" id="inOut0Value" maxlength="100" ng-model="obj.inOut0Value">
+													</div>
+													<div class="radio">
+														<label class="radio-inline"><input uncheckable-radio type="radio" name="inOut" id="inOutb" ng-model="obj.inOut" value="1"> Outgoing to </label>
+														<input type="text" class="" name="inOut1Value" id="inOut1Value" maxlength="100" ng-model="obj.inOut1Value">
+													</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="techName" class="col-sm-3 control-label">Technician</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" maxlength="100" class="form-control"  name="techName" id="techName" ng-model="obj.techName">
+                                                    <p ng-show="formInfo.techName.$invalid && !formInfo.techName.$pristine" class="help-block text-danger">Enter a valid Technician Name.</p>
+                                                </div>
+                                                <div class="col-sm-4">
+					                                <div class="input-group date">
+					                                    <input date-picko today-when-empty="true" type="text" class="form-control" ng-model="obj.techDate" name="techDate" id="techDate"/>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+                                                    <p ng-show="formInfo.techDate.$invalid && !formInfo.techDate.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="facilityName" class="col-sm-3 control-label">Facility or Engineering Mgr</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" maxlength="100" class="form-control"  name="facilityName" id="facilityName" ng-model="obj.facilityName">
+                                                    <p ng-show="formInfo.facilityName.$invalid && !formInfo.facilityName.$pristine" class="help-block text-danger">Enter a valid Manager Name.</p>
+                                                </div>
+                                                <div class="col-sm-4">
+					                                <div class="input-group date">
+					                                    <input date-picko type="text" class="form-control" ng-model="obj.facilityDate" name="facilityDate" id="facilityDate"/>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+                                                    <p ng-show="formInfo.facilityDate.$invalid && !formInfo.facilityDate.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inspectorName" class="col-sm-3 control-label">Third Party Inspector</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" maxlength="100" class="form-control"  name="inspectorName" id="inspectorName" ng-model="obj.inspectorName">
+                                                    <p ng-show="formInfo.inspectorName.$invalid && !formInfo.inspectorName.$pristine" class="help-block text-danger">Enter a valid Inspector Name.</p>
+                                                </div>
+                                                <div class="col-sm-4">
+					                                <div class="input-group date">
+					                                    <input date-picko type="text" class="form-control" ng-model="obj.inspectorDate" name="inspectorDate" id="inspectorDate"/>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+                                                    <p ng-show="formInfo.inspectorDate.$invalid && !formInfo.inspectorDate.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+                                                </div>
+                                            </div>
+                                		</div>
+                                		<div class="col-md-12">
+                                			<hr>
+											<div class="form-group">
+										    	<label class="col-sm-2 text-center">Line #</label>
+	                                      		<label class="col-sm-5 text-center">Continuity</label>
+	                                      		<label class="col-sm-5 text-center">Leaks</label>
+											</div>
+											<div class="form-group">
+										    	<label class="col-sm-2 text-center">&nbsp;</label>
+										    	<div class="col-sm-4">
+	                                      			<input type="text" maxlength="100" class="form-control" name="continuityAll" id="continuityAll" ng-model="continuityAll">
+	                                      		</div>
+	                                      		<div class="col-sm-1">
+	                                      			<a href="javascript:;" ng-click="copyContinuity()" class="btn btn-primary form-control">Copy</a>
+	                                      		</div>
+	                                      		<div class="col-sm-4">
+	                                      			<input type="text" maxlength="100" class="form-control" name="leaksAll" id="leaksAll" ng-model="leaksAll">
+	                                      		</div>
+	                                      		<div class="col-sm-1">
+	                                      			<a href="javascript:;" ng-click="copyLeaks()" class="btn btn-primary form-control">Copy</a>
+	                                      		</div>
+											</div>
+											<div class="form-group" ng-repeat="i in getPinNumber(obj.jarType)">
+										    	<label class="col-sm-2 control-label text-center">{{i}}</label>
+										    	<div class="col-sm-5">
+	                                      			<input type="text" maxlength="100" class="form-control" name="continuity{{i}}" id="continuity{{i}}" ng-model="obj['continuity' + i]">
+	                                      		</div>
+	                                      		<div class="col-sm-5">
+	                                      			<input type="text" maxlength="100" class="col-sm-5 form-control" name="leaks{{i}}" id="leaks{{i}}" ng-model="obj['leaks' + i]">
+	                                      		</div>
+											</div>
+										</div>
+                                   	</form>
+                               	</div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

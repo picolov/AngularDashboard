@@ -1,0 +1,278 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#/myProfile">Profile</a></li>
+							<li class=""><a href="#/myExpenseList">Expense Report</a></li>
+							<li class=""><a href="#/myActivityLog">Activity Log</a></li>
+						</ul>
+					</h4>
+					<div class="options">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-user"></i>&nbsp;&nbsp;{{obj.employeeName}} - {{obj.positionName}}</h4>
+
+                            <div class="pull-right">
+                                <a href="#/myProfileEdit" class="btn btn-primary">Edit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        	<div class="panel panel-gray">
+                        		<div class="panel-body">
+                        			<img id="photo" class="img-responsive" alt="Default Photo" src="">
+                       			</div>
+                 			</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Individual Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <form class="form-horizontal">
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Nationality</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.nationality}}</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Birth Place & Date</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.birthPlace}}, {{formatTime(obj.birthDate, 'MM/dd/yy')}}</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Email</label>
+                                                <div class="col-sm-9">
+	                                                <label class="control-label2">{{obj.email}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Skype</label>
+                                                <div class="col-sm-9">
+	                                                <label class="control-label2">{{obj.skype}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Mobile Phones</label>
+                                                <div class="col-sm-9">
+	                                                <label class="control-label2">{{obj.mobile}}</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                        	<div class="panel panel-primary">
+	                        	<div class="panel-heading">
+									<h4>
+										<ul class="nav nav-tabs">
+											<li class="active"><a data-target="#activeJobs" data-toggle="tab">Active Jobs</a></li>
+											<li class=""><a data-target="#address" data-toggle="tab">Address Information</a></li>
+											<li class=""><a data-target="#past" data-toggle="tab">Past Experience</a></li>
+											<li class=""><a data-target="#training" data-toggle="tab">Certification and Training</a></li>
+											<li class=""><a data-target="#education" data-toggle="tab">Education</a></li>
+											<li class=""><a data-target="#hse" data-toggle="tab">HSE Information</a></li>
+										</ul>
+									</h4>
+									<div class="options">
+									</div>
+								</div>
+                                <div class="panel-body">
+                                	<form class="form-horizontal">
+	                                	<div class="tab-content">
+	                                		<div class="tab-pane active" id="activeJobs">
+	                                			<!-- HEADER : BEGIN-->
+		                            			<div class="col-xs-3 no-padding-horizontal text-center">RTA#</div>
+		                            			<div class="col-xs-3 no-padding-horizontal text-center">Rig Name</div>
+		                            			<div class="col-xs-4 no-padding-horizontal text-center">Oil & Gas Company</div>
+		                            			<div class="col-xs-2 no-padding-horizontal text-center">Location</div>
+		                            			<!-- HEADER : END -->
+		                            			<div class="col-xs-12">&nbsp;</div>
+		                            			<!-- DATA ROW: BEGIN -->
+		                            			<div class="col-xs-12 no-padding-horizontal" ng-repeat="job in obj.activeJobs" on-last-repeat>
+			                            			<div class="col-xs-3">
+			                            				<input type="text" ng-model="job.uid" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-3">
+			                            				<input type="text" ng-model="job.rigName" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-4">
+			                            				<input type="text" ng-model="job.oilCompany.name" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-2">
+			                            				<i ng-if="job.latitude && job.longitude" class="fa fa-globe mapPopover" ng-attr-data-location="{{job.latitude + ',' + job.longitude}}"> Mini Map</i>
+			                            			</div>
+			                            			<div class="col-xs-12">&nbsp;</div>
+		                            			</div>
+		                            			<!-- DATA ROW : END -->
+	                                		</div>
+									    	<div class="tab-pane" id="address">
+									    		<div class="col-md-6">
+		                                            <div class="form-group">
+		                                                <label class="col-sm-6 control-label">Street</label>
+		                                                <div class="col-sm-6">
+		                                                    <div class="control-label2">{{obj.street}}</div>
+		                                                </div>
+		                                            </div>
+		                                            <div class="form-group">
+		                                                <label class="col-sm-6 control-label">City</label>
+		                                                <div class="col-sm-6">
+		                                                    <div class="control-label2">{{obj.city}}</div>
+		                                                </div>
+		                                            </div>
+		                                            <div class="form-group">
+		                                                <label class="col-sm-6 control-label">State</label>
+		                                                <div class="col-sm-6">
+		                                                    <div class="control-label2">{{obj.state}}</div>
+		                                                </div>
+		                                            </div>
+		                                            <div class="form-group">
+		                                                <label class="col-sm-6 control-label">Zip Code</label>
+		                                                <div class="col-sm-6">
+		                                                    <div class="control-label2">{{obj.zip}}</div>
+		                                                </div>
+		                                            </div>
+			                                    </div>
+			                                    <div class="col-md-6">
+		                                            &nbsp;
+			                                    </div>
+									    	</div>
+									    	<div class="tab-pane" id="past">
+									    		<!-- HEADER : BEGIN-->
+		                            			<div class="col-xs-2 no-padding-horizontal text-center">Dates(Year)</div>
+		                            			<div class="col-xs-3 no-padding-horizontal text-center">Company</div>
+		                            			<div class="col-xs-3 no-padding-horizontal text-center">Title</div>
+		                            			<div class="col-xs-4 no-padding-horizontal text-center">Description</div>
+		                            			<!-- HEADER : END -->
+		                            			<div class="col-xs-12">&nbsp;</div>
+		                            			<!-- DATA ROW: BEGIN -->
+		                            			<div class="col-xs-12 no-padding-horizontal" ng-repeat="itemIdx in get_item_count(this, 'pastCount')">
+			                            			<div class="col-xs-2">
+			                            				<input type="text" name="yearRange{{itemIdx}}" id="yearRange{{itemIdx}}" ng-model="obj['yearRange_' + itemIdx]" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-3">
+			                            				<input type="text" name="company{{itemIdx}}" id="company{{itemIdx}}" ng-model="obj['company_' + itemIdx]" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-3">
+			                            				<input type="text" name="title{{itemIdx}}" id="title{{itemIdx}}" ng-model="obj['title_' + itemIdx]" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-4">
+			                            				<textarea name="desc{{itemIdx}}" id="desc{{itemIdx}}" ng-maxlength="500" ng-model="obj['desc_' + itemIdx]" cols="50" rows="4" class="full-width disabled-textarea" readonly></textarea>
+			                            			</div>
+			                            			<div class="col-xs-12">&nbsp;</div>
+		                            			</div>
+		                            			<!-- DATA ROW : END -->
+									    	</div>
+									    	<div class="tab-pane" id="training">
+									    		<!-- HEADER : BEGIN-->
+		                            			<div class="col-xs-6 no-padding-horizontal text-center">Name</div>
+		                            			<div class="col-xs-3 no-padding-horizontal text-center">Completed</div>
+		                            			<div class="col-xs-3 no-padding-horizontal text-center">Expired</div>
+		                            			<!-- HEADER : END -->
+		                            			<div class="col-xs-12">&nbsp;</div>
+		                            			<!-- DATA ROW: BEGIN -->
+		                            			<div class="col-xs-12 no-padding-horizontal" ng-repeat="itemIdx in get_item_count(this, 'trainingCount')">
+			                            			<div class="col-xs-6">
+			                            				<input type="text" name="trainingName{{itemIdx}}" id="trainingName{{itemIdx}}" ng-model="obj['trainingName_' + itemIdx]" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-3">
+			                            				<input type="text" name="trainingCompleted{{itemIdx}}" id="trainingCompleted{{itemIdx}}" ng-model="obj['trainingCompleted_' + itemIdx]" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-3">
+			                            				<input ng-if="obj['trainingExpired_' + itemIdx] != '0000-00-00'" type="text" name="trainingExpired{{itemIdx}}" id="trainingExpired{{itemIdx}}" ng-model="obj['trainingExpired_' + itemIdx]" class="full-width" readonly>
+			                            				<input ng-if="obj['trainingExpired_' + itemIdx] == '0000-00-00'" type="text" name="trainingExpired{{itemIdx}}" id="trainingExpired{{itemIdx}}" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-12">&nbsp;</div>
+		                            			</div>
+		                            			<!-- DATA ROW : END -->
+									    	</div>
+									    	<div class="tab-pane" id="education">
+									    		<!-- HEADER : BEGIN-->
+		                            			<div class="col-xs-2 no-padding-horizontal text-center">Level</div>
+		                            			<div class="col-xs-3 no-padding-horizontal text-center">Major</div>
+		                            			<div class="col-xs-3 no-padding-horizontal text-center">Inst.</div>
+		                            			<div class="col-xs-2 no-padding-horizontal text-center">Start</div>
+		                            			<div class="col-xs-2 no-padding-horizontal text-center">End</div>
+		                            			
+		                            			<!-- HEADER : END -->
+		                            			<div class="col-xs-12">&nbsp;</div>
+		                            			<!-- DATA ROW: BEGIN -->
+		                            			<div class="col-xs-12 no-padding-horizontal" ng-repeat="itemIdx in get_item_count(this, 'educationCount')">
+			                            			<div class="col-xs-2">
+			                            				<input type="text" name="educationLevel{{itemIdx}}" id="educationLevel{{itemIdx}}" ng-model="obj['educationLevel_' + itemIdx]" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-3">
+			                            				<input type="text" name="educationMajor{{itemIdx}}" id="educationMajor{{itemIdx}}" ng-model="obj['educationMajor_' + itemIdx]" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-3">
+			                            				<input type="text" name="educationInstitution{{itemIdx}}" id="educationInstitution{{itemIdx}}" ng-model="obj['educationInstitution_' + itemIdx]" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-2">
+			                            				<input type="text" name="educationStart{{itemIdx}}" id="educationStart{{itemIdx}}" ng-model="obj['educationStart_' + itemIdx]" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-2">
+			                            				<input type="text" name="educationEnd{{itemIdx}}" id="educationEnd{{itemIdx}}" ng-model="obj['educationEnd_' + itemIdx]" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-12">&nbsp;</div>
+		                            			</div>
+		                            			<!-- DATA ROW : END -->
+									    	</div>
+									    	<div class="tab-pane" id="hse">
+									    		<div class="col-md-12">
+		                                            <div class="form-group">
+		                                                <label class="col-sm-3 control-label">Card No</label>
+		                                                <div class="col-sm-9">
+			                                                <label class="control-label2">{{obj.cardNo}}</label>
+		                                                </div>
+		                                            </div>
+		                                            <div class="form-group">
+		                                                <label class="col-sm-3 control-label">Offshore Medical Expiry Date</label>
+		                                                <div class="col-sm-9">
+			                                                <label class="control-label2">{{formatTime(obj.medicalExpiryDate, 'MM/dd/yy')}}</label>
+		                                                </div>
+		                                            </div>
+		                                            <div class="form-group">
+		                                                <label class="col-sm-3 control-label">Offshore Survival Expiry Date</label>
+		                                                <div class="col-sm-9">
+			                                                <label class="control-label2">{{formatTime(obj.survivalExpiryDate, 'MM/dd/yy')}}</label>
+		                                                </div>
+		                                            </div>
+		                                            <div class="form-group">
+		                                                <label class="col-sm-3 control-label">H2S Certification Expiry Date</label>
+		                                                <div class="col-sm-9">
+			                                                <label class="control-label2">{{formatTime(obj.h2sExpiryDate, 'MM/dd/yy')}}</label>
+		                                                </div>
+		                                            </div>
+			                                    </div>
+									    	</div>
+									  	</div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

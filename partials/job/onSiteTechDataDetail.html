@@ -1,0 +1,415 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="current"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;ISI Tech Data Sheet Detail</h4>
+
+                            <div class="pull-right">
+                                <input type="text" class="" maxlength="500" name="emailTo" id="emailTo" placeholder="Email Address" style="height: 28px; vertical-align: middle;">
+                                <a href="javascript:;" ng-click="sentEmail()" class="btn btn-primary">Email</a>
+                            	<a ng-if="(jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit')) && (myJob(jobInfo) || haveAllAccess('@onSiteEdit'))" ng-href="#/jobInfoOnSiteTechDataEdit/{{_id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+                            </div>
+                        </div>
+						<form name="formInfo" class="formObj form-horizontal" novalidate>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Technician Name</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{obj.technician}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">RTA#</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{jobInfo.uid}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="date" class="col-sm-3 control-label">Date</label>
+                                    <div class="col-sm-9">
+                                        <label class="control-label2">{{formatTime(obj.date, 'MM/dd/yy')}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">&nbsp;
+                            </div>
+                            <div class="col-md-12 no-padding-horizontal">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Operator</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{jobInfo.oilCompany.name}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Address</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{jobInfo.oilCompany.billingStreet}}</label>
+                                            <br>
+                                            <label class="control-label2">{{mergeString(',', jobInfo.oilCompany.billingCity, jobInfo.oilCompany.billingState)}}</label>
+                                            <br>
+                                            <label class="control-label2">{{jobInfo.oilCompany.billingZip}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Service Company</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{jobInfo.serviceCompany.name}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Address</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{jobInfo.serviceCompany.billingStreet}}</label>
+                                            <br>
+                                            <label class="control-label2">{{mergeString(',', jobInfo.serviceCompany.billingCity, jobInfo.serviceCompany.billingState)}}</label>
+                                            <br>
+                                            <label class="control-label2">{{jobInfo.serviceCompany.billingZip}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Rig Name</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{jobInfo.rigName}}</label>
+                                        </div>
+                                    </div>
+                                    <div ng-if="jobInfo.country && jobInfo.country=='United States'" class="form-group">
+                                        <label class="col-sm-3 control-label">Location</label>
+                                        <div class="col-sm-9" id="region">
+                                            <label class="control-label2">{{obj.region.name}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Project</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{obj.field}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Final Job Rev</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{obj.currentRevenue}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">&nbsp;
+                            </div>
+                            <div class="col-md-12">
+                                <div class="panel panel-gray">
+                                    <div class="panel-heading">
+                                        <h4>Contact Information</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="col-md-12 no-padding-horizontal">
+                                            <div class="col-md-4" ng-repeat="coman in getComanCount" style="height: 250px;">
+                                                <div class="panel panel-gray">
+                                                    <div class="panel-body">
+                                                        <div class="col-md-12 clearfix">
+                                                            <h4 class="pull-left" style="margin: 0 0 20px;">
+                                                                Company Man
+                                                            </h4>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Name</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['coman_' + coman.idx].titleName + ' ' + obj['coman_' + coman.idx].firstName + ' ' + obj['coman_' + coman.idx].middleName + ' ' + obj['coman_' + coman.idx].lastName}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Day/Night</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['comanDayNight_' + coman.idx]}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Email</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['comanEmail_' + coman.idx]}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Phone</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['comanPhone_' + coman.idx]}}</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 no-padding-horizontal">
+                                            <div class="col-md-4" ng-repeat="engineer in getEngineerCount" style="height: 250px;">
+                                                <div class="panel panel-gray">
+                                                    <div class="panel-body">
+                                                        <div class="col-md-12 clearfix">
+                                                            <h4 class="pull-left" style="margin: 0 0 20px;">
+                                                                Wireline Engineer
+                                                            </h4>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Name</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['engineer_' + engineer.idx].titleName + ' ' + obj['engineer_' + engineer.idx].firstName + ' ' + obj['engineer_' + engineer.idx].middleName + ' ' + obj['engineer_' + engineer.idx].lastName}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Title</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['engineerTitle_' + engineer.idx]}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Email</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['engineerEmail_' + engineer.idx]}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Phone</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['engineerPhone_' + engineer.idx]}}</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 no-padding-horizontal">
+                                            <div class="col-md-4" ng-repeat="geo in getGeoCount" style="height: 250px;">
+                                                <div class="panel panel-gray">
+                                                    <div class="panel-body">
+                                                        <div class="col-md-12 clearfix">
+                                                            <h4 class="pull-left" style="margin: 0 0 20px;">
+                                                                Geologist
+                                                            </h4>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Name</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['geo_' + geo.idx].titleName + ' ' + obj['geo_' + geo.idx].firstName + ' ' + obj['geo_' + geo.idx].middleName + ' ' + obj['geo_' + geo.idx].lastName}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Title</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['geoTitle_' + geo.idx]}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Email</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['geoEmail_' + geo.idx]}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Phone</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['geoPhone_' + geo.idx]}}</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 no-padding-horizontal">
+                                            <div class="col-md-4" ng-repeat="other in getOtherCount" style="height: 250px;">
+                                                <div class="panel panel-gray">
+                                                    <div class="panel-body">
+                                                        <div class="col-md-12 clearfix">
+                                                            <h4 class="pull-left" style="margin: 0 0 20px;">
+                                                                {{obj['otherRole_' + other.idx]}}
+                                                            </h4>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Name</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['other_' + other.idx].titleName + ' ' + obj['other_' + other.idx].firstName + ' ' + obj['other_' + other.idx].middleName + ' ' + obj['other_' + other.idx].lastName}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Title</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['otherTitle_' + other.idx]}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Email</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['otherEmail_' + other.idx]}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Phone</label>
+                                                                <div class="col-sm-9">
+                                                                    <label class="control-label2">{{obj['otherPhone_' + other.idx]}}</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="panel panel-gray">
+                                    <div class="panel-heading">
+                                        <h4>Job Information</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="col-xs-12"><h4>Job Summary</h4></div>
+                                        <div class="col-xs-12">
+                                            <div class="horizontalOverflow">
+                                                <table width=100% border="1">
+                                                    <tr>
+                                                        <th class="text-center">Run #</th>
+                                                        <th class="text-center">ToolString</th>
+                                                        <th class="text-center">Activation</th>
+                                                        <th class="text-center">Tools Freed</th>
+                                                        <th class="text-center">Fishing</th>
+                                                    </tr>
+                                                    <tr ng-repeat="summary in getSummaryCount">
+                                                        <td><span class="label-table">{{obj['run_' + summary.idx]}}</span></td>
+                                                        <td><span class="label-table"><span ng-repeat="toolstring in obj['toolstring_' + summary.idx]">{{$first ? toolstring : (", " + toolstring)}}</span></span></td>
+                                                        <td><span class="label-table">{{obj['activation_' + summary.idx] == '1'? 'Yes':obj['activation_' + summary.idx] == '0'? 'No':''}}</span></td>
+                                                        <td><span class="label-table">{{obj['toolsfreed_' + summary.idx] == '1'? 'Yes':obj['toolsfreed_' + summary.idx] == '0'? 'No':obj['toolsfreed_' + summary.idx] == '2'? 'N/A':''}}</span></td>
+                                                        <td><span class="label-table">{{obj['fishing_' + summary.idx] == '1'? 'Yes':obj['fishing_' + summary.idx] == '0'? 'No':''}}</span></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">&nbsp;</div>
+                                        <div class="col-xs-12"><h4>Rig Moving</h4></div>
+                                        <div class="col-xs-12">
+                                            <div class="horizontalOverflow">
+                                                <table width=100% border="1">
+                                                    <tr>
+                                                        <th class="text-center">Future Location</th>
+                                                        <th class="text-center">Estimated Move Date</th>
+                                                    </tr>
+                                                    <tr ng-repeat="rigMoving in getRigMovingCount">
+                                                        <td><span class="label-table">{{obj['futureLocation_' + rigMoving.idx]}}</span></td>
+                                                        <td><span class="label-table">{{formatTime(obj['moveDate_' + rigMoving.idx], 'MM/dd/yy')}}</span></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">&nbsp;</div>
+                                        <div class="col-xs-12"><h4>Rig Status</h4></div>
+                                        <div class="col-xs-12">
+                                            <div class="horizontalOverflow">
+                                                <table width=100% border="1">
+                                                    <tr>
+                                                        <th class="text-center">Status</th>
+                                                        <th class="text-center">Length</th>
+                                                    </tr>
+                                                    <tr ng-repeat="rigStatus in getRigStatusCount">
+                                                        <td><span class="label-table">{{obj['status_' + rigStatus.idx]}}</span></td>
+                                                        <td><span class="label-table">{{obj['length_' + rigStatus.idx]}}</span></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">&nbsp;</div>
+                                        <div class="col-xs-12"><h4>Upcoming Logging on Rig</h4></div>
+                                        <div class="col-xs-12">
+                                            <div class="horizontalOverflow">
+                                                <table width=100% border="1">
+                                                    <tr>
+                                                        <th class="text-center">Future Logging Date</th>
+                                                        <th class="text-center">Project Name</th>
+                                                        <th class="text-center">Location</th>
+                                                        <th class="text-center">Equipment Needed</th>
+                                                        <th class="text-center">HPHT/Standard</th>
+                                                    </tr>
+                                                    <tr ng-repeat="rigUpcoming in getRigUpcomingCount">
+                                                        <td><span class="label-table">{{formatTime(obj['loggingDate_' + rigUpcoming.idx], 'MM/dd/yy')}}</span></td>
+                                                        <td><span class="label-table">{{obj['projectName_' + rigUpcoming.idx]}}</span></td>
+                                                        <td><span class="label-table">{{obj['location_' + rigUpcoming.idx]}}</span></td>
+                                                        <td><span class="label-table">{{obj['equipment_' + rigUpcoming.idx]}}</span></td>
+                                                        <td><span class="label-table">{{obj['hphtStandard_' + rigUpcoming.idx]}}</span></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">&nbsp;</div>
+                                        <div class="col-xs-12"><h4>Other Rig Status</h4></div>
+                                        <div class="col-xs-12">
+                                            <div class="horizontalOverflow">
+                                                <table width=100% border="1">
+                                                    <tr>
+                                                        <th class="text-center">Rig Name</th>
+                                                        <th class="text-center">Operator</th>
+                                                        <th class="text-center">Service Company</th>
+                                                        <th class="text-center">Current Status</th>
+                                                        <th class="text-center">Equipment Needed</th>
+                                                        <th class="text-center">Estimated Callout</th>
+                                                        <th class="text-center">Project Name</th>
+                                                        <th class="text-center">Location</th>
+                                                        <th class="text-center">Moving Location</th>
+                                                        <th class="text-center">Moving Date</th>
+                                                    </tr>
+                                                    <tr ng-repeat="rigOther in getRigOtherCount">
+                                                        <td><span class="label-table">{{obj['otherRigName_' + rigOther.idx]}}</span></td>
+                                                        <td><span class="label-table">{{obj['otherOperator_' + rigOther.idx]}}</span></td>
+                                                        <td><span class="label-table">{{obj['otherServiceCompany_' + rigOther.idx]}}</span></td>
+                                                        <td><span class="label-table">{{obj['otherCurrentStatus_' + rigOther.idx]}}</span></td>
+                                                        <td><span class="label-table">{{obj['otherEquipment_' + rigOther.idx]}}</span></td>
+                                                        <td><span class="label-table">{{formatTime(obj['otherCallout_' + rigOther.idx], 'MM/dd/yy')}}</span></td>
+                                                        <td><span class="label-table">{{obj['otherProjectName_' + rigOther.idx]}}</span></td>
+                                                        <td><span class="label-table">{{obj['otherLocation_' + rigOther.idx]}}</span></td>
+                                                        <td><span class="label-table">{{obj['otherMoveLocation_' + rigOther.idx]}}</span></td>
+                                                        <td><span class="label-table">{{formatTime(obj['otherMoveDate_' + rigOther.idx], 'MM/dd/yy')}}</span></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">&nbsp;</div>
+                                        <div class="col-xs-12"><h4>Additional Info</h4></div>
+                                        <div class="col-xs-12">
+                                            <textarea name="loggingComment" id="loggingComment" maxlength="400" ng-model="obj.loggingComment" cols="50" rows="4" class="form-control disabled-textarea" readonly></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,428 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="current"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Daily Job Report Detail</h4>
+
+                            <div class="pull-right">
+                            	<a ng-if="(jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit')) && (myJob(jobInfo) || haveAllAccess('@onSiteEdit'))" ng-href="#/jobInfoOnSiteDailyJobEdit/{{_id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Daily Job Report Detail</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Date</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{formatTime(obj.fromDate, 'MM/dd/yy') | ifEmpty:'N/A'}} - {{formatTime(obj.toDate, 'MM/dd/yy') | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Wireline Co</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.serviceCompany.name | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Well</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.wellName | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Field</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.field | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">State</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.state | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Job Description</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.type == '0' ? 'Open Hole Wireline' : jobInfo.type == '1' ? 'Cased Hole Wireline' : '' | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Total Well Depth (ft)</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{svo.td | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="holeSize" class="col-sm-3 control-label">Hole Size (in)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.holeSize | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="mudWt" class="col-sm-3 control-label">Mud Weight (lb/gal)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{svo.mudWt | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="runs" class="col-sm-3 control-label"># of Runs</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.runs | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="currentRevenue" class="col-sm-3 control-label">Current Revenue</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.currentRevenue | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+			                                    <label class="col-sm-3 control-label">Notes</label>
+			                                    <div class="col-sm-9">
+			                                        <textarea cols="50" rows="4" class="full-width disabled-textarea" readonly>{{obj.notes | ifEmpty:'N/A'}}</textarea>
+			                                    </div>
+			                                </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                        	<div class="form-group">
+                                                <label for="ticketNo" class="col-sm-3 control-label">Ticket No.</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.ticketNo | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Oil Company</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.oilCompany.name | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Block</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.block | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">OCSG</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.ocsg | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="po" class="col-sm-3 control-label">PO #</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.po | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="api" class="col-sm-3 control-label">API</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.api | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="costCenter" class="col-sm-3 control-label">Cost Center #</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.costCenter | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="operator" class="col-sm-3 control-label">ISI Operator</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.operator | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Deviation (deg)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.deviation | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Bottom Hole Pressure (psi)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{svo.bhp | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cableSize" class="col-sm-3 control-label">Cable Size (in)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.cableSize | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                        	<div class="form-group">
+                                                <label class="col-sm-3 control-label">RTA #</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.uid | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Rig</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.rigName | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Lease</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.lease | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Country / Parish</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{mergeString('/', jobInfo.country, jobInfo.parish) | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Region</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.region.name | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="unitSerial" class="col-sm-3 control-label">Unit Serial</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{getSerial() | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="afe" class="col-sm-3 control-label">AFE #</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.afe | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="engineer" class="col-sm-3 control-label">WL Engineer</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{mergeString(' ', jobInfo.wirelineEngineer.titleName, jobInfo.wirelineEngineer.firstName, jobInfo.wirelineEngineer.lastName) | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="waterDepth" class="col-sm-3 control-label">Water Depth (ft)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.waterDepth | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="temp" class="col-sm-3 control-label">Temperature (F)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.temp | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cableWeight" class="col-sm-3 control-label">Cable weight per 1,000 ft (lb)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.cableWeight | ifEmpty:'N/A'}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+										<div class="col-md-12 hide">
+											<hr>
+										</div>
+                                        <div class="col-md-12 hide">
+                                            <table ng-table="chargeTableParams" class="table">
+				                                <tr ng-repeat="charge in $data">
+				                                	<td data-title="'Date'">
+				                                        {{formatTime(charge.chargeDate, 'MM/dd/yy')}}
+				                                    </td>
+				                                	<td data-title="'Charges'">
+				                                        <span ng-bind-html="charge.chargeName | formatText"></span>
+				                                    </td>
+				                                    <td data-title="'# of Charges'">
+				                                        <span ng-bind-html="charge.numOfCharge | formatText"></span>
+				                                    </td>
+				                                    <td data-title="'Amount'">
+				                                        <span ng-bind-html="charge.amount | formatText"></span>
+				                                    </td>
+				                                    <td data-title="'Total'">
+				                                        <span ng-bind-html="charge.total | formatText"></span>
+				                                    </td>
+				                                </tr>
+				                            </table>
+				                            <hr>
+				                            <div class="form-group">
+				                            	<div class="col-sm-3 text-center">
+                                                    <label class="control-label">Charges</label>
+                                                </div>
+                                                <div class="col-sm-3 text-center">
+                                                    <label class="control-label"># of Charges</label>
+                                                </div>
+                                                <div class="col-sm-3 text-center">
+                                                    <label class="control-label">Amount</label>
+                                                </div>
+                                                <div class="col-sm-3 text-center">
+                                                    <label class="control-label">Total</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label2">First Day Charge</label>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.numOfChargeFirst}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.amountFirst | currency}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.totalFirst | currency}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label2">Additional Charge</label>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.numOfChargeAdditional}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.amountAdditional | currency}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.totalAdditional | currency}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label2">Run Charge</label>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.numOfChargeRun}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.amountRun | currency}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.totalRun | currency}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label2">Standby Charge</label>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.numOfChargeStandBy}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.amountStandBy | currency}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.totalStandBy | currency}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label2">Technician Charge</label>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.numOfChargeTechnician}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.amountTechnician | currency}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.totalTechnician | currency}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label2">Activation Charge</label>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.numOfChargeActivation}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.amountActivation | currency}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.totalActivation | currency}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label2">Lost In Hole Charge</label>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.numOfChargeLost}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.amountLost | currency}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.totalLost | currency}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label2">Mileage Charge</label>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.numOfChargeMileage}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.amountMileage | currency}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.totalMileage | currency}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label2">&nbsp;</label>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">&nbsp;</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label">Total</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="control-label2">{{obj.totalFirst + obj.totalAdditional + obj.totalRun + obj.totalStandBy + obj.totalTechnician + obj.totalActivation + obj.totalLost + obj.totalMileage | currency}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <hr>
+                                        </div>
+                                      	<div class="col-md-12">
+				                            <table ng-table="objTableParams" class="table">
+				                                <tr ng-repeat="item in $data">
+				                                	<td data-title="'Date'">
+				                                        {{formatTime(item.activityDate, 'MM/dd/yy')}}
+				                                    </td>
+				                                	<td data-title="'Status'">
+				                                        {{item.status}}
+				                                    </td>
+				                                    <td data-title="'From'">
+				                                        {{item.from}}
+				                                    </td>
+				                                    <td data-title="'To'">
+				                                        {{item.to}}
+				                                    </td>
+				                                    <td data-title="'Description'">
+				                                        <textarea ng-model="item.desc" cols="50" rows="4" class="full-width disabled-textarea" readonly></textarea>
+				                                    </td>
+				                                </tr>
+				                            </table>
+				                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

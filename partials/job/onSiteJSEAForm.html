@@ -1,0 +1,611 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="current"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;JSEA Detail</h4>
+
+                            <div class="pull-right">
+                            	<span ng-show="formInfo.$invalid" class="label label-danger">form not completed</span>
+                                <a href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+                                <a ng-href="#/jobInfoOnSiteJSEAList/{{_id}}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+
+                        <form name="formInfo" class="formObj form-horizontal col-md-12" novalidate>
+                            <div class="panel panel-gray col-md-12">
+                                <div class="panel-heading">
+                                    <h4>Pre-Job Safety Meeting</h4>
+                                </div>
+                                <div class="panel-body">
+	                                <div class="col-md-6">
+	                                	<div class="form-group">
+	                                		<label for="date" class="col-sm-3 control-label">Date</label>
+	                                		<div class="col-sm-9">
+	                                			<div class="input-group date">
+	                                    			<input date-picko today-when-empty="true" type="text" class="form-control" ng-model="obj.date" name="date" id="date"/>
+	                                    			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+	                                			</div>
+                                                <p ng-show="formInfo.date.$invalid && !formInfo.date.$pristine" class="help-block text-danger">not a valid Date.</p>
+                                            </div>
+                                        </div>
+	                                	<div class="form-group">
+	                                        <label for="rev" class="col-sm-3 control-label">Rev</label>
+	                                        <div class="col-sm-9">
+	                                            <input type="text" class="form-control" name="rev" id="rev" maxlength="8" ng-model="obj.rev">
+	                                            <p ng-show="formInfo.rev.$invalid && !formInfo.rev.$pristine" class="help-block text-danger">Enter a valid Rev.</p>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="company" class="col-sm-3 control-label">Company</label>
+	                                        <div class="col-sm-9">
+	                                            <label class="control-label2">{{jobInfo.oilCompany.name}}</label>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="location" class="col-sm-3 control-label">Location</label>
+	                                        <div class="col-sm-9">
+	                                            <label class="control-label2">{{jobInfo.rigName}}</label>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="djrNo" class="col-sm-3 control-label">DJR#</label>
+	                                        <div class="col-sm-9">
+	                                            <label class="control-label2">{{dailyJob.ticketNo}}</label>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="col-md-6">
+	                                	<div class="form-group">
+                                            <label for="version" class="col-sm-3 control-label">Choose One</label>
+                                            <div class="col-sm-9">
+                                                <label class="radio-inline">
+													<input uncheckable-radio type="radio" name="version" id="version1" ng-model="obj.version" value="0"> Revised
+												</label>
+												<label class="radio-inline">
+													<input uncheckable-radio type="radio" name="version" id="version2" ng-model="obj.version" value="1"> New
+												</label>
+                                            </div>
+                                        </div>
+	                                	<div class="form-group">
+	                                        <label for="technician" class="col-sm-3 control-label">ISI Technician</label>
+	                                        <div class="col-sm-9">
+	                                            <ui-select tagging tagging-tokens="ENTER" tagging-label="('new')" ng-model="obj.technician" title="Choose existing or write new">
+													<ui-select-match allow-clear placeholder="Select existing or write new">{{$select.selected}}</ui-select-match>
+													<ui-select-choices repeat="technician in technicianList | filter: $select.search">
+														<div ng-bind-html="technician | highlight: $select.search"></div>
+													</ui-select-choices>
+												</ui-select>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="workActivity" class="col-sm-3 control-label">Work Activity (job)</label>
+	                                        <div class="col-sm-9">
+	                                            <input type="text" class="form-control" name="workActivity" id="workActivity" maxlength="70" ng-model="obj.workActivity">
+	                                            <p ng-show="formInfo.workActivity.$invalid && !formInfo.workActivity.$pristine" class="help-block text-danger">Enter a valid Activity.</p>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="approvedBy" class="col-sm-3 control-label">JSA Approved By</label>
+	                                        <div class="col-sm-9">
+	                                            <input type="text" class="form-control" name="approvedBy" id="approvedBy" maxlength="116" ng-model="obj.approvedBy">
+	                                            <p ng-show="formInfo.approvedBy.$invalid && !formInfo.approvedBy.$pristine" class="help-block text-danger">Enter a valid Approver.</p>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="signature" class="col-sm-3 control-label">Supervisor Signature</label>
+	                                        <div class="col-sm-9">
+	                                            <input type="text" class="form-control" name="signature" id="signature" maxlength="114" ng-model="obj.signature">
+	                                            <p ng-show="formInfo.signature.$invalid && !formInfo.signature.$pristine" class="help-block text-danger">Enter a valid Signature.</p>
+	                                        </div>
+	                                    </div>
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-gray col-md-12">
+                                <div class="panel-heading">
+                                    <h4>Pre-Job Hazard Assessment</h4>
+                                </div>
+                                <div class="panel-body">
+	                                <div class="col-md-3">
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess1" id="assess1" ng-model="obj.assess1" value="1">Chemical Exposure</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess2" id="assess2" ng-model="obj.assess2" value="1">Hazardous Atmosphere</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess3" id="assess3" ng-model="obj.assess3" value="1">Noise</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess4" id="assess4" ng-model="obj.assess4" value="1">Working Surfaces</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess5" id="assess5" ng-model="obj.assess5" value="1">Potential Energy</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess6" id="assess6" ng-model="obj.assess6" value="1">Walking Surfaces</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess7" id="assess7" ng-model="obj.assess7" value="1">Ignition Sources</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess8" id="assess8" ng-model="obj.assess8" value="1">Fire/Explosion</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess9" id="assess9" ng-model="obj.assess9" value="1">Pressure</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess10" id="assess10" ng-model="obj.assess10" value="1">Lifting</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess11" id="assess11" ng-model="obj.assess11" value="1">Overhead</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess12" id="assess12" ng-model="obj.assess12" value="1">Machinery</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess13" id="assess13" ng-model="obj.assess13" value="1">Heat Stress</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess14" id="assess14" ng-model="obj.assess14" value="1">Spills</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess15" id="assess15" ng-model="obj.assess15" value="1">Slips/Trips</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess16" id="assess16" ng-model="obj.assess16" value="1">Falls/Open Holes</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess17" id="assess17" ng-model="obj.assess17" value="1">Chips/Slivers</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess18" id="assess18" ng-model="obj.assess18" value="1">Pinch Points</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess19" id="assess19" ng-model="obj.assess19" value="1">Other</label>
+                                			<input type="text" class="" name="assess19Val" id="assess19Val" ng-model="obj.assess19Val" maxlength="10">
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess20" id="assess20" ng-model="obj.assess20" value="1">Other</label>
+                                			<input type="text" class="" name="assess20Val" id="assess20Val" ng-model="obj.assess20Val" maxlength="10">
+										</div>
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-gray col-md-8">
+                                <div class="panel-heading">
+                                    <h4>Environmental Issues</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<div class="col-md-6">
+                                		<div class="form-group">
+	                                        <label for="weather" class="col-sm-6 control-label">Weather Conditions</label>
+	                                        <div class="col-sm-6">
+	                                            <input type="text" class="form-control" name="weather" id="weather" maxlength="10" ng-model="obj.weather">
+	                                            <p ng-show="formInfo.weather.$invalid && !formInfo.weather.$pristine" class="help-block text-danger">Enter a valid Condition.</p>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="msds" class="col-sm-6 control-label">MSDS</label>
+	                                        <div class="col-sm-6">
+	                                            <input type="text" class="form-control" name="msds" id="msds" maxlength="10" ng-model="obj.msds">
+	                                            <p ng-show="formInfo.msds.$invalid && !formInfo.msds.$pristine" class="help-block text-danger">Enter a valid MSDS.</p>
+	                                        </div>
+	                                    </div>
+                                	</div>
+                                	<div class="col-md-6">
+                                		<div class="form-group">
+	                                        <label for="eyewash" class="col-sm-6 control-label">Eyewash/Shower</label>
+	                                        <div class="col-sm-6">
+	                                            <input type="text" class="form-control" name="eyewash" id="eyewash" maxlength="10" ng-model="obj.eyewash">
+	                                            <p ng-show="formInfo.eyewash.$invalid && !formInfo.eyewash.$pristine" class="help-block text-danger">Enter a valid Eyewash.</p>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="material" class="col-sm-6 control-label">Containment Material</label>
+	                                        <div class="col-sm-6">
+	                                            <input type="text" class="form-control" name="material" id="material" maxlength="10" ng-model="obj.material">
+	                                            <p ng-show="formInfo.material.$invalid && !formInfo.material.$pristine" class="help-block text-danger">Enter a valid Material.</p>
+	                                        </div>
+	                                    </div>
+                                	</div>
+                                </div>
+                            </div>
+                            <div class="panel panel-gray col-md-4">
+                                <div class="panel-heading">
+                                    <h4>Permit/Procedure</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<div class="form-group">
+                                        <label for="lockOut" class="col-sm-6 control-label">Lock Out/Tag Out</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" name="lockOut" id="lockOut" maxlength="44" ng-model="obj.lockOut">
+                                            <p ng-show="formInfo.lockOut.$invalid && !formInfo.lockOut.$pristine" class="help-block text-danger">Enter a valid Lockout.</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="other" class="col-sm-6 control-label">Other</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" name="other" id="other" maxlength="44" ng-model="obj.other">
+                                            <p ng-show="formInfo.other.$invalid && !formInfo.other.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 text-center">
+                            	<h4>Work Sequence (Job Steps)</h4>
+                            </div>
+                            <div class="col-xs-4 text-center">
+                            	<h4>Hazards or Potential for Incident</h4>
+                            </div>
+                            <div class="col-xs-5 text-center">
+                            	<h4>Recommendations to Eliminate or Reduce Hazards</h4>
+                            </div>
+                            <div class="col-xs-3"><input type="text" class="form-control" name="work1" id="work1" maxlength="32" ng-model="obj.work1"></div>
+                            <div class="col-xs-4"><input type="text" class="form-control" name="hazard1" id="hazard1" maxlength="42" ng-model="obj.hazard1"></div>
+                            <div class="col-xs-5"><input type="text" class="form-control" name="recommend1" id="recommend1" maxlength="55" ng-model="obj.recommend1"></div>
+                            <div class="col-xs-3"><input type="text" class="form-control" name="work2" id="work2" maxlength="32" ng-model="obj.work2"></div>
+                            <div class="col-xs-4"><input type="text" class="form-control" name="hazard2" id="hazard2" maxlength="42" ng-model="obj.hazard2"></div>
+                            <div class="col-xs-5"><input type="text" class="form-control" name="recommend2" id="recommend2" maxlength="55" ng-model="obj.recommend2"></div>
+                            <div class="col-xs-3"><input type="text" class="form-control" name="work3" id="work3" maxlength="32" ng-model="obj.work3"></div>
+                            <div class="col-xs-4"><input type="text" class="form-control" name="hazard3" id="hazard3" maxlength="42" ng-model="obj.hazard3"></div>
+                            <div class="col-xs-5"><input type="text" class="form-control" name="recommend3" id="recommend3" maxlength="55" ng-model="obj.recommend3"></div>
+                            <div class="col-xs-3"><input type="text" class="form-control" name="work4" id="work4" maxlength="32" ng-model="obj.work4"></div>
+                            <div class="col-xs-4"><input type="text" class="form-control" name="hazard4" id="hazard4" maxlength="42" ng-model="obj.hazard4"></div>
+                            <div class="col-xs-5"><input type="text" class="form-control" name="recommend4" id="recommend4" maxlength="55" ng-model="obj.recommend4"></div>
+                            <div class="col-xs-3"><input type="text" class="form-control" name="work5" id="work5" maxlength="32" ng-model="obj.work5"></div>
+                            <div class="col-xs-4"><input type="text" class="form-control" name="hazard5" id="hazard5" maxlength="42" ng-model="obj.hazard5"></div>
+                            <div class="col-xs-5"><input type="text" class="form-control" name="recommend5" id="recommend5" maxlength="55" ng-model="obj.recommend5"></div>
+                            <div class="col-xs-3"><input type="text" class="form-control" name="work6" id="work6" maxlength="32" ng-model="obj.work6"></div>
+                            <div class="col-xs-4"><input type="text" class="form-control" name="hazard6" id="hazard6" maxlength="42" ng-model="obj.hazard6"></div>
+                            <div class="col-xs-5"><input type="text" class="form-control" name="recommend6" id="recommend6" maxlength="55" ng-model="obj.recommend6"></div>
+                            <div class="col-xs-3"><input type="text" class="form-control" name="work7" id="work7" maxlength="32" ng-model="obj.work7"></div>
+                            <div class="col-xs-4"><input type="text" class="form-control" name="hazard7" id="hazard7" maxlength="42" ng-model="obj.hazard7"></div>
+                            <div class="col-xs-5"><input type="text" class="form-control" name="recommend7" id="recommend7" maxlength="55" ng-model="obj.recommend7"></div>
+                            <div class="col-xs-3"><input type="text" class="form-control" name="work8" id="work8" maxlength="32" ng-model="obj.work8"></div>
+                            <div class="col-xs-4"><input type="text" class="form-control" name="hazard8" id="hazard8" maxlength="42" ng-model="obj.hazard8"></div>
+                            <div class="col-xs-5"><input type="text" class="form-control" name="recommend8" id="recommend8" maxlength="55" ng-model="obj.recommend8"></div>
+                            <div class="col-xs-3"><input type="text" class="form-control" name="work9" id="work9" maxlength="32" ng-model="obj.work9"></div>
+                            <div class="col-xs-4"><input type="text" class="form-control" name="hazard9" id="hazard9" maxlength="42" ng-model="obj.hazard9"></div>
+                            <div class="col-xs-5"><input type="text" class="form-control" name="recommend9" id="recommend9" maxlength="55" ng-model="obj.recommend9"></div>
+                            <div class="col-xs-3"><input type="text" class="form-control" name="work10" id="work10" maxlength="32" ng-model="obj.work10"></div>
+                            <div class="col-xs-4"><input type="text" class="form-control" name="hazard10" id="hazard10" maxlength="42" ng-model="obj.hazard10"></div>
+                            <div class="col-xs-5"><input type="text" class="form-control" name="recommend10" id="recommend10" maxlength="55" ng-model="obj.recommend10"></div>
+                            <div class="col-md-12">&nbsp;</div>
+                            <div class="panel panel-gray col-md-12">
+                                <div class="panel-heading">
+                                    <h4>Personal Protective Equipment Required To Complete The Job</h4>
+                                </div>
+                                <div class="panel-body">
+	                                <div class="col-md-3">
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect1" id="protect1" ng-model="obj.protect1" value="1">Hard Hat</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect2" id="protect2" ng-model="obj.protect2" value="1">Ear Plug</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect3" id="protect3" ng-model="obj.protect3" value="1">Safety Glasses</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+	                                	<div class="checkbox">
+                                			<label><input type="checkbox" name="protect4" id="protect4" ng-model="obj.protect4" value="1">Safety Shoes</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect5" id="protect5" ng-model="obj.protect5" value="1">Gloves</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect6" id="protect6" ng-model="obj.protect6" value="1">Respiratory Protection</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+	                                	<div class="checkbox">
+                                			<label><input type="checkbox" name="protect7" id="protect7" ng-model="obj.protect7" value="1">Fire Extinguisher</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect8" id="protect8" ng-model="obj.protect8" value="1">Safety Harness</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect9" id="protect9" ng-model="obj.protect9" value="1">Lanyard</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+	                                	<div class="checkbox">
+                                			<label><input type="checkbox" name="protect10" id="protect10" ng-model="obj.protect10" value="1">Self-Retrcting Lifeline</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect11" id="protect11" ng-model="obj.protect11" value="1">Floating Equipment</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect12" id="protect12" ng-model="obj.protect12" value="1">Other</label>
+                                			<input type="text" class="" name="protect12Val" id="protect12Val" ng-model="obj.protect12Val" maxlength="10">
+										</div>
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-gray col-md-12">
+                                <div class="panel-heading">
+                                    <h4>Tools/Equipment Needed To Complete The Job</h4>
+                                </div>
+                                <div class="panel-body">
+	                                <div class="col-md-3">
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool1" id="tool1" ng-model="obj.tool1" value="1">Crane</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool2" id="tool2" ng-model="obj.tool2" value="1">Cherry Picker</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool3" id="tool3" ng-model="obj.tool3" value="1">Forklift</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+	                                	<div class="checkbox">
+                                			<label><input type="checkbox" name="tool4" id="tool4" ng-model="obj.tool4" value="1">Scaffolding</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool5" id="tool5" ng-model="obj.tool5" value="1">Pipe Wrench</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool6" id="tool6" ng-model="obj.tool6" value="1">Hammer Wrench</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+	                                	<div class="checkbox">
+                                			<label><input type="checkbox" name="tool7" id="tool7" ng-model="obj.tool7" value="1">Sledge Hammer</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool8" id="tool8" ng-model="obj.tool8" value="1">Slings</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool9" id="tool9" ng-model="obj.tool9" value="1">Shackles</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+	                                	<div class="checkbox">
+                                			<label><input type="checkbox" name="tool10" id="tool10" ng-model="obj.tool10" value="1">Other</label>
+                                			<input type="text" class="" name="tool10Val" id="tool10Val" ng-model="obj.tool10Val" maxlength="10">
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool11" id="tool11" ng-model="obj.tool11" value="1">Other</label>
+                                			<input type="text" class="" name="tool11Val" id="tool11Val" ng-model="obj.tool11Val" maxlength="10">
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool12" id="tool12" ng-model="obj.tool12" value="1">Other</label>
+                                			<input type="text" class="" name="tool12Val" id="tool12Val" ng-model="obj.tool12Val" maxlength="10">
+										</div>
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 text-center">
+                            	<h4>Name (Printed)</h4>
+                            </div>
+                            <div class="col-xs-6 text-center">
+                            	<h4>Company & Location</h4>
+                            </div>
+                            <div class="col-xs-6"><input type="text" class="form-control" name="printedName1" id="printedName1" maxlength="32" ng-model="obj.printedName1"></div>
+                            <div class="col-xs-6"><input type="text" class="form-control" name="location1" id="location1" maxlength="54" ng-model="obj.location1"></div>
+                            <div class="col-xs-6"><input type="text" class="form-control" name="printedName2" id="printedName2" maxlength="32" ng-model="obj.printedName2"></div>
+                            <div class="col-xs-6"><input type="text" class="form-control" name="location2" id="location2" maxlength="54" ng-model="obj.location2"></div>
+                            <div class="col-xs-6"><input type="text" class="form-control" name="printedName3" id="printedName3" maxlength="32" ng-model="obj.printedName3"></div>
+                            <div class="col-xs-6"><input type="text" class="form-control" name="location3" id="location3" maxlength="54" ng-model="obj.location3"></div>
+                            <div class="col-xs-6"><input type="text" class="form-control" name="printedName4" id="printedName4" maxlength="32" ng-model="obj.printedName4"></div>
+                            <div class="col-xs-6"><input type="text" class="form-control" name="location4" id="location4" maxlength="54" ng-model="obj.location4"></div>
+                            <div class="col-xs-6"><input type="text" class="form-control" name="printedName5" id="printedName5" maxlength="32" ng-model="obj.printedName5"></div>
+                            <div class="col-xs-6"><input type="text" class="form-control" name="location5" id="location5" maxlength="54" ng-model="obj.location5"></div>
+                            <div class="col-xs-6"><input type="text" class="form-control" name="printedName6" id="printedName6" maxlength="32" ng-model="obj.printedName6"></div>
+                            <div class="col-xs-6"><input type="text" class="form-control" name="location6" id="location6" maxlength="54" ng-model="obj.location6"></div>
+                            <div class="col-md-12">&nbsp;</div>
+                            <div class="panel panel-gray col-md-12">
+                                <div class="panel-heading">
+                                    <h4>Post Job Analysis (Choose Answers)</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">1. Was the JSEA reviewed by everyone involved in the task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer1" id="answer1_1" ng-model="obj.answer1" value="0"> Yes
+											</label>
+											<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer1" id="answer1_2" ng-model="obj.answer1" value="1"> No
+												<input type="text" class="" name="answer1Val" id="answer1Val" maxlength="125" ng-model="obj.answer1Val">
+		                                        <p ng-show="formInfo.answer1Val.$invalid && !formInfo.answer1Val.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+											</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">2. Was this a Routine or Non-Routine Task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer2" id="answer2_1" ng-model="obj.answer2" value="0"> Routine
+											</label>
+											<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer2" id="answer2_2" ng-model="obj.answer2" value="1"> Non-Routine
+												<input type="text" class="" name="answer2Val" id="answer2Val" maxlength="100" ng-model="obj.answer2Val">
+		                                        <p ng-show="formInfo.answer2Val.$invalid && !formInfo.answer2Val.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+											</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">3. Was this job performed within training boundaries?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer3" id="answer3_1" ng-model="obj.answer3" value="0"> Yes
+											</label>
+											<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer3" id="answer3_2" ng-model="obj.answer3" value="1"> No
+												<input type="text" class="" name="answer3Val" id="answer3Val" maxlength="125" ng-model="obj.answer3Val">
+		                                        <p ng-show="formInfo.answer3Val.$invalid && !formInfo.answer3Val.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+											</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">4. Was anything else done prior to starting the task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer4" id="answer4_1" ng-model="obj.answer4" value="0"> Yes
+											</label>
+											<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer4" id="answer4_2" ng-model="obj.answer4" value="1"> No
+												<input type="text" class="" name="answer4Val" id="answer4Val" maxlength="125" ng-model="obj.answer4Val">
+		                                        <p ng-show="formInfo.answer4Val.$invalid && !formInfo.answer4Val.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+											</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">5. Was other work being done on location at the same time?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer5" id="answer5_1" ng-model="obj.answer5" value="0"> Yes
+											</label>
+											<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer5" id="answer5_2" ng-model="obj.answer5" value="1"> No
+												<input type="text" class="" name="answer5Val" id="answer5Val" maxlength="125" ng-model="obj.answer5Val">
+		                                        <p ng-show="formInfo.answer5Val.$invalid && !formInfo.answer5Val.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+											</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">6. Were there any difficulties or issues during the task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer6" id="answer6_1" ng-model="obj.answer6" value="0"> Yes
+											</label>
+											<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer6" id="answer6_2" ng-model="obj.answer6" value="1"> No
+												<input type="text" class="" name="answer6Val" id="answer6Val" maxlength="125" ng-model="obj.answer6Val">
+		                                        <p ng-show="formInfo.answer6Val.$invalid && !formInfo.answer6Val.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+											</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">7. How long did the task take (list number of days and/or hours)?</label>
+	                                	<div class="col-sm-6">
+											<input type="text" class="" name="answer7Val" id="answer7Val" maxlength="200" ng-model="obj.answer7Val">
+	                                        <p ng-show="formInfo.answer7Val.$invalid && !formInfo.answer7Val.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">8. Did personnel have trouble recognizing what to do or how to do it?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer8" id="answer8_1" ng-model="obj.answer8" value="0"> Yes
+											</label>
+											<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer8" id="answer8_2" ng-model="obj.answer8" value="1"> No
+												<input type="text" class="" name="answer8Val" id="answer8Val" maxlength="125" ng-model="obj.answer8Val">
+		                                        <p ng-show="formInfo.answer8Val.$invalid && !formInfo.answer8Val.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+											</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">9. Was communication a problem during the task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer9" id="answer9_1" ng-model="obj.answer9" value="0"> Yes
+											</label>
+											<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer9" id="answer9_2" ng-model="obj.answer9" value="1"> No
+												<input type="text" class="" name="answer9Val" id="answer9Val" maxlength="125" ng-model="obj.answer9Val">
+		                                        <p ng-show="formInfo.answer9Val.$invalid && !formInfo.answer9Val.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+											</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">10. Was there ever any pressure to rush the task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer10" id="answer10_1" ng-model="obj.answer10" value="0"> Yes
+											</label>
+											<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer10" id="answer10_2" ng-model="obj.answer10" value="1"> No
+												<input type="text" class="" name="answer10Val" id="answer10Val" maxlength="125" ng-model="obj.answer10Val">
+		                                        <p ng-show="formInfo.answer10Val.$invalid && !formInfo.answer10Val.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+											</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">11. Was the JSEA revised when changes occurred?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer11" id="answer11_1" ng-model="obj.answer11" value="0"> Yes
+											</label>
+											<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer11" id="answer11_2" ng-model="obj.answer11" value="1"> No
+												<input type="text" class="" name="answer11Val" id="answer11Val" maxlength="125" ng-model="obj.answer11Val">
+		                                        <p ng-show="formInfo.answer11Val.$invalid && !formInfo.answer11Val.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+											</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">12. Were any steps/practices not used or are in need of improvement?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer12" id="answer12_1" ng-model="obj.answer12" value="0"> Yes
+											</label>
+											<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer12" id="answer12_2" ng-model="obj.answer12" value="1"> No
+												<input type="text" class="" name="answer12Val" id="answer12Val" maxlength="125" ng-model="obj.answer12Val">
+		                                        <p ng-show="formInfo.answer12Val.$invalid && !formInfo.answer12Val.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+											</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">13. Was there any equipment/material failure during the task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer13" id="answer13_1" ng-model="obj.answer13" value="0"> Yes
+											</label>
+											<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer13" id="answer13_2" ng-model="obj.answer13" value="1"> No
+												<input type="text" class="" name="answer13Val" id="answer13Val" maxlength="125" ng-model="obj.answer13Val">
+		                                        <p ng-show="formInfo.answer13Val.$invalid && !formInfo.answer13Val.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+											</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">14. Were all environmental issues/questions addressed during the task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer14" id="answer14_1" ng-model="obj.answer14" value="0"> Yes
+											</label>
+											<label class="radio-inline">
+												<input uncheckable-radio type="radio" name="answer14" id="answer14_2" ng-model="obj.answer14" value="1"> No
+												<input type="text" class="" name="answer14Val" id="answer14Val" maxlength="125" ng-model="obj.answer14Val">
+		                                        <p ng-show="formInfo.answer14Val.$invalid && !formInfo.answer14Val.$pristine" class="help-block text-danger">Enter a valid Value.</p>
+											</label>
+	                                   	</div>
+	                              	</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

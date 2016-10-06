@@ -1,0 +1,53 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}" class="current"><span>Service Order</span></a>
+			    <a ng-if="svo" ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-if="svo" ng-href="#/jobInfoOnSiteReport/{{_id}}"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Service Order Detail</h4>
+
+                            <div class="pull-right">
+                            </div>
+                        </div>
+                        <form name="formInfo" class="formObj form-horizontal" novalidate>
+	                        <div class="col-md-12">
+	                            <div class="form-group">
+	                                <label class="col-sm-6 control-label">Service Order Open Hole</label>
+	                                <div class="col-sm-6">
+	                                	<a ng-href="#/jobInfoServiceOrderOpenNew/{{_id}}" class="btn btn-primary">Add</a>
+	                                    <a ng-href="#/jobInfoServiceOrderOpenEdit/{{_id}}" class="btn btn-primary">Edit</a>
+	                                    <a ng-href="#/jobInfoServiceOrderOpenDetail/{{_id}}" class="btn btn-primary">View</a>
+                               			<a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+	                                </div>
+	                            </div>
+	                            <div class="form-group">
+	                                <label class="col-sm-6 control-label">Service Order Cased Hole</label>
+	                                <div class="col-sm-6">
+	                                	<a ng-href="#/jobInfoServiceOrderCasedNew/{{_id}}" class="btn btn-primary">Add</a>
+	                                    <a ng-href="#/jobInfoServiceOrderCasedEdit/{{_id}}" class="btn btn-primary">Edit</a>
+	                                    <a ng-href="#/jobInfoServiceOrderCasedDetail/{{_id}}" class="btn btn-primary">View</a>
+                               			<a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+	                                </div>
+	                            </div>
+	                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

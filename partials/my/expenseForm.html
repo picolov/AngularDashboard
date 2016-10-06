@@ -1,0 +1,237 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>
+						<ul class="nav nav-tabs">
+							<li class=""><a href="#/myProfile">Profile</a></li>
+							<li class="active"><a href="#/myExpenseList">Expense Report</a></li>
+							<li class=""><a href="#/myActivityLog">Activity Log</a></li>
+						</ul>
+					</h4>
+					<div class="options">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Expense Report Detail</h4>
+
+                            <div class="pull-right">
+                            	<span ng-show="formInfo.$invalid" class="label label-danger">form not completed</span>
+                                <a ng-disabled="formInfo.$invalid" href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+                                <a ng-href="#/myExpenseList" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Expense Report Form</h4>
+                                    <div class="options">
+			                            <div><small>* = Required Information</small></div>
+			                        </div>
+                                </div>
+                                <div class="panel-body">
+                                    <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="title" class="col-sm-3 control-label">Title</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{profile.employeeName}} - {{profile.positionName}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+	                                            <label for="address" class="col-sm-3 control-label">Address</label>
+	                                            <div class="col-sm-9">
+	                                                <label class="control-label2">{{profile.street}}</label><br>
+	                                                <label class="control-label2">{{profile.city}},{{profile.state}} {{profile.zip}}</label>
+	                                            </div>
+	                                        </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+				                            	<label for="fromDate" class="col-sm-3 control-label">From Date *</label>
+				                            	<div class="col-sm-9">
+				                           			<div class="input-group date">
+					                                	<input date-picko type="text" class="form-control" ng-model="obj.fromDate" name="fromDate" id="fromDate" required/>
+					                                	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+				                                 	<p ng-show="formInfo.fromDate.$invalid && !formInfo.fromDate.$pristine" class="help-block text-danger">not a valid Date.</p>
+				                             	</div>
+				                       		</div>
+				                       		<div class="form-group">
+				                            	<label for="toDate" class="col-sm-3 control-label">To Date *</label>
+				                            	<div class="col-sm-9">
+				                           			<div class="input-group date">
+					                                	<input date-picko type="text" class="form-control" ng-model="obj.toDate" name="toDate" id="toDate" required/>
+					                                	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+				                                 	<p ng-show="formInfo.toDate.$invalid && !formInfo.toDate.$pristine" class="help-block text-danger">not a valid Date.</p>
+				                             	</div>
+				                       		</div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<hr>
+                                        </div>
+                                        <div class="col-md-12">
+	                                        <div class="horizontalOverflow">
+	                                        	<table width=100%>
+	                                        		<tr>
+	                                        			<th class="text-center" style="min-width:60px">Date</th>
+	                                        			<th class="text-center" style="min-width:100px">Location</th>
+	                                        			<th class="text-center" style="min-width:200px">Description/Customer</th>
+	                                        			<th class="text-center" style="min-width:75px">Meals</th>
+	                                        			<th class="text-center" style="min-width:75px">Parking</th>
+	                                        			<th class="text-center" style="min-width:75px">Phone</th>
+	                                        			<th class="text-center" style="min-width:75px">Entertain</th>
+	                                        			<th class="text-center" style="min-width:75px">Airfare</th>
+	                                        			<th class="text-center" style="min-width:75px">Rental</th>
+	                                        			<th class="text-center" style="min-width:75px">Motel</th>
+	                                        			<th class="text-center" style="min-width:75px">Meeting</th>
+	                                        			<th class="text-center" style="min-width:75px">Gas</th>
+	                                        			<th class="text-center" style="min-width:75px">Office Sup</th>
+	                                        			<th class="text-center" style="min-width:75px">Misc</th>
+	                                        			<th class="text-center" style="min-width:75px">RTA</th>
+	                                        		</tr>
+			                                        <tr ng-repeat="i in repeatBy(16) track by $index">
+			                                        	<td><input date-picko type="text" class="full-width" name="date{{$index+1}}" id="date{{$index+1}}" ng-model="obj['date' + ($index + 1)]" ng-repeat-model="obj.date{{$index+1}}"/></td>
+			                                        	<td><input type="text" class="full-width" name="location{{$index+1}}" id="location{{$index+1}}" maxlength="11" ng-model="obj['location' + ($index + 1)]"></td>
+			                                        	<td><input type="text" class="full-width" name="desc{{$index+1}}" id="desc{{$index+1}}" maxlength="29" ng-model="obj['desc' + ($index + 1)]"></td>
+			                                        	<td><input ui-money-mask="2" type="text" class="full-width" name="meal{{$index+1}}" id="meal{{$index+1}}" maxlength="8" ng-model="obj['meal' + ($index + 1)]"></td>
+			                                        	<td><input ui-money-mask="2" type="text" class="full-width" name="parking{{$index+1}}" id="parking{{$index+1}}" maxlength="8" ng-model="obj['parking' + ($index + 1)]"></td>
+			                                        	<td><input ui-money-mask="2" type="text" class="full-width" name="phone{{$index+1}}" id="phone{{$index+1}}" maxlength="8" ng-model="obj['phone' + ($index + 1)]"></td>
+			                                        	<td><input ui-money-mask="2" type="text" class="full-width" name="entertain{{$index+1}}" id="entertain{{$index+1}}" maxlength="8" ng-model="obj['entertain' + ($index + 1)]"></td>
+			                                        	<td><input ui-money-mask="2" type="text" class="full-width" name="airfare{{$index+1}}" id="airfare{{$index+1}}" maxlength="8" ng-model="obj['airfare' + ($index + 1)]"></td>
+			                                        	<td><input ui-money-mask="2" type="text" class="full-width" name="rental{{$index+1}}" id="rental{{$index+1}}" maxlength="8" ng-model="obj['rental' + ($index + 1)]"></td>
+			                                        	<td><input ui-money-mask="2" type="text" class="full-width" name="motel{{$index+1}}" id="motel{{$index+1}}" maxlength="8" ng-model="obj['motel' + ($index + 1)]"></td>
+			                                        	<td><input ui-money-mask="2" type="text" class="full-width" name="meeting{{$index+1}}" id="meeting{{$index+1}}" maxlength="8" ng-model="obj['meeting' + ($index + 1)]"></td>
+			                                        	<td><input ui-money-mask="2" type="text" class="full-width" name="gas{{$index+1}}" id="gas{{$index+1}}" maxlength="8" ng-model="obj['gas' + ($index + 1)]"></td>
+			                                        	<td><input ui-money-mask="2" type="text" class="full-width" name="sup{{$index+1}}" id="sup{{$index+1}}" maxlength="8" ng-model="obj['sup' + ($index + 1)]"></td>
+			                                        	<td><input ui-money-mask="2" type="text" class="full-width" name="misc{{$index+1}}" id="misc{{$index+1}}" maxlength="8" ng-model="obj['misc' + ($index + 1)]"></td>
+			                                        	<td><input type="text" class="full-width" name="rta{{$index+1}}" id="rta{{$index+1}}" maxlength="10" ng-model="obj['rta' + ($index + 1)]"></td>
+		                                        	</tr>
+		                                        	<tr>
+			                                        	<td>&nbsp;</td>
+			                                        	<td>&nbsp;</td>
+			                                        	<td>Total</td>
+			                                        	<td>{{addNotNull(this,'meal',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'parking',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'phone',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'entertain',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'airfare',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'rental',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'motel',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'meeting',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'gas',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'sup',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'misc',1,16)|currency:"$ "}}</td>
+			                                        	<td>&nbsp;</td>
+		                                        	</tr>
+			                                	</table>
+		                                    </div>
+		                                </div>
+                                        <div class="col-md-12">
+                                        	<hr>
+                                        </div>
+                                        <div class="col-xs-6">
+	                                        <div class="horizontalOverflow">
+	                                        	<table width=100%>
+	                                        		<tr>
+	                                        			<th class="text-center">Date</th>
+	                                        			<th class="text-center">Description</th>
+	                                        			<th class="text-center">Amount</th>
+	                                        			<th class="text-center">RTA</th>
+                                        			</tr>
+                                        			<tr ng-repeat="i in repeatBy(8) track by $index">
+			                                        	<td><input date-picko type="text" class="full-width" name="specialDate{{$index+1}}" id="specialDate{{$index+1}}" ng-model="obj['specialDate' + ($index + 1)]" ng-repeat-model="obj.specialDate{{$index+1}}"/></td>
+			                                        	<td><input type="text" class="full-width" name="specialDesc{{$index+1}}" id="specialDesc{{$index+1}}" maxlength="40" ng-model="obj['specialDesc' + ($index + 1)]"></td>			                                        	
+			                                        	<td><input ui-money-mask="2" type="text" class="full-width" name="specialAmount{{$index+1}}" id="specialAmount{{$index+1}}" maxlength="13" ng-model="obj['specialAmount' + ($index + 1)]"></td>
+			                                        	<td><input type="text" class="full-width" name="specialRta{{$index+1}}" id="specialRta{{$index+1}}" maxlength="16" ng-model="obj['specialRta' + ($index + 1)]"></td>
+		                                        	</tr>
+		                                        	<tr>
+			                                        	<td>&nbsp;</td>
+			                                        	<td>Total</td>
+			                                        	<td>{{addNotNull(this,'specialAmount',1,16)|currency:"$ "}}</td>
+			                                        	<td>&nbsp;</td>
+		                                        	</tr>
+                                        		</table>
+	                                        </div>
+	                                  	</div>
+                                        
+                                        <div class="col-xs-6">
+                                        	<div class="form-group">
+                                                <label class="col-sm-6 control-label">Total Expense Above</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{
+                                                    addNotNull(this,'meal',1,16) + 
+                                                    addNotNull(this,'parking',1,16) +
+                                                    addNotNull(this,'phone',1,16) +
+                                                    addNotNull(this,'entertain',1,16) +
+                                                    addNotNull(this,'airfare',1,16) +
+                                                    addNotNull(this,'rental',1,16) +
+                                                    addNotNull(this,'motel',1,16) +
+                                                    addNotNull(this,'meeting',1,16) +
+                                                    addNotNull(this,'gas',1,16) +
+                                                    addNotNull(this,'sup',1,16) +
+                                                    addNotNull(this,'misc',1,16)
+                                                    |currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                        	<div class="form-group">
+                                                <label for="advance" class="col-sm-6 control-label">Employee Advance</label>
+                                                <div class="col-sm-6">
+                                                    <input ui-money-mask="2" type="text" class="form-control" name="advance" id="advance" maxlength="23" ng-model="obj.advance">
+                                                    <p ng-show="formInfo.advance.$invalid && !formInfo.advance.$pristine" class="help-block text-danger">Enter a valid value.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="returned" class="col-sm-6 control-label">Advance Returned</label>
+                                                <div class="col-sm-6">
+                                                    <input ui-money-mask="2" type="text" class="form-control" name="returned" id="returned" maxlength="23" ng-model="obj.returned">
+                                                    <p ng-show="formInfo.returned.$invalid && !formInfo.returned.$pristine" class="help-block text-danger">Enter a valid value.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Special Expense</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{addNotNull(this,'specialAmount',1,8)|currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Total for Report</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{
+                                                    addNotNull(this,'meal',1,16) + 
+                                                    addNotNull(this,'parking',1,16) +
+                                                    addNotNull(this,'phone',1,16) +
+                                                    addNotNull(this,'entertain',1,16) +
+                                                    addNotNull(this,'airfare',1,16) +
+                                                    addNotNull(this,'rental',1,16) +
+                                                    addNotNull(this,'motel',1,16) +
+                                                    addNotNull(this,'meeting',1,16) +
+                                                    addNotNull(this,'gas',1,16) +
+                                                    addNotNull(this,'sup',1,16) +
+                                                    addNotNull(this,'misc',1,16) +
+                                                    addNotNull(this,'specialAmount',1,8)
+                                                    |currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

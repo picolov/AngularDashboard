@@ -1,0 +1,226 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Equipment Transfer Detail</h4>
+
+                            <div class="pull-right">
+                            	<a ng-if="!obj.job" ng-href="#/jarManagerTransferEdit/{{_id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Equipment Transfer Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<form name="formInfo" class="formObj form-horizontal" novalidate>
+                                		
+                                		<div class="col-md-12">
+	                                      	<div class="col-md-6">
+	                                            <div class="form-group">
+	                                                <label for="source" class="col-sm-3 control-label">Source</label>
+	                                                <div class="col-sm-9">
+	                                                	<label class="control-label2">{{obj.source=='0'?'Houma':obj.source=='1'?'Houston':''}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="shipTo1" class="col-sm-3 control-label">Shipped To</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.shipTo1}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="shipTo2" class="col-sm-3 control-label">&nbsp;</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.shipTo2}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="shipTo3" class="col-sm-3 control-label">&nbsp;</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.shipTo3}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="date" class="col-sm-3 control-label">Date</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{formatTime(obj.date, 'MM/dd/yy')}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="requestBy" class="col-sm-3 control-label">Requested By</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.requestBy}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="shipBy" class="col-sm-3 control-label">Shipped By</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.shipBy}}</label>
+	                                                </div>
+	                                            </div>
+	                                      	</div>
+	                                      	<div class="col-md-6">
+	                                      		<div class="form-group">
+	                                                <label for="comment" class="col-sm-3 control-label">Comments</label>
+	                                                <div class="col-sm-9">
+	                                                    <textarea name="comment" id="comment" ng-model="obj.comment" cols="50" rows="4" class="form-control" readonly></textarea>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="carrier" class="col-sm-3 control-label">Carrier</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.carrier}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="customer" class="col-sm-3 control-label">Customer</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.customer}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="notif" class="col-sm-3 control-label">Notification</label>
+	                                                <div class="col-sm-9">
+	                                                	<label class="control-label2">{{obj.notif == '0'?'No':obj.notif == '1'?'Yes':''}}</label>
+	                                                </div>
+	                                            </div>
+	                                      		<div class="form-group">
+	                                                <label for="notifMail" class="col-sm-3 control-label">Sent Email Notif To</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.notifMail}}</label>
+	                                                </div>
+	                                            </div>
+	                                            
+                                                <div class="form-group">
+	                                                <label for="status" class="col-sm-3 control-label">Status</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.status}}</label>
+	                                                </div>
+	                                            </div>
+	                                      	</div>
+                                      	</div>
+                                      	<div class="col-md-12">
+                                      		<hr>
+                                      	</div>
+                                      	<div class="col-xs-4 text-center">
+			                            	<h4>Description</h4>
+			                            </div>
+			                            <div class="col-xs-2 text-center">
+			                            	<h4>Qty.</h4>
+			                            </div>
+			                            <div class="col-xs-2 text-center">
+			                            	<h4>Serial Number</h4>
+			                            </div>
+			                            <div class="col-xs-2 text-center">
+			                            	<h4>Job/RTA#</h4>
+			                            </div>
+			                            <div class="col-xs-2 text-center">
+			                            	<h4>Reason Code</h4>
+			                            </div>
+			                            <!-- Column 1}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc1}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty1}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial1}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta1}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason1}}</span></div>
+			                            <!-- Column 2}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc2}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty2}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial2}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta2}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason2}}</span></div>
+			                            <!-- Column 3}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc3}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty3}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial3}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta3}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason3}}</span></div>
+			                            <!-- Column 4}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc4}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty4}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial4}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta4}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason4}}</span></div>
+			                            <!-- Column 5}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc5}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty5}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial5}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta5}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason5}}</span></div>
+			                            <!-- Column 6}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc6}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty6}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial6}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta6}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason6}}</span></div>
+			                            <!-- Column 7}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc7}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty7}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial7}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta7}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason7}}</span></div>
+			                            <!-- Column 8}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc8}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty8}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial8}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta8}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason8}}</span></div>
+			                            <!-- Column 9}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc9}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty9}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial9}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta9}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason9}}</span></div>
+			                            <!-- Column 10}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc10}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty10}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial10}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta10}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason10}}</span></div>
+			                            <!-- Column 11}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc11}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty11}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial11}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta11}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason11}}</span></div>
+			                            <!-- Column 12}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc12}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty12}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial12}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta12}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason12}}</span></div>
+			                            <!-- Column 13}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc13}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty13}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial13}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta13}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason13}}</span></div>
+			                            <!-- Column 14}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc14}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty14}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial14}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta14}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason14}}</span></div>
+			                            <!-- Column 15}} -->
+			                            <div class="col-xs-4"><span class="label-table">{{obj.desc15}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.qty15}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.serial15}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.rta15}}</span></div>
+			                            <div class="col-xs-2"><span class="label-table">{{obj.reason15}}</span></div>
+			                            
+                                   	</form>
+                               	</div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

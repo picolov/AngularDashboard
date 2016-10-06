@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Outgoing Cased Hole Jar Inspection Detail</h4>
+
+                            <div class="pull-right">
+                                <a ng-href="#/jarManagerCasedInspectionNew/{{_id}}" class="btn btn-primary">Add New</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Outgoing Cased Hole Jar Inspection Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<form name="formInfo" class="formObj form-horizontal" novalidate>
+                                      	<div class="col-md-12">&nbsp;</div>
+                                      	<div class="col-md-12">
+				                            <table ng-table="objTableParams" show-filter="true" class="table">
+				                                <tr ng-repeat="item in $data">
+				                                    <td data-title="'Sent Date'" sortable="'sentDate'" filter="{ 'sentDate': 'text' }">
+				                                        <a ng-href="#/jarManagerCasedInspectionDetail/{{item._id}}">{{formatTime(item.sentDate, 'MM/dd/yy')}}</a>
+				                                    </td>
+				                                    <td data-title="'RTA#'" sortable="'job.uid'" filter="{ 'job.uid': 'text' }">
+				                                        {{item.job.uid}}
+				                                    </td>
+				                                    <td data-title="'Action'">
+				                                    	<a ng-if="!item.job" ng-href="#/jarManagerCasedInspectionEdit/{{item._id}}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+				                                        <a ng-if="!item.job" href="javascript:;" ng-click="deleteObj(item._id)" class="btn btn-primary"><i class="fa fa-minus"></i></a>
+				                                    </td>
+				                                </tr>
+				                            </table>
+				                        </div>
+                                   	</form>
+                               	</div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

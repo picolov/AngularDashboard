@@ -1,0 +1,371 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Equipment Transfer Detail</h4>
+
+                            <div class="pull-right">
+                            	<a href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+                                <a ng-href="#/jarManagerTransferList" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Equipment Transfer Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<form name="formInfo" class="formObj form-horizontal" novalidate>
+                                		
+                                		<div class="col-md-12">
+	                                      	<div class="col-md-6">
+	                                            <div class="form-group">
+	                                                <label for="source" class="col-sm-3 control-label">Source</label>
+	                                                <div class="col-sm-9">
+	                                                	<label class="">
+															<input uncheckable-radio type="radio" name="source" id="sourcea" ng-model="obj.source" value="0"> Houma
+														</label>
+														<label class="">
+															<input uncheckable-radio type="radio" name="source" id="sourceb" ng-model="obj.source" value="1"> Houston
+														</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="shipTo1" class="col-sm-3 control-label">Shipped To</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="shipTo1" id="shipTo1" maxlength="27" ng-model="obj.shipTo1">
+	                                                    <p ng-show="formInfo.shipTo1.$invalid && !formInfo.shipTo1.$pristine" class="help-block text-danger">Enter a valid address.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="shipTo2" class="col-sm-3 control-label">&nbsp;</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="shipTo2" id="shipTo2" maxlength="27" ng-model="obj.shipTo2">
+	                                                    <p ng-show="formInfo.shipTo2.$invalid && !formInfo.shipTo2.$pristine" class="help-block text-danger">Enter a valid address.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="shipTo3" class="col-sm-3 control-label">&nbsp;</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="shipTo3" id="shipTo3" maxlength="27" ng-model="obj.shipTo3">
+	                                                    <p ng-show="formInfo.shipTo3.$invalid && !formInfo.shipTo3.$pristine" class="help-block text-danger">Enter a valid address.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="date" class="col-sm-3 control-label">Date</label>
+	                                                <div class="col-sm-9">
+	                                                    <div class="input-group date">
+						                                    <input date-picko today-when-empty="true" type="text" class="form-control" ng-model="obj.date" name="date" id="date"/>
+						                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						                                </div>
+	                                                    <p ng-show="formInfo.date.$invalid && !formInfo.date.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="requestBy" class="col-sm-3 control-label">Requested By</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="requestBy" id="requestBy" maxlength="26" ng-model="obj.requestBy">
+	                                                    <p ng-show="formInfo.requestBy.$invalid && !formInfo.requestBy.$pristine" class="help-block text-danger">Enter a valid name.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="shipBy" class="col-sm-3 control-label">Shipped By</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="shipBy" id="shipBy" maxlength="28" ng-model="obj.shipBy">
+	                                                    <p ng-show="formInfo.shipBy.$invalid && !formInfo.shipBy.$pristine" class="help-block text-danger">Enter a valid name.</p>
+	                                                </div>
+	                                            </div>
+	                                      	</div>
+	                                      	<div class="col-md-6">
+	                                      		<div class="form-group">
+	                                                <label for="comment" class="col-sm-3 control-label">Comments</label>
+	                                                <div class="col-sm-9">
+	                                                    <textarea name="comment" id="comment" maxlength="142" ng-model="obj.comment" cols="50" rows="4" class="form-control"></textarea>
+	                                                    <p ng-show="formInfo.comment.$invalid && !formInfo.comment.$pristine" class="help-block text-danger">Enter a valid Comments.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="carrier" class="col-sm-3 control-label">Carrier</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="carrier" id="carrier" maxlength="29" ng-model="obj.carrier">
+	                                                    <p ng-show="formInfo.carrier.$invalid && !formInfo.carrier.$pristine" class="help-block text-danger">Enter a valid carrier.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="customer" class="col-sm-3 control-label">Customer</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="customer" id="customer" maxlength="26" ng-model="obj.customer">
+	                                                    <p ng-show="formInfo.customer.$invalid && !formInfo.customer.$pristine" class="help-block text-danger">Enter a valid customer.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="notif" class="col-sm-3 control-label">Notification</label>
+	                                                <div class="col-sm-9">
+	                                                	<label class="">
+															<input uncheckable-radio type="radio" name="notif" id="notifa" ng-model="obj.notif" value="0"> No
+														</label>
+														<label class="">
+															<input uncheckable-radio type="radio" name="notif" id="notifb" ng-model="obj.notif" value="1"> Yes
+														</label>
+	                                                </div>
+	                                            </div>
+	                                      		<div class="form-group">
+	                                                <label for="notifMail" class="col-sm-3 control-label">Sent Email Notif To</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="notifMail" id="notifMail" maxlength="500" ng-model="obj.notifMail">
+	                                                    <p ng-show="formInfo.notifMail.$invalid && !formInfo.notifMail.$pristine" class="help-block text-danger">Enter a valid email.</p>
+	                                                </div>
+	                                            </div>
+	                                            
+                                                <div class="form-group">
+	                                                <label for="status" class="col-sm-3 control-label">Status</label>
+	                                                <div class="col-sm-9">
+	                                                    <select name="status" id="status" class="form-control" ng-model="obj.status">
+	                                                        <option value="Sent">Sent</option>
+	                                                        <option value="Received">Received</option>
+	                                                    </select>
+	                                                </div>
+	                                            </div>
+	                                      	</div>
+                                      	</div>
+                                      	<div class="col-md-12">
+                                      		<hr>
+                                      	</div>
+                                      	<div class="col-xs-4 text-center">
+			                            	<h4>Description</h4>
+			                            </div>
+			                            <div class="col-xs-2 text-center">
+			                            	<h4>Qty.</h4>
+			                            </div>
+			                            <div class="col-xs-2 text-center">
+			                            	<h4>Serial Number</h4>
+			                            </div>
+			                            <div class="col-xs-2 text-center">
+			                            	<h4>Job/RTA#</h4>
+			                            </div>
+			                            <div class="col-xs-2 text-center">
+			                            	<h4>Reason Code</h4>
+			                            </div>
+			                            <!-- Column 1" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc1" id="desc1" maxlength="27" ng-model="obj.desc1"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty1" id="qty1" maxlength="5" ng-model="obj.qty1"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial1" id="serial1" maxlength="26" ng-model="obj.serial1"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta1" id="rta1" maxlength="10" ng-model="obj.rta1"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason1" id="reason1" class="full-width" ng-model="obj.reason1">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+			                            <!-- Column 2" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc2" id="desc2" maxlength="27" ng-model="obj.desc2"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty2" id="qty2" maxlength="5" ng-model="obj.qty2"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial2" id="serial2" maxlength="26" ng-model="obj.serial2"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta2" id="rta2" maxlength="10" ng-model="obj.rta2"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason2" id="reason2" class="full-width" ng-model="obj.reason2">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+			                            <!-- Column 3" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc3" id="desc3" maxlength="27" ng-model="obj.desc3"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty3" id="qty3" maxlength="5" ng-model="obj.qty3"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial3" id="serial3" maxlength="26" ng-model="obj.serial3"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta3" id="rta3" maxlength="10" ng-model="obj.rta3"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason3" id="reason3" class="full-width" ng-model="obj.reason3">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+			                            <!-- Column 4" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc4" id="desc4" maxlength="27" ng-model="obj.desc4"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty4" id="qty4" maxlength="5" ng-model="obj.qty4"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial4" id="serial4" maxlength="26" ng-model="obj.serial4"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta4" id="rta4" maxlength="10" ng-model="obj.rta4"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason4" id="reason4" class="full-width" ng-model="obj.reason4">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+			                            <!-- Column 5" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc5" id="desc5" maxlength="27" ng-model="obj.desc5"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty5" id="qty5" maxlength="5" ng-model="obj.qty5"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial5" id="serial5" maxlength="26" ng-model="obj.serial5"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta5" id="rta5" maxlength="10" ng-model="obj.rta5"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason5" id="reason5" class="full-width" ng-model="obj.reason5">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+			                            <!-- Column 6" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc6" id="desc6" maxlength="27" ng-model="obj.desc6"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty6" id="qty6" maxlength="5" ng-model="obj.qty6"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial6" id="serial6" maxlength="26" ng-model="obj.serial6"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta6" id="rta6" maxlength="10" ng-model="obj.rta6"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason6" id="reason6" class="full-width" ng-model="obj.reason6">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+			                            <!-- Column 7" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc7" id="desc7" maxlength="27" ng-model="obj.desc7"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty7" id="qty7" maxlength="5" ng-model="obj.qty7"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial7" id="serial7" maxlength="26" ng-model="obj.serial7"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta7" id="rta7" maxlength="10" ng-model="obj.rta7"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason7" id="reason7" class="full-width" ng-model="obj.reason7">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+			                            <!-- Column 8" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc8" id="desc8" maxlength="27" ng-model="obj.desc8"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty8" id="qty8" maxlength="5" ng-model="obj.qty8"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial8" id="serial8" maxlength="26" ng-model="obj.serial8"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta8" id="rta8" maxlength="10" ng-model="obj.rta8"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason8" id="reason8" class="full-width" ng-model="obj.reason8">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+			                            <!-- Column 9" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc9" id="desc9" maxlength="27" ng-model="obj.desc9"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty9" id="qty9" maxlength="5" ng-model="obj.qty9"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial9" id="serial9" maxlength="26" ng-model="obj.serial9"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta9" id="rta9" maxlength="10" ng-model="obj.rta9"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason9" id="reason9" class="full-width" ng-model="obj.reason9">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+			                            <!-- Column 10" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc10" id="desc10" maxlength="27" ng-model="obj.desc10"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty10" id="qty10" maxlength="5" ng-model="obj.qty10"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial10" id="serial10" maxlength="26" ng-model="obj.serial10"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta10" id="rta10" maxlength="10" ng-model="obj.rta10"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason10" id="reason10" class="full-width" ng-model="obj.reason10">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+			                            <!-- Column 11" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc11" id="desc11" maxlength="27" ng-model="obj.desc11"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty11" id="qty11" maxlength="5" ng-model="obj.qty11"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial11" id="serial11" maxlength="26" ng-model="obj.serial11"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta11" id="rta11" maxlength="10" ng-model="obj.rta11"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason11" id="reason11" class="full-width" ng-model="obj.reason11">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+			                            <!-- Column 12" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc12" id="desc12" maxlength="27" ng-model="obj.desc12"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty12" id="qty12" maxlength="5" ng-model="obj.qty12"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial12" id="serial12" maxlength="26" ng-model="obj.serial12"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta12" id="rta12" maxlength="10" ng-model="obj.rta12"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason12" id="reason12" class="full-width" ng-model="obj.reason12">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+			                            <!-- Column 13" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc13" id="desc13" maxlength="27" ng-model="obj.desc13"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty13" id="qty13" maxlength="5" ng-model="obj.qty13"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial13" id="serial13" maxlength="26" ng-model="obj.serial13"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta13" id="rta13" maxlength="10" ng-model="obj.rta13"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason13" id="reason13" class="full-width" ng-model="obj.reason13">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+			                            <!-- Column 14" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc14" id="desc14" maxlength="27" ng-model="obj.desc14"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty14" id="qty14" maxlength="5" ng-model="obj.qty14"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial14" id="serial14" maxlength="26" ng-model="obj.serial14"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta14" id="rta14" maxlength="10" ng-model="obj.rta14"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason14" id="reason14" class="full-width" ng-model="obj.reason14">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+			                            <!-- Column 15" -->
+			                            <div class="col-xs-4"><input type="text" class="full-width" name="desc15" id="desc15" maxlength="27" ng-model="obj.desc15"></div>
+			                            <div class="col-xs-2"><input type="text" only-num class="full-width" name="qty15" id="qty15" maxlength="5" ng-model="obj.qty15"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="serial15" id="serial15" maxlength="26" ng-model="obj.serial15"></div>
+			                            <div class="col-xs-2"><input type="text" class="full-width" name="rta15" id="rta15" maxlength="10" ng-model="obj.rta15"></div>
+			                            <div class="col-xs-2">
+			                            	<select name="reason15" id="reason15" class="full-width" ng-model="obj.reason15">
+                                                <option value="01">Stock</option>
+                                                <option value="02">Maintenance</option>
+                                                <option value="03">Consignment</option>
+                                                <option value="04">Job/RTA#</option>
+                                                <option value="05">Other</option>
+                                            </select>
+			                            </div>
+                                   	</form>
+                               	</div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,137 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Outgoing Jar Sign In/Sign Out Detail</h4>
+
+                            <div class="pull-right">
+                            	<a href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+                                <a ng-href="#/jarManagerInOutList" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Outgoing Jar Sign In/Sign Out Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<form name="formInfo" class="formObj form-horizontal" novalidate>
+                                		
+                                		<div class="col-md-12">
+	                                      	<div class="col-md-6">
+	                                            <div class="form-group">
+	                                                <label for="serial" class="col-sm-3 control-label">Jar/Basket/Sling Serial #</label>
+	                                                <div class="col-md-9">
+	                                                	<div class="col-md-1">
+	                                                		<label class="radio-inline">
+																<input uncheckable-radio type="radio" name="serialType" id="serialType" ng-model="obj.serialType" value="0">&nbsp;
+															</label>
+														</div>
+														<div class="col-md-7">
+		                                                	<ui-select ng-model="obj.jarType" ng-disabled="disabled" search-enabled="false">
+		                                                        <ui-select-match allow-clear placeholder="-Pick a value-">{{$select.selected.name}}</ui-select-match>
+		                                                        <ui-select-choices repeat="jarType.name as jarType in jarTypeList | filter: $select.search">
+		                                                            <span ng-bind-html="jarType.name | highlight: $select.search"></span>
+		                                                        </ui-select-choices>
+		                                                    </ui-select>
+		                                                </div>
+		                                                <div for="serialType"  class="col-sm-4">
+		                                                    <input type="text" class="form-control" name="serial" id="serial" maxlength="100" ng-model="obj.serial">
+		                                                    <p ng-show="formInfo.serial.$invalid && !formInfo.serial.$pristine" class="help-block text-danger">Enter a valid Serial.</p>
+		                                                </div>
+		                                                <div class="col-md-12">
+		                                                	<label class="radio-inline">
+																<input uncheckable-radio type="radio" name="serialType" id="serialType" ng-model="obj.serialType" value="1"> Basket : <input type="text" class="" name="basket" id="basket" maxlength="100" ng-model="obj.basket">
+															</label>
+		                                                </div>
+		                                                <div class="col-md-12">
+		                                                	<label class="radio-inline">
+																<input uncheckable-radio type="radio" name="serialType" id="serialType" ng-model="obj.serialType" value="2"> Sling : <input type="text" class="" name="sling" id="sling" maxlength="100" ng-model="obj.sling">
+															</label>
+		                                                </div>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="destination" class="col-sm-3 control-label">Destination Out/Incoming From</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="destination" id="destination" maxlength="100" ng-model="obj.destination">
+	                                                    <p ng-show="formInfo.destination.$invalid && !formInfo.destination.$pristine" class="help-block text-danger">Enter a valid Destination.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="date" class="col-sm-3 control-label">Date</label>
+	                                                <div class="col-sm-9">
+	                                                    <div class="input-group date">
+						                                    <input date-picko today-when-empty="true" type="text" class="form-control" ng-model="obj.date" name="date" id="date"/>
+						                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						                                </div>
+	                                                    <p ng-show="formInfo.date.$invalid && !formInfo.date.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="inOut" class="col-sm-3 control-label">In/Out</label>
+	                                                <div class="col-sm-9">
+	                                                	<label class="">
+															<input uncheckable-radio type="radio" name="inOut" id="inOuta" ng-model="obj.inOut" value="0"> In
+														</label>
+														<label class="">
+															<input uncheckable-radio type="radio" name="inOut" id="inOutb" ng-model="obj.inOut" value="1"> Out
+														</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="ran" class="col-sm-3 control-label">Ran</label>
+	                                                <div class="col-sm-9">
+	                                                	<label class="">
+															<input uncheckable-radio type="radio" name="ran" id="rana" ng-model="obj.ran" value="0"> Y
+														</label>
+														<label class="">
+															<input uncheckable-radio type="radio" name="ran" id="ranb" ng-model="obj.ran" value="1"> N
+														</label>
+	                                                </div>
+	                                            </div>
+	                                      	</div>
+	                                      	<div class="col-md-6">
+	                                      		<div class="form-group">
+	                                                <label for="level" class="col-sm-3 control-label">Level</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="level" id="level" maxlength="100" ng-model="obj.level">
+	                                                    <p ng-show="formInfo.level.$invalid && !formInfo.level.$pristine" class="help-block text-danger">Enter a valid level.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="fa" class="col-sm-3 control-label">FA #</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="fa" id="fa" maxlength="100" ng-model="obj.fa">
+	                                                    <p ng-show="formInfo.fa.$invalid && !formInfo.fa.$pristine" class="help-block text-danger">Enter a valid value.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="et" class="col-sm-3 control-label">ET #</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="et" id="et" maxlength="100" ng-model="obj.et">
+	                                                    <p ng-show="formInfo.et.$invalid && !formInfo.et.$pristine" class="help-block text-danger">Enter a valid value.</p>
+	                                                </div>
+	                                            </div>
+	                                      		<div class="form-group">
+	                                                <label for="name" class="col-sm-3 control-label">Initials</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="name" id="name" maxlength="100" ng-model="obj.name">
+	                                                    <p ng-show="formInfo.name.$invalid && !formInfo.name.$pristine" class="help-block text-danger">Enter a valid initials.</p>
+	                                                </div>
+	                                            </div>
+	                                      	</div>
+                                      	</div>
+                                   	</form>
+                               	</div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

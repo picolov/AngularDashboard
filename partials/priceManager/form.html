@@ -1,0 +1,280 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Price Manager</h4>
+
+                            <div class="pull-right">
+                                <span ng-show="formInfo.$invalid" class="label label-danger">form not completed</span>
+                                <a href="javascript:;" ng-click="save()" class="btn btn-primary" ng-disabled="formInfo.$invalid">Save</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 ">
+                        	<form name="formInfo" class="formObj form-horizontal" novalidate>
+	                            <div class="panel panel-gray">
+	                                <div class="panel-heading">
+	                                    <h4>Open Hole Land Pricing</h4>
+	                                </div>
+	                                <div class="panel-body">
+	                                    <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Run Charge: 1st Day Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="landFirstDay" id="landFirstDay" ng-maxlength="40" ng-model="obj.landFirstDay" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.landFirstDay.$invalid && !formInfo.landFirstDay.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Run Charge: Additional Day Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="landAdditionalDay" id="landAdditionalDay" ng-maxlength="40" ng-model="obj.landAdditionalDay" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.landAdditionalDay.$invalid && !formInfo.landAdditionalDay.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Standby Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="landStandby" id="landStandby" ng-maxlength="40" ng-model="obj.landStandby" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.landStandby.$invalid && !formInfo.landStandby.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Technician Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="landTechnician" id="landTechnician" ng-maxlength="40" ng-model="obj.landTechnician" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.landTechnician.$invalid && !formInfo.landTechnician.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Activation Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="landActivation" id="landActivation" ng-maxlength="40" ng-model="obj.landActivation" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.landActivation.$invalid && !formInfo.landActivation.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Mileage Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="landMileage" id="landMileage" ng-maxlength="40" ng-model="obj.landMileage" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.landMileage.$invalid && !formInfo.landMileage.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Lost in Hole Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="landLost" id="landLost" ng-maxlength="40" ng-model="obj.landLost" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.landLost.$invalid && !formInfo.landLost.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Impact Pro Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="landImpactPro" id="landImpactPro" ng-maxlength="40" ng-model="obj.landImpactPro" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.landImpactPro.$invalid && !formInfo.landImpactPro.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+	                                    </div>
+	                                </div>
+	                        	</div>
+	                        	
+	                        	<div class="panel panel-gray">
+	                                <div class="panel-heading">
+	                                    <h4>Open Hole HP/HT Land Pricing</h4>
+	                                </div>
+	                                <div class="panel-body">
+	                                    <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Tool Preparation Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtLandTool" id="hphtLandTool" ng-maxlength="40" ng-model="obj.hphtLandTool" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtLandTool.$invalid && !formInfo.hphtLandTool.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Run Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtLandRun" id="hphtLandRun" ng-maxlength="40" ng-model="obj.hphtLandRun" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtLandRun.$invalid && !formInfo.hphtLandRun.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Standby Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtLandStandby" id="hphtLandStandby" ng-maxlength="40" ng-model="obj.hphtLandStandby" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtLandStandby.$invalid && !formInfo.hphtLandStandby.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Technician Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtLandTechnician" id="hphtLandTechnician" ng-maxlength="40" ng-model="obj.hphtLandTechnician" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtLandTechnician.$invalid && !formInfo.hphtLandTechnician.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Activation Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtLandActivation" id="hphtLandActivation" ng-maxlength="40" ng-model="obj.hphtLandActivation" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtLandActivation.$invalid && !formInfo.hphtLandActivation.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Mileage Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtLandMileage" id="hphtLandMileage" ng-maxlength="40" ng-model="obj.hphtLandMileage" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtLandMileage.$invalid && !formInfo.hphtLandMileage.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Lost in Hole Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtLandLost" id="hphtLandLost" ng-maxlength="40" ng-model="obj.hphtLandLost" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtLandLost.$invalid && !formInfo.hphtLandLost.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Impact Pro Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtLandImpactPro" id="hphtLandImpactPro" ng-maxlength="40" ng-model="obj.hphtLandImpactPro" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtLandImpactPro.$invalid && !formInfo.hphtLandImpactPro.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+	                                    </div>
+	                                </div>
+	                        	</div>
+	                        	
+	                        	<div class="panel panel-gray">
+	                                <div class="panel-heading">
+	                                    <h4>Open Hole Offshore Pricing</h4>
+	                                </div>
+	                                <div class="panel-body">
+	                                    <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Run Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="offshoreRun" id="offshoreRun" ng-maxlength="40" ng-model="obj.offshoreRun" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.offshoreRun.$invalid && !formInfo.offshoreRun.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Standby Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="offshoreStandby" id="offshoreStandby" ng-maxlength="40" ng-model="obj.offshoreStandby" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.offshoreStandby.$invalid && !formInfo.offshoreStandby.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Technician Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="offshoreTechnician" id="offshoreTechnician" ng-maxlength="40" ng-model="obj.offshoreTechnician" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.offshoreTechnician.$invalid && !formInfo.offshoreTechnician.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Activation Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="offshoreActivation" id="offshoreActivation" ng-maxlength="40" ng-model="obj.offshoreActivation" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.offshoreActivation.$invalid && !formInfo.offshoreActivation.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Mileage Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="offshoreMileage" id="offshoreMileage" ng-maxlength="40" ng-model="obj.offshoreMileage" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.offshoreMileage.$invalid && !formInfo.offshoreMileage.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Lost in Hole Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="offshoreLost" id="offshoreLost" ng-maxlength="40" ng-model="obj.offshoreLost" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.offshoreLost.$invalid && !formInfo.offshoreLost.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Impact Pro Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="offshoreImpactPro" id="offshoreImpactPro" ng-maxlength="40" ng-model="obj.offshoreImpactPro" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.offshoreImpactPro.$invalid && !formInfo.offshoreImpactPro.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+	                                    </div>
+	                                </div>
+	                        	</div>
+	                        	
+	                        	<div class="panel panel-gray">
+	                                <div class="panel-heading">
+	                                    <h4>Open Hole HP/HT Offshore Pricing</h4>
+	                                </div>
+	                                <div class="panel-body">
+	                                    <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Tool Preparation Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtOffshoreTool" id="hphtOffshoreTool" ng-maxlength="40" ng-model="obj.hphtOffshoreTool" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtOffshoreTool.$invalid && !formInfo.hphtOffshoreTool.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Run Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtOffshoreRun" id="hphtOffshoreRun" ng-maxlength="40" ng-model="obj.hphtOffshoreRun" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtOffshoreRun.$invalid && !formInfo.hphtOffshoreRun.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Standby Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtOffshoreStandby" id="hphtOffshoreStandby" ng-maxlength="40" ng-model="obj.hphtOffshoreStandby" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtOffshoreStandby.$invalid && !formInfo.hphtOffshoreStandby.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Technician Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtOffshoreTechnician" id="hphtOffshoreTechnician" ng-maxlength="40" ng-model="obj.hphtOffshoreTechnician" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtOffshoreTechnician.$invalid && !formInfo.hphtOffshoreTechnician.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Activation Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtOffshoreActivation" id="hphtOffshoreActivation" ng-maxlength="40" ng-model="obj.hphtOffshoreActivation" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtOffshoreActivation.$invalid && !formInfo.hphtOffshoreActivation.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Mileage Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtOffshoreMileage" id="hphtOffshoreMileage" ng-maxlength="40" ng-model="obj.hphtOffshoreMileage" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtOffshoreMileage.$invalid && !formInfo.hphtOffshoreMileage.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Lost in Hole Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtOffshoreLost" id="hphtOffshoreLost" ng-maxlength="40" ng-model="obj.hphtOffshoreLost" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtOffshoreLost.$invalid && !formInfo.hphtOffshoreLost.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Impact Pro Charge</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="hphtOffshoreImpactPro" id="hphtOffshoreImpactPro" ng-maxlength="40" ng-model="obj.hphtOffshoreImpactPro" ng-pattern="REGEX_CURRENCY" required>
+                                                    <p ng-show="formInfo.hphtOffshoreImpactPro.$invalid && !formInfo.hphtOffshoreImpactPro.$pristine" class="help-block text-danger">Enter a valid price.</p>
+                                                </div>
+                                            </div>
+	                                    </div>
+	                                </div>
+	                        	</div>
+	                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

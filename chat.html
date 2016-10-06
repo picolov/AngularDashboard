@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Spekta Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Spekta Chat">
+    <meta name="author" content="Spekta">
+    <link rel="icon" href="assets/img/favicon.ico">
+	<title>Spekta Chat</title>
+	
+	<script type='text/javascript' src='assets/js/jquery-1.10.2.min.js'></script>
+	<link rel="stylesheet" type="text/css" href="assets/plugins/candy/res/default.css" />
+	<script type="text/javascript" src="assets/plugins/candy/libs/libs.bundle.js"></script>
+	<script type="text/javascript" src="assets/plugins/candy/candy.bundle.js"></script>
+	<script type="text/javascript">
+		var serverURL = "iclogik.com";
+		var params;
+		function extractParamFromURL() {
+		    var match,
+		        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+		        search = /([^&=]+)=?([^&]*)/g,
+		        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+		        query  = window.location.search.substring(1);
+	
+		        params = {};
+		    while (match = search.exec(query))
+		    	params[decode(match[1])] = decode(match[2]);
+		}
+		$(document).ready(function() {
+			
+			extractParamFromURL();
+			
+			Candy.init('http://' + serverURL + '/http-bind', {
+				core: {
+					// only set this to true if developing / debugging errors
+					debug: true,
+					// autojoin is a *required* parameter if you don't have a plugin (e.g. roomPanel) for it
+					//   true
+					//     -> fetch info from server (NOTE: does only work with openfire server)
+					//   ['test@conference.example.com']
+					//     -> array of rooms to join after connecting
+					autojoin: ['lobby@conference.' + serverURL]
+				},
+				view: { assets: 'assets/plugins/candy/res/' }
+			});
+			if (!params.password) {
+				params.password = 'password';
+			}
+			if (!params.server) {
+				params.server = serverURL;	
+			}
+			if (params.user == 'admin') { // special case for user named admin, because there are already user named admin as administrator on openfire
+				params.user = '_admin';
+			}
+			Candy.Core.connect(params.user + '@' + params.server, params.password, params.nickName);
+			/**
+			 * Thanks for trying Candy!
+			 *
+			 * If you need more information, please see here:
+			 *   - Setup instructions & config params: http://candy-chat.github.io/candy/#setup
+			 *   - FAQ & more: https://github.com/candy-chat/candy/wiki
+			 *
+			 * Mailinglist for questions:
+			 *   - http://groups.google.com/group/candy-chat
+			 *
+			 * Github issues for bugs:
+			 *   - https://github.com/candy-chat/candy/issues
+			 */
+		});
+	</script>
+</head>
+<body>
+	<div id="candy"></div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-plus"></i>&nbsp;&nbsp;New Role</h4>
+                            <div class="pull-right">
+                                <span ng-show="formInfo.$invalid || formAddress.$invalid" class="label label-danger">form not completed</span>
+                                <a href="javascript:;" ng-click="save()" class="btn btn-primary" ng-disabled="formInfo.$invalid || formAddress.$invalid">Save</a>
+                                <a ng-href="#/access{{_id ? 'Detail/' + _id : ''}}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <form name="formInfo" class="formObj form-horizontal">
+                                <div class="form-group">
+                                    <label for="name" class="col-sm-4 control-label">Role Name <span style="color:red">*</span></label>
+                                    <div class="col-sm-6">
+                                        <input type="text" ng-maxlength="64" class="form-control"  name="name" id="name" ng-model="obj.name" required>
+                                        <p ng-show="formInfo.name.$invalid && !formInfo.name.$pristine" class="help-block text-danger">Enter a valid name.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="parent" class="col-sm-4 control-label">Parent Role</label>
+                                    <div class="col-sm-6">
+                                        <ui-select name="parent" id="parent" ng-model="obj.parent" ng-disabled="disabled">
+	                                        <ui-select-match allow-clear placeholder="Search...">{{$select.selected.name}}</ui-select-match>
+	                                        <ui-select-choices repeat="role in roles | filter: $select.search">
+	                                            <span ng-bind-html="role.name | highlight: $select.search"></span>
+	                                        </ui-select-choices>
+	                                    </ui-select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="idx" class="col-sm-4 control-label">Index</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" maxlength="20" data-type="number" class="form-control" id="idx" ng-model="obj.idx">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label"></label>
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                </div>
+								
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Needed for the droplist so it will not get truncated by the screen height -->
+            <br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+        </div>
+    </div>
+</div>

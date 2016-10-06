@@ -1,0 +1,551 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Expense Report Detail</h4>
+
+                            <div class="pull-right">
+                            	<a ng-href="#/jarManagerExpenseEdit/{{_id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Expense Report Detail</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="title" class="col-sm-3 control-label">Title</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.title}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+	                                            <label for="address" class="col-sm-3 control-label">Address</label>
+	                                            <div class="col-sm-9">
+	                                                <textarea name="address" id="address" ng-maxlength="500" ng-model="obj.address" cols="50" rows="4" class="form-control" readonly></textarea>
+	                                            </div>
+	                                        </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+				                            	<label for="fromDate" class="col-sm-3 control-label">From Date</label>
+				                            	<div class="col-sm-9">
+				                           			<label class="control-label2">{{formatTime(obj.fromDate, 'MM/dd/yy')}}</label>
+				                             	</div>
+				                       		</div>
+				                       		<div class="form-group">
+				                            	<label for="toDate" class="col-sm-3 control-label">To Date</label>
+				                            	<div class="col-sm-9">
+				                           			<label class="control-label2">{{formatTime(obj.toDate, 'MM/dd/yy')}}</label>
+				                             	</div>
+				                       		</div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<hr>
+                                        </div>
+                                        <div class="col-xs-1 no-padding-horizontal text-center">Date</div>
+                                        <div class="col-xs-1 no-padding-horizontal text-center">Location</div>
+                                        <div class="col-xs-1 no-padding-horizontal text-center">Description</div>
+                                        <div class="col-xs-9 no-padding-horizontal text-center">
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Meals</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Parking</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Phone</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Entertain</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Airfare</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Rental</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Motel</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Meeting</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Gas</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Office Sup</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Misc</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">RTA</div>
+                                        </div>
+                                        <!-- "Col 1}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date1, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location1}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc1}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal1}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking1}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone1}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain1}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare1}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental1}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel1}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting1}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas1}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup1}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc1}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta1}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 2}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date2, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location2}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc2}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal2}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking2}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone2}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain2}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare2}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental2}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel2}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting2}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas2}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup2}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc2}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta2}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 3}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date3, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location3}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc3}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal3}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking3}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone3}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain3}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare3}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental3}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel3}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting3}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas3}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup3}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc3}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta3}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 4}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date4, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location4}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc4}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal4}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking4}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone4}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain4}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare4}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental4}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel4}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting4}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas4}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup4}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc4}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta4}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 5}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date5, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location5}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc5}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal5}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking5}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone5}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain5}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare5}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental5}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel5}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting5}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas5}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup5}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc5}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta5}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 6}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date6, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location6}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc6}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal6}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking6}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone6}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain6}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare6}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental6}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel6}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting6}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas6}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup6}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc6}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta6}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 7}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date7, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location7}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc7}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal7}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking7}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone7}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain7}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare7}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental7}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel7}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting7}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas7}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup7}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc7}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta7}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 8}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date8, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location8}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc8}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal8}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking8}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone8}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain8}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare8}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental8}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel8}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting8}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas8}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup8}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc8}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta8}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 9}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date9, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location9}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc9}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal9}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking9}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone9}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain9}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare9}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental9}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel9}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting9}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas9}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup9}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc9}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta9}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 10}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date10, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location10}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc10}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal10}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking10}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone10}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain10}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare10}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental10}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel10}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting10}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas10}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup10}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc10}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta10}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 11}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date11, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location11}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc11}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal11}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking11}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone11}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain11}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare11}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental11}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel11}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting11}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas11}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup11}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc11}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta11}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 12}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date12, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location12}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc12}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal12}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking12}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone12}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain12}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare12}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental12}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel12}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting12}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas12}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup12}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc12}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta12}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 13}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date13, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location13}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc13}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal13}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking13}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone13}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain13}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare13}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental13}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel13}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting13}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas13}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup13}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc13}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta13}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 14}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date14, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location14}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc14}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal14}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking14}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone14}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain14}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare14}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental14}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel14}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting14}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas14}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup14}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc14}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta14}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 15}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date15, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location15}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc15}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal15}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking15}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone15}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain15}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare15}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental15}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel15}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting15}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas15}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup15}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc15}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta15}}</span></div>
+                                        </div>
+                                        </div>
+                                        <!-- "Col 16}} -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{formatTime(obj.date16, 'MM/dd/yy')}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.location16}}</span></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.desc16}}</span></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meal16}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.parking16}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.phone16}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.entertain16}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.airfare16}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rental16}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.motel16}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.meeting16}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.gas16}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.sup16}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.misc16}}</span></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><span class="label-table">{{obj.rta16}}</span></div>
+                                        </div>
+                                        </div>
+                                        
+                                        <!-- "Col Total" -->
+                                        <div class="col-xs-12">
+                                        <div class="col-xs-1 no-padding-horizontal">&nbsp;</div>
+                                        <div class="col-xs-1 no-padding-horizontal">&nbsp;</div>
+                                        <div class="col-xs-1 no-padding-horizontal">Total</div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'meal',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'parking',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'phone',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'entertain',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'airfare',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'rental',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'motel',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'meeting',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'gas',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'sup',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'misc',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">&nbsp;</div>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<hr>
+                                        </div>
+                                        <div class="col-xs-6">
+                                        	<!-- "Col 1" -->
+	                                        <div class="col-xs-2 no-padding-horizontal text-center">Date</div>
+	                                        <div class="col-xs-5 no-padding-horizontal text-center">Description</div>
+	                                        <div class="col-xs-3 no-padding-horizontal text-center">Amount</div>
+	                                        <div class="col-xs-2 no-padding-horizontal text-center">RTA</div>
+                                        	<!-- "Col 1}} -->
+                                        	<div class="col-xs-12">
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{formatTime(obj.specialDate1, 'MM/dd/yy')}}</span></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><span class="label-table">{{obj.specialDesc1}}</span></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><span class="label-table">{{obj.specialAmount1}}</span></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{obj.specialRta1}}</span></div>
+	                                        </div>
+	                                        <!-- "Col 2}} -->
+	                                        <div class="col-xs-12">
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{formatTime(obj.specialDate2, 'MM/dd/yy')}}</span></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><span class="label-table">{{obj.specialDesc2}}</span></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><span class="label-table">{{obj.specialAmount2}}</span></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{obj.specialRta2}}</span></div>
+	                                        </div>
+	                                        <!-- "Col 3}} -->
+	                                        <div class="col-xs-12">
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{formatTime(obj.specialDate3, 'MM/dd/yy')}}</span></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><span class="label-table">{{obj.specialDesc3}}</span></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><span class="label-table">{{obj.specialAmount3}}</span></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{obj.specialRta3}}</span></div>
+	                                        </div>
+	                                        <!-- "Col 4}} -->
+	                                        <div class="col-xs-12">
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{formatTime(obj.specialDate4, 'MM/dd/yy')}}</span></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><span class="label-table">{{obj.specialDesc4}}</span></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><span class="label-table">{{obj.specialAmount4}}</span></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{obj.specialRta4}}</span></div>
+	                                        </div>
+	                                        <!-- "Col 5}} -->
+	                                        <div class="col-xs-12">
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{formatTime(obj.specialDate5, 'MM/dd/yy')}}</span></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><span class="label-table">{{obj.specialDesc5}}</span></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><span class="label-table">{{obj.specialAmount5}}</span></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{obj.specialRta5}}</span></div>
+	                                        </div>
+	                                        <!-- "Col 6}} -->
+	                                        <div class="col-xs-12">
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{formatTime(obj.specialDate6, 'MM/dd/yy')}}</span></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><span class="label-table">{{obj.specialDesc6}}</span></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><span class="label-table">{{obj.specialAmount6}}</span></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{obj.specialRta6}}</span></div>
+	                                        </div>
+	                                        <!-- "Col 7}} -->
+	                                        <div class="col-xs-12">
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{formatTime(obj.specialDate7, 'MM/dd/yy')}}</span></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><span class="label-table">{{obj.specialDesc7}}</span></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><span class="label-table">{{obj.specialAmount7}}</span></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{obj.specialRta7}}</span></div>
+	                                        </div>
+	                                        <!-- "Col 8}} -->
+	                                        <div class="col-xs-12">
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{formatTime(obj.specialDate8, 'MM/dd/yy')}}</span></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><span class="label-table">{{obj.specialDesc8}}</span></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><span class="label-table">{{obj.specialAmount8}}</span></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><span class="label-table">{{obj.specialRta8}}</span></div>
+	                                        </div>
+	                                        <!-- "Col Total" -->
+	                                        <div class="col-xs-2 no-padding-horizontal">&nbsp;</div>
+	                                        <div class="col-xs-5 no-padding-horizontal">Total</div>
+	                                        <div class="col-xs-3 no-padding-horizontal">{{addNotNull(this,'specialAmount',1,8)}}</div>
+	                                        <div class="col-xs-2 no-padding-horizontal">&nbsp;</div>
+	                                        
+                                        </div>
+                                        
+                                        <div class="col-xs-6">
+                                        	<div class="form-group">
+                                                <label class="col-sm-6 control-label">Total Expense Above</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{
+                                                    addNotNull(this,'meal',1,16) + 
+                                                    addNotNull(this,'parking',1,16) +
+                                                    addNotNull(this,'phone',1,16) +
+                                                    addNotNull(this,'entertain',1,16) +
+                                                    addNotNull(this,'airfare',1,16) +
+                                                    addNotNull(this,'rental',1,16) +
+                                                    addNotNull(this,'motel',1,16) +
+                                                    addNotNull(this,'meeting',1,16) +
+                                                    addNotNull(this,'gas',1,16) +
+                                                    addNotNull(this,'sup',1,16) +
+                                                    addNotNull(this,'misc',1,16)
+                                                    }}</label>
+                                                </div>
+                                            </div>
+                                        	<div class="form-group">
+                                                <label for="advance" class="col-sm-6 control-label">Employee Advance</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.advance}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="returned" class="col-sm-6 control-label">Advance Returned</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.returned}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Special Expense</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{addNotNull(this,'specialAmount',1,8)}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Total for Report</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{
+                                                    addNotNull(this,'meal',1,16) + 
+                                                    addNotNull(this,'parking',1,16) +
+                                                    addNotNull(this,'phone',1,16) +
+                                                    addNotNull(this,'entertain',1,16) +
+                                                    addNotNull(this,'airfare',1,16) +
+                                                    addNotNull(this,'rental',1,16) +
+                                                    addNotNull(this,'motel',1,16) +
+                                                    addNotNull(this,'meeting',1,16) +
+                                                    addNotNull(this,'gas',1,16) +
+                                                    addNotNull(this,'sup',1,16) +
+                                                    addNotNull(this,'misc',1,16) +
+                                                    addNotNull(this,'specialAmount',1,8)
+                                                    }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

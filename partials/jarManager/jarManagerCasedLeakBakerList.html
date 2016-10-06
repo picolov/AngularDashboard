@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Cased Hole Jar Leak & Continuity Check Detail</h4>
+
+                            <div class="pull-right">
+                                <a ng-href="#/jarManagerCasedLeakBakerNew/{{_id}}" class="btn btn-primary">Add New</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Cased Hole Jar Leak & Continuity Check Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<form name="formInfo" class="formObj form-horizontal" novalidate>
+                                      	<div class="col-md-12">&nbsp;</div>
+                                      	<div class="col-md-12">
+				                            <table ng-table="objTableParams" show-filter="true" class="table">
+				                                <tr ng-repeat="item in $data">
+				                                    <td data-title="'Product Type'" sortable="'jarModel'" filter="{ 'jarModel': 'text' }">
+				                                        <a ng-href="#/jarManagerCasedLeakBakerDetail/{{item._id}}">{{item.jarModel == "0"? 'Xcalibur EL .875' : item.jarModel == "1"? 'Xcalibur EL 1.562' : item.jarModel == "2"? 'Xcalibur EL 2.75' : item.jarModel == "3"? 'XCS 2.125' : item.jarModel == "4"? 'EL Rollers' : ''}}</a>
+				                                    </td>
+				                                    <td data-title="'Product Serial Number'" sortable="'jarSerial'" filter="{ 'jarSerial': 'text' }">
+				                                        {{item.jarSerial}}
+				                                    </td>
+				                                    <td data-title="'Date'" sortable="'date'" filter="{ 'date': 'text' }">
+				                                        {{formatTime(item.date, 'MM/dd/yy')}}
+				                                    </td>
+				                                    <td data-title="'In/Out'" sortable="'inOut'" filter="{ 'inOut': 'text' }">
+				                                        {{item.inOut == "0"? 'Incoming from: ' + item.inOut0Value : item.inOut == "1"? 'Outgoing to: ' + item.inOut1Value : ''}}
+				                                    </td>
+				                                    <td data-title="'RTA#'" sortable="'job.uid'" filter="{ 'job.uid': 'text' }">
+				                                        {{item.job.uid}}
+				                                    </td>
+				                                    <td data-title="'Action'">
+				                                    	<a ng-if="!item.job" ng-href="#/jarManagerCasedLeakBakerEdit/{{item._id}}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+				                                        <a ng-if="!item.job" href="javascript:;" ng-click="deleteObj(item._id)" class="btn btn-primary"><i class="fa fa-minus"></i></a>
+				                                    </td>
+				                                </tr>
+				                            </table>
+				                        </div>
+                                   	</form>
+                               	</div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

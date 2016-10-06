@@ -1,0 +1,223 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>
+						<ul class="nav nav-tabs">
+							<li class=""><a href="#/myProfile">Profile</a></li>
+							<li class="active"><a href="#/myExpenseList">Expense Report</a></li>
+							<li class=""><a href="#/myActivityLog">Activity Log</a></li>
+						</ul>
+					</h4>
+					<div class="options">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Expense Report Detail</h4>
+
+                            <div class="pull-right">
+                            	<a ng-href="#/myExpenseEdit/{{_id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Expense Report Detail</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="title" class="col-sm-3 control-label">Title</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{profile.employeeName}} - {{profile.positionName}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+	                                            <label for="address" class="col-sm-3 control-label">Address</label>
+	                                            <div class="col-sm-9">
+	                                                <label class="control-label2">{{profile.street}}</label><br>
+	                                                <label class="control-label2">{{profile.city}},{{profile.state}} {{profile.zip}}</label>
+	                                            </div>
+	                                        </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+				                            	<label for="fromDate" class="col-sm-3 control-label">From Date</label>
+				                            	<div class="col-sm-9">
+				                           			<label class="control-label2">{{formatTime(obj.fromDate, 'MM/dd/yy')}}</label>
+				                             	</div>
+				                       		</div>
+				                       		<div class="form-group">
+				                            	<label for="toDate" class="col-sm-3 control-label">To Date</label>
+				                            	<div class="col-sm-9">
+				                           			<label class="control-label2">{{formatTime(obj.toDate, 'MM/dd/yy')}}</label>
+				                             	</div>
+				                       		</div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<hr>
+                                        </div>
+                                        <div class="col-md-12">
+	                                        <div class="horizontalOverflow">
+	                                        	<table width=100% border="1">
+	                                        		<tr>
+	                                        			<th class="text-center">Date</th>
+	                                        			<th class="text-center">Location</th>
+	                                        			<th class="text-center">Description/Customer</th>
+	                                        			<th class="text-center">Meals</th>
+	                                        			<th class="text-center">Parking</th>
+	                                        			<th class="text-center">Phone</th>
+	                                        			<th class="text-center">Entertain</th>
+	                                        			<th class="text-center">Airfare</th>
+	                                        			<th class="text-center">Rental</th>
+	                                        			<th class="text-center">Motel</th>
+	                                        			<th class="text-center">Meeting</th>
+	                                        			<th class="text-center">Gas</th>
+	                                        			<th class="text-center">Office Sup</th>
+	                                        			<th class="text-center">Misc</th>
+	                                        			<th class="text-center">RTA</th>
+	                                        		</tr>
+			                                        <tr ng-repeat="i in repeatBy(16) track by $index">
+			                                        	<td><span class="label-table">{{formatTime(obj['date' + ($index+1)], 'MM/dd/yy')}}</span></td>
+			                                        	<td><span class="label-table">{{obj['location' + ($index+1)]}}</span></td>
+			                                        	<td><span class="label-table">{{obj['desc' + ($index+1)]}}</span></td>
+			                                        	<td><span class="label-table">{{obj['meal' + ($index+1)]|currency:"$ "}}</span></td>
+			                                        	<td><span class="label-table">{{obj['parking' + ($index+1)]|currency:"$ "}}</span></td>
+			                                        	<td><span class="label-table">{{obj['phone' + ($index+1)]|currency:"$ "}}</span></td>
+			                                        	<td><span class="label-table">{{obj['entertain' + ($index+1)]|currency:"$ "}}</span></td>
+			                                        	<td><span class="label-table">{{obj['airfare' + ($index+1)]|currency:"$ "}}</span></td>
+			                                        	<td><span class="label-table">{{obj['rental' + ($index+1)]|currency:"$ "}}</span></td>
+			                                        	<td><span class="label-table">{{obj['motel' + ($index+1)]|currency:"$ "}}</span></td>
+			                                        	<td><span class="label-table">{{obj['meeting' + ($index+1)]|currency:"$ "}}</span></td>
+			                                        	<td><span class="label-table">{{obj['gas' + ($index+1)]|currency:"$ "}}</span></td>
+			                                        	<td><span class="label-table">{{obj['sup' + ($index+1)]|currency:"$ "}}</span></td>
+			                                        	<td><span class="label-table">{{obj['misc' + ($index+1)]|currency:"$ "}}</span></td>
+			                                        	<td><span class="label-table">{{obj['rta' + ($index+1)]}}</span></td>
+		                                        	</tr>
+		                                        	<tr>
+			                                        	<td>&nbsp;</td>
+			                                        	<td>&nbsp;</td>
+			                                        	<td>Total</td>
+			                                        	<td>{{addNotNull(this,'meal',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'parking',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'phone',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'entertain',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'airfare',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'rental',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'motel',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'meeting',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'gas',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'sup',1,16)|currency:"$ "}}</td>
+			                                        	<td>{{addNotNull(this,'misc',1,16)|currency:"$ "}}</td>
+			                                        	<td>&nbsp;</td>
+		                                        	</tr>
+			                                	</table>
+		                                    </div>
+		                                </div>
+                                        <div class="col-md-12">
+                                        	<hr>
+                                        </div>
+                                        <div class="col-xs-6">
+	                                        <div class="horizontalOverflow">
+	                                        	<table width=100% border="1">
+	                                        		<tr>
+	                                        			<th class="text-center">Date</th>
+	                                        			<th class="text-center">Description</th>
+	                                        			<th class="text-center">Amount</th>
+	                                        			<th class="text-center">RTA</th>
+                                        			</tr>
+                                        			<tr ng-repeat="i in repeatBy(8) track by $index">
+			                                        	<td><span class="label-table">{{formatTime(obj['specialDate' + ($index+1)], 'MM/dd/yy')}}</span></td>
+			                                        	<td><span class="label-table">{{obj['specialDesc' + ($index+1)]}}</span></td>			                                        	
+			                                        	<td><span class="label-table">{{obj['specialAmount' + ($index+1)]|currency:"$ "}}</span></td>
+			                                        	<td><span class="label-table">{{obj['specialRta' + ($index+1)]}}</span></td>
+		                                        	</tr>
+		                                        	<tr>
+			                                        	<td>&nbsp;</td>
+			                                        	<td>Total</td>
+			                                        	<td>{{addNotNull(this,'specialAmount',1,16)|currency:"$ "}}</td>
+			                                        	<td>&nbsp;</td>
+		                                        	</tr>
+                                        		</table>
+	                                        </div>
+	                                  	</div>
+                                        
+                                        <div class="col-xs-6">
+                                        	<div class="form-group">
+                                                <label class="col-sm-6 control-label">Total Expense Above</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{
+                                                    addNotNull(this,'meal',1,16) + 
+                                                    addNotNull(this,'parking',1,16) +
+                                                    addNotNull(this,'phone',1,16) +
+                                                    addNotNull(this,'entertain',1,16) +
+                                                    addNotNull(this,'airfare',1,16) +
+                                                    addNotNull(this,'rental',1,16) +
+                                                    addNotNull(this,'motel',1,16) +
+                                                    addNotNull(this,'meeting',1,16) +
+                                                    addNotNull(this,'gas',1,16) +
+                                                    addNotNull(this,'sup',1,16) +
+                                                    addNotNull(this,'misc',1,16)
+                                                    |currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                        	<div class="form-group">
+                                                <label for="advance" class="col-sm-6 control-label">Employee Advance</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.advance|currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="returned" class="col-sm-6 control-label">Advance Returned</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.returned|currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Special Expense</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{addNotNull(this,'specialAmount',1,8)|currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Total for Report</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{
+                                                    addNotNull(this,'meal',1,16) + 
+                                                    addNotNull(this,'parking',1,16) +
+                                                    addNotNull(this,'phone',1,16) +
+                                                    addNotNull(this,'entertain',1,16) +
+                                                    addNotNull(this,'airfare',1,16) +
+                                                    addNotNull(this,'rental',1,16) +
+                                                    addNotNull(this,'motel',1,16) +
+                                                    addNotNull(this,'meeting',1,16) +
+                                                    addNotNull(this,'gas',1,16) +
+                                                    addNotNull(this,'sup',1,16) +
+                                                    addNotNull(this,'misc',1,16) +
+                                                    addNotNull(this,'specialAmount',1,8)
+                                                    |currency:"$ "}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

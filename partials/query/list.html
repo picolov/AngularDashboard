@@ -1,0 +1,544 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Job Query</h4>
+                            <div class="btn-group pull-right">
+                                
+                            </div>
+                        </div>
+                        <form name="formInfo" class="formObj form-horizontal" novalidate>
+	                        <div class="col-md-12">
+	                        	<div ng-repeat="num in criteriaNum" class="form-group">
+	                                <label for="field{{num}}" class="col-sm-2 control-label">Criteria {{num}}</label>
+	                                <div class="col-sm-3">
+	                                    <ui-select ng-model="searchParam['field' + num]" ng-disabled="disabled" on-select="changeField(num)">
+                                            <ui-select-match allow-clear placeholder="-Pick a value-">{{$select.selected.name}}</ui-select-match>
+                                            <ui-select-choices repeat="field in fieldList | filter: $select.search">
+                                                <span ng-bind-html="field.name | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+	                                </div>
+	                                <div ng-show="searchParam['field' + num].isEqualOnly" class="col-sm-3">
+	                                    <ui-select ng-model="searchParam['operator' + num]" ng-disabled="disabled" search-enabled="false" on-select="changeOperator(num)">
+                                            <ui-select-match allow-clear placeholder="-Pick a value-">{{$select.selected.name}}</ui-select-match>
+                                            <ui-select-choices repeat="operator in operatorEqualList | filter: $select.search">
+                                                <span ng-bind-html="operator.name | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+	                                </div>
+	                                <div ng-show="!searchParam['field' + num].isEqualOnly" class="col-sm-3">
+	                                    <ui-select ng-model="searchParam['operator' + num]" ng-disabled="disabled" search-enabled="false" on-select="changeOperator(num)">
+                                            <ui-select-match allow-clear placeholder="-Pick a value-">{{$select.selected.name}}</ui-select-match>
+                                            <ui-select-choices repeat="operator in operatorList | filter: $select.search">
+                                                <span ng-bind-html="operator.name | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+	                                </div>
+	                                <div ng-show="searchParam['operator' + num].id!=6" class="col-sm-4">
+	                                	<ui-select ng-if="searchParam['field' + num].type=='StatusJob'" multiple ng-model="searchParam['paramLeft' + num]" ng-disabled="disabled" search-enabled="false">
+                                            <ui-select-match allow-clear placeholder="-Pick a value-">{{$item.name}}</ui-select-match>
+                                            <ui-select-choices repeat="status._id as status in statusList | filter: $select.search">
+                                                <span ng-bind-html="status.name | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <ui-select ng-if="searchParam['field' + num].type=='OilCompany'" ng-model="searchParam['paramLeft' + num]" ng-disabled="disabled">
+                                            <ui-select-match allow-clear placeholder="Search...">{{$select.selected.name}}</ui-select-match>
+                                            <ui-select-choices repeat="oilCompany in companyList | filter: $select.search | property:'business._id':'0'">
+                                                <span ng-bind-html="oilCompany.name | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <ui-select ng-if="searchParam['field' + num].type=='ServiceCompany'" ng-model="searchParam['paramLeft' + num]" ng-disabled="disabled">
+                                            <ui-select-match allow-clear placeholder="Search...">{{$select.selected.name}}</ui-select-match>
+                                            <ui-select-choices repeat="serviceCompany in companyList | filter: $select.search | property:'business._id':'1'">
+                                                <span ng-bind-html="serviceCompany.name | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <ui-select ng-if="searchParam['field' + num].type=='Toolstring'" multiple ng-model="searchParam['paramLeft' + num]" ng-disabled="disabled" reset-search-input="true">
+                                            <ui-select-match allow-clear placeholder="-Pick a value-">{{$item.code}}</ui-select-match>
+                                            <ui-select-choices repeat="toolstring.code as toolstring in toolstringList | filter: $select.search">
+                                                <span ng-bind-html="toolstring.code + ' - ' + toolstring.name | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <ui-select ng-if="searchParam['field' + num].type=='JarType'" ng-model="searchParam['paramLeft' + num]" ng-disabled="disabled" search-enabled="false">
+                                            <ui-select-match allow-clear placeholder="-Pick a value-">{{$select.selected.name}}</ui-select-match>
+                                            <ui-select-choices repeat="jarType.name as jarType in jarTypeList | filter: $select.search">
+                                                <span ng-bind-html="jarType.name | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <div ng-if="searchParam['field' + num].type=='Environment'">
+	                                        <label class="radio-inline">
+												<input type="radio" name="environment{{num}}" id="environment1{{num}}" ng-model="searchParam['paramLeft' + num]" value="0" required> Land
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="environment{{num}}" id="environment2{{num}}" ng-model="searchParam['paramLeft' + num]" value="1" required> Offshore
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="environment{{num}}" id="environment3{{num}}" ng-model="searchParam['paramLeft' + num]" value="2" required> International
+											</label>
+										</div>
+										<div ng-if="searchParam['field' + num].type=='JobEnv'">
+	                                        <label class="radio-inline">
+												<input type="radio" name="jobEnv{{num}}" id="jobEnv1{{num}}" ng-model="searchParam['paramLeft' + num]" value="0" required> Land
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="jobEnv{{num}}" id="jobEnv2{{num}}" ng-model="searchParam['paramLeft' + num]" value="1" required> Inland Waters
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="jobEnv{{num}}" id="jobEnv3{{num}}" ng-model="searchParam['paramLeft' + num]" value="2" required> Shelf
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="jobEnv{{num}}" id="jobEnv4{{num}}" ng-model="searchParam['paramLeft' + num]" value="3" required> Deepwater
+											</label>
+										</div>
+										<div ng-if="searchParam['field' + num].type=='WellCondition'">
+											<label class="checkbox-inline">
+												<input type="checkbox" name="isCO2{{num}}" id="isCO2{{num}}" ng-model="searchParam['paramLeft' + num + '_1']" value="1"> CO2
+											</label>
+											<label class="checkbox-inline">
+												<input type="checkbox" name="isH2S{{num}}" id="isH2s{{num}}" ng-model="searchParam['paramLeft' + num + '_2']" value="1"> H2S
+											</label>
+											<label class="checkbox-inline">
+												<input type="checkbox" name="isHighTemp{{num}}" id="isHighTemp{{num}}" ng-model="searchParam['paramLeft' + num + '_3']" value="1"> High Temp
+											</label>
+											<label class="checkbox-inline">
+												<input type="checkbox" name="isHighPress{{num}}" id="isHighPress{{num}}" ng-model="searchParam['paramLeft' + num + '_4']" value="1"> High Press
+											</label>
+											<label class="checkbox-inline">
+												<input type="checkbox" name="isOther{{num}}" id="isOther{{num}}" ng-model="searchParam['paramLeft' + num + '_5']" value="1"> Other
+											</label>
+										</div>
+										<div ng-if="searchParam['field' + num].type=='WellType'">
+											<label class="radio-inline">
+												<input type="radio" name="wellType{{num}}" id="wellType1{{num}}" ng-model="searchParam['paramLeft' + num]" value="0"> Developmental
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="wellType{{num}}" id="wellType2{{num}}" ng-model="searchParam['paramLeft' + num]" value="1"> Exploration
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="wellType{{num}}" id="wellType3{{num}}" ng-model="searchParam['paramLeft' + num]" value="2"> Appraisal
+											</label>
+										</div>
+										<ui-select ng-if="searchParam['field' + num].type=='TypeRig'" ng-model="searchParam['paramLeft' + num]" ng-disabled="disabled" search-enabled="false">
+                                            <ui-select-match allow-clear placeholder="-Pick a value-">{{$select.selected.name}}</ui-select-match>
+                                            <ui-select-choices repeat="rigType in rigTypeList | filter: $select.search">
+                                                <span ng-bind-html="rigType.name | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <ui-select ng-if="searchParam['field' + num].type=='ImpactProSlotSize'" ng-model="searchParam['paramLeft' + num]" ng-disabled="disabled" search-enabled="false">
+                                            <ui-select-match allow-clear placeholder="-Pick a value-">{{$select.selected.name}}</ui-select-match>
+                                            <ui-select-choices repeat="slotSize._id as slotSize in slotSizeList | filter: $select.search">
+                                                <span ng-bind-html="slotSize.name | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <ui-select ng-if="searchParam['field' + num].type=='Technician'" ng-model="searchParam['paramLeft' + num]" ng-disabled="disabled">
+                                            <ui-select-match allow-clear placeholder="Search...">{{$select.selected}}</ui-select-match>
+                                            <ui-select-choices repeat="technician in technicianList | filter: $select.search">
+                                                <span ng-bind-html="technician | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <ui-select ng-if="searchParam['field' + num].type=='Sales'" ng-model="searchParam['paramLeft' + num]" ng-disabled="disabled">
+                                            <ui-select-match allow-clear placeholder="Search...">{{$select.selected.employeeName}}</ui-select-match>
+                                            <ui-select-choices repeat="technician in profileList | filter: { employeeName: $select.search, position: 'Sales' }">
+                                                <span ng-bind-html="technician.employeeName | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <ui-select ng-if="searchParam['field' + num].type=='Contact'" ng-model="searchParam['paramLeft' + num]" ng-disabled="disabled">
+                                            <ui-select-match allow-clear placeholder="Search...">{{$select.selected.titleName + ' ' + $select.selected.firstName + ' ' + $select.selected.middleName + ' ' + $select.selected.lastName}}</ui-select-match>
+                                            <ui-select-choices repeat="wirelineEngineer in contactList | filter: $select.search">
+                                                <span ng-bind-html="wirelineEngineer.titleName + ' ' + wirelineEngineer.firstName + ' ' + wirelineEngineer.middleName + ' ' + wirelineEngineer.lastName | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <div ng-if="searchParam['field' + num].type=='YesNo'">
+	                                        <label class="radio-inline">
+												<input type="radio" name="yesNo{{num}}" id="yesNo1{{num}}" ng-model="searchParam['paramLeft' + num]" value="0"> No
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="yesNo{{num}}" id="yesNo2{{num}}" ng-model="searchParam['paramLeft' + num]" value="1"> Yes
+											</label>
+										</div>
+										<div ng-if="searchParam['field' + num].type=='YesNoNA'">
+	                                        <label class="radio-inline">
+												<input type="radio" name="yesNo{{num}}" id="yesNo1{{num}}" ng-model="searchParam['paramLeft' + num]" value="0"> No
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="yesNo{{num}}" id="yesNo2{{num}}" ng-model="searchParam['paramLeft' + num]" value="1"> Yes
+											</label>
+											<label class="radio-inline">
+												<input type="radio" name="yesNo{{num}}" id="yesNo3{{num}}" ng-model="searchParam['paramLeft' + num]" value="2"> N/A
+											</label>
+										</div>
+										<div ng-if="searchParam['field' + num].type=='LatLon'">
+											<div class="input-group">
+			                                    <input name="latlng{{num}}" id="latlng{{num}}" class="form-control" type="text" placeholder="pick location" readonly style="cursor: pointer;background-color: #ffffff;opacity: 1;">
+			                                    <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+			                                </div>
+										</div>
+										
+										<input ng-if="searchParam['field' + num].type=='JarSerialJob'" type="text" ng-maxlength="40" class="form-control" ng-model="searchParam['paramLeft' + num]" name="paramLeft{{num}}" id="paramLeft{{num}}">
+										
+	                                    <input ng-if="searchParam['field' + num].type=='string'" type="text" ng-maxlength="40" class="form-control" ng-model="searchParam['paramLeft' + num]" name="paramLeft{{num}}" id="paramLeft{{num}}">
+	                                    <input ng-if="searchParam['field' + num].type=='int'" type="text" only-num class="form-control" ng-maxlength="100" ng-model="searchParam['paramLeft' + num]" name="paramLeft{{num}}" id="paramLeft{{num}}">
+	                                    <div ng-if="searchParam['field' + num].type=='date'" class="input-group date">
+                                   			<input date-picko type="text" class="form-control" ng-model="searchParam['paramLeft' + num]" name="paramLeft{{num}}" id="paramLeft{{num}}"/>
+                                   			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                               			</div>
+	                                </div>
+	                                <div ng-if="searchParam['operator' + num].id==6" class="col-sm-2">
+	                                    <input ng-if="searchParam['field' + num].type=='string'" type="text" ng-maxlength="40" class="form-control" ng-model="searchParam['paramLeft' + num]" name="paramLeft{{num}}" id="paramLeft{{num}}">
+	                                    <input ng-if="searchParam['field' + num].type=='int'" type="text" only-num class="form-control" ng-maxlength="100" ng-model="searchParam['paramLeft' + num]" name="paramLeft{{num}}" id="paramLeft{{num}}">
+	                                    <div ng-if="searchParam['field' + num].type=='date'" class="input-group date">
+                                   			<input date-picko type="text" class="form-control" ng-model="searchParam['paramLeft' + num]" name="paramLeft{{num}}" id="paramLeft{{num}}"/>
+                                   			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                               			</div>
+	                                </div>
+	                                <div ng-if="searchParam['operator' + num].id==6" class="col-sm-2">
+	                                    <input ng-if="searchParam['field' + num].type=='string'" type="text" ng-maxlength="40" class="form-control" ng-model="searchParam['paramRight' + num]" name="paramRight{{num}}" id="paramRight{{num}}">
+	                                    <input ng-if="searchParam['field' + num].type=='int'" type="text" only-num class="form-control" ng-maxlength="100" ng-model="searchParam['paramRight' + num]" name="paramRight{{num}}" id="paramRight{{num}}">
+	                                    <div ng-if="searchParam['field' + num].type=='date'" class="input-group date">
+                                   			<input date-picko type="text" class="form-control" ng-model="searchParam['paramRight' + num]" name="paramRight{{num}}" id="paramRight{{num}}"/>
+                                   			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                               			</div>
+	                                </div>
+                                </div>
+                                <div class="form-group">
+	                                <label class="col-sm-2 control-label">&nbsp;</label>
+	                                <div class="col-sm-9">
+	                                    <a href="javascript:;" ng-click="search()" class="btn btn-primary">Search</a>
+	                                    <a href="javascript:;" ng-click="searchCsv()" class="btn btn-primary">Output as XLS</a>
+	                                    <a href="javascript:;" ng-click="showColumnPicker = !showColumnPicker" class="btn btn-primary btn-sm ">Pick Columns</a>
+	                                </div>
+                                </div>
+	                   		</div>
+	                   		<div ng-show="showColumnPicker" class="col-md-12"><hr></div>
+	                   		<div ng-show="showColumnPicker" class="col-md-12">
+	                   			<div class="col-md-12 text-center">
+	                   				<!-- <h4>Column Picker</h4> -->
+	                   				<a href="javascript:;" ng-click="selectAll()" class="btn btn-primary">Select All</a>
+	                   				<a href="javascript:;" ng-click="clearAll()" class="btn btn-primary">Clear All</a>
+	                   			</div>
+	                   			<div class="col-md-12">&nbsp;</div>
+	                   			<div class="col-md-3">
+	                   				<span style="font-size: 16px;font-weight: bold;">Rig Information</span><br>
+	                   				<div class="checkbox"><!-- 8 -->
+                               			<label><input type="checkbox" id="check7" ng-click="pickColumn('isRigName')" ng-model="isRigName" value="1">Rig Name</label>
+									</div>
+									<div class="checkbox"><!-- 15 -->
+                               			<label><input type="checkbox" id="check14" ng-click="pickColumn('isPlatform')" ng-model="isPlatform" value="1">Platform</label>
+									</div>
+									<br>
+									<span style="font-size: 16px;font-weight: bold;">Job Information</span><br>
+									<div class="checkbox"><!-- 49 -->
+                               			<label><input type="checkbox" id="check48" ng-click="pickColumn('isDjrNo')" ng-model="isDjrNo" value="1">DJR #</label>
+									</div>
+									<div class="checkbox"><!-- 2 -->
+                               			<label><input type="checkbox" id="check1" ng-click="pickColumn('isStartDate')" ng-model="isStartDate" value="1">Start Date</label>
+									</div>
+									<div class="checkbox"><!-- 3 -->
+                               			<label><input type="checkbox" id="check2" ng-click="pickColumn('isEndDate')" ng-model="isEndDate" value="1">End Date</label>
+									</div>
+									<div class="checkbox"><!-- 4 -->
+                               			<label><input type="checkbox" id="check3" ng-click="pickColumn('isJobStatus')" ng-model="isJobStatus" value="1">Job Status</label>
+									</div>
+									<div class="checkbox"><!-- 9 -->
+                               			<label><input type="checkbox" id="check8" ng-click="pickColumn('isOilCompany')" ng-model="isOilCompany" value="1">Operator (Oil&Gas Company)</label>
+									</div>
+									<div class="checkbox"><!-- 10 -->
+                               			<label><input type="checkbox" id="check9" ng-click="pickColumn('isServiceCompany')" ng-model="isServiceCompany" value="1">Service Company</label>
+									</div>
+									<div class="checkbox"><!-- 12 -->
+                               			<label><input type="checkbox" id="check11" ng-click="pickColumn('isJobType')" ng-model="isJobType" value="1">Job Type</label>
+									</div>
+									<div class="checkbox"><!-- 30 -->
+                               			<label><input type="checkbox" id="check29" ng-click="pickColumn('isRevenue')" ng-model="isRevenue" value="1">Revenue</label>
+									</div>
+									<div class="checkbox"><!-- 50 -->
+                               			<label><input type="checkbox" id="check49" ng-click="pickColumn('isPo')" ng-model="isPo" value="1">PO #</label>
+									</div>
+									<div class="checkbox"><!-- 51 -->
+                               			<label><input type="checkbox" id="check50" ng-click="pickColumn('isApi')" ng-model="isApi" value="1">API</label>
+									</div>
+									<div class="checkbox"><!-- 52 -->
+                               			<label><input type="checkbox" id="check51" ng-click="pickColumn('isCostCenter')" ng-model="isCostCenter" value="1">Cost Center #</label>
+									</div>
+									<div class="checkbox"><!-- 53 -->
+                               			<label><input type="checkbox" id="check52" ng-click="pickColumn('isAfe')" ng-model="isAfe" value="1">AFE #</label>
+									</div>
+									<div class="checkbox"><!-- 54 -->
+                               			<label><input type="checkbox" id="check53" ng-click="pickColumn('isOcsg')" ng-model="isOcsg" value="1">OCSG</label>
+									</div>
+									<div class="checkbox"><!-- 55 -->
+                               			<label><input type="checkbox" id="check54" ng-click="pickColumn('isStateLease')" ng-model="isStateLease" value="1">State Lease #</label>
+									</div>
+									<div class="checkbox"><!-- 56 -->
+                               			<label><input type="checkbox" id="check55" ng-click="pickColumn('isEnvironment')" ng-model="isEnvironment" value="1">Environment</label>
+									</div>
+                                </div>
+                                <div class="col-md-3">
+									<span style="font-size: 16px;font-weight: bold;">Well Information</span><br>
+									<div class="checkbox"><!-- 11 -->
+                               			<label><input type="checkbox" id="check10" ng-click="pickColumn('isTemp')" ng-model="isTemp" value="1">Temperature</label>
+									</div>
+									<div class="checkbox"><!-- 13 -->
+                               			<label><input type="checkbox" id="check12" ng-click="pickColumn('isWellCondition')" ng-model="isWellCondition" value="1">Well Condition</label>
+									</div>
+									<div class="checkbox"><!-- 14 -->
+                               			<label><input type="checkbox" id="check13" ng-click="pickColumn('isWellType')" ng-model="isWellType" value="1">Well Type</label>
+									</div>
+									<div class="checkbox"><!-- 16 -->
+                               			<label><input type="checkbox" id="check15" ng-click="pickColumn('isWellName')" ng-model="isWellName" value="1">Well Name</label>
+									</div>
+									<div class="checkbox"><!-- 17 -->
+                               			<label><input type="checkbox" id="check16" ng-click="pickColumn('isBlock')" ng-model="isBlock" value="1">Block</label>
+									</div>
+									<div class="checkbox"><!-- 18 -->
+                               			<label><input type="checkbox" id="check17" ng-click="pickColumn('isLease')" ng-model="isLease" value="1">Lease</label>
+									</div>
+									<div class="checkbox"><!-- 19 -->
+                               			<label><input type="checkbox" id="check18" ng-click="pickColumn('isField')" ng-model="isField" value="1">Field</label>
+									</div>
+									<div class="checkbox"><!-- 20 -->
+                               			<label><input type="checkbox" id="check19" ng-click="pickColumn('isDeviation')" ng-model="isDeviation" value="1">Deviation (deg)</label>
+									</div>
+									<div class="checkbox"><!-- 31 -->
+                               			<label><input type="checkbox" id="check30" ng-click="pickColumn('isWaterDepth')" ng-model="isWaterDepth" value="1">Water Depth (ft)</label>
+									</div>
+									<div class="checkbox"><!-- 36 -->
+                               			<label><input type="checkbox" id="check35" ng-click="pickColumn('isHoleSize')" ng-model="isHoleSize" value="1">Hole Size (in)</label>
+									</div>
+									<div class="checkbox"><!-- 37 -->
+                               			<label><input type="checkbox" id="check36" ng-click="pickColumn('isBHP')" ng-model="isBHP" value="1">Bottom Hole Pressure (psi)</label>
+									</div>
+									<div class="checkbox"><!-- 48 -->
+                               			<label><input type="checkbox" id="check47" ng-click="pickColumn('isTD')" ng-model="isTD" value="1">Total Well Depth (ft)</label>
+									</div>
+									<div class="checkbox"><!-- 38 -->
+                               			<label><input type="checkbox" id="check37" ng-click="pickColumn('isMudWt')" ng-model="isMudWt" value="1">Mud Weight (lb/gal)</label>
+									</div>
+									<br>
+									<span style="font-size: 16px;font-weight: bold;">Tool Information</span><br>
+									<div class="checkbox"><!-- 28 -->
+                               			<label><input type="checkbox" id="check27" ng-click="pickColumn('isJarType')" ng-model="isJarType" value="1">Tool Type</label>
+									</div>
+									<div class="checkbox"><!-- 29 -->
+                               			<label><input type="checkbox" id="check28" ng-click="pickColumn('isJarSerial')" ng-model="isJarSerial" value="1">Tool Serial(per Run)</label>
+									</div>
+									<div class="checkbox"><!-- 62 -->
+                               			<label><input type="checkbox" id="check61" ng-click="pickColumn('isJarSerialJob')" ng-model="isJarSerialJob" value="1">Tool Serial(per Job)</label>
+									</div>
+                                </div>
+                                <div class="col-md-3">
+                                	<span style="font-size: 16px;font-weight: bold;">Run Information</span><br>
+                                	<div class="checkbox"><!-- 6 -->
+                               			<label><input type="checkbox" id="check5" ng-click="pickColumn('isRun')" ng-model="isRun" value="1">Run #</label>
+									</div>
+									<div class="checkbox"><!-- 7 -->
+                               			<label><input type="checkbox" id="check6" ng-click="pickColumn('isTotalRun')" ng-model="isTotalRun" value="1"># of Total Runs</label>
+									</div>
+									<div class="checkbox"><!-- 27 -->
+                               			<label><input type="checkbox" id="check26" ng-click="pickColumn('isTotalActivation')" ng-model="isTotalActivation" value="1"># of Activations</label>
+									</div>
+									<div class="checkbox"><!-- 32 -->
+                               			<label><input type="checkbox" id="check31" ng-click="pickColumn('isActivation')" ng-model="isActivation" value="1">Activation</label>
+									</div>
+									<div class="checkbox"><!-- 33 -->
+                               			<label><input type="checkbox" id="check32" ng-click="pickColumn('isJarSetting')" ng-model="isJarSetting" value="1">Jar Setting</label>
+									</div>
+									<div class="checkbox"><!-- 34 -->
+                               			<label><input type="checkbox" id="check33" ng-click="pickColumn('isImpactPro')" ng-model="isImpactPro" value="1">Impact Pro(per Job)</label>
+									</div>
+									<div class="checkbox"><!-- 57 -->
+                               			<label><input type="checkbox" id="check56" ng-click="pickColumn('isImpactProRun')" ng-model="isImpactProRun" value="1">Impact Pro(per Run)</label>
+									</div>
+									<div class="checkbox"><!-- 58 -->
+                               			<label><input type="checkbox" id="check57" ng-click="pickColumn('isImpactProSlotSize')" ng-model="isImpactProSlotSize" value="1">Impact Pro Slot Size</label>
+									</div>
+									<div class="checkbox"><!-- 35 -->
+                               			<label><input type="checkbox" id="check34" ng-click="pickColumn('isFishing')" ng-model="isFishing" value="1">Fishing</label>
+									</div>
+									<div class="checkbox"><!-- 39 -->
+                               			<label><input type="checkbox" id="check38" ng-click="pickColumn('isMSP')" ng-model="isMSP" value="1">Max Safe Pull (lb)</label>
+									</div>
+									<div class="checkbox"><!-- 40 -->
+                               			<label><input type="checkbox" id="check39" ng-click="pickColumn('isWIF')" ng-model="isWIF" value="1">Tool Weight in Fluid (lb)</label>
+									</div>
+									<div class="checkbox"><!-- 41 -->
+                               			<label><input type="checkbox" id="check40" ng-click="pickColumn('isWIA')" ng-model="isWIA" value="1">Tool Weight in Air (lb)</label>
+									</div>
+									<div class="checkbox"><!-- 42 -->
+                               			<label><input type="checkbox" id="check41" ng-click="pickColumn('isWOB')" ng-model="isWOB" value="1">Weight on Bottom (lb)</label>
+									</div>
+									<div class="checkbox"><!-- 5 -->
+                               			<label><input type="checkbox" id="check4" ng-click="pickColumn('isToolstringName')" ng-model="isToolstringName" value="1">Tool string name</label>
+									</div>
+									<div class="checkbox"><!-- 43 -->
+                               			<label><input type="checkbox" id="check42" ng-click="pickColumn('isToolstringLength')" ng-model="isToolstringLength" value="1">Tool String Length (ft)</label>
+									</div>
+									<div class="checkbox"><!-- 44 -->
+                               			<label><input type="checkbox" id="check43" ng-click="pickColumn('isCableSize')" ng-model="isCableSize" value="1">Cable Size (in)</label>
+									</div>
+									<div class="checkbox"><!-- 45 -->
+                               			<label><input type="checkbox" id="check44" ng-click="pickColumn('isCableWeight')" ng-model="isCableWeight" value="1">Cable Weight per 1,000 ft (lb/ft)</label>
+									</div>
+									<div class="checkbox"><!-- 59 -->
+                               			<label><input type="checkbox" id="check58" ng-click="pickColumn('isRunDate')" ng-model="isRunDate" value="1">Run Dates</label>
+									</div>
+									<div class="checkbox"><!-- 60 -->
+                               			<label><input type="checkbox" id="check59" ng-click="pickColumn('isTotalRunTime')" ng-model="isTotalRunTime" value="1">Total Run Time (Hrs)</label>
+									</div>
+									<div class="checkbox"><!-- 61 -->
+                               			<label><input type="checkbox" id="check60" ng-click="pickColumn('isToolsFreed')" ng-model="isToolsFreed" value="1">Tools Freed</label>
+									</div>
+									<div class="checkbox"><!-- 46 -->
+                               			<label><input type="checkbox" id="check45" ng-click="pickColumn('isFormulaUsed')" ng-model="isFormulaUsed" value="1">Formula used</label>
+									</div>
+									<div class="checkbox"><!-- 47 -->
+                               			<label><input type="checkbox" id="check46" ng-click="pickColumn('isWP')" ng-model="isWP" value="1">Weak Point (lb)</label>
+									</div>
+                                </div>
+                                <div class="col-md-3">
+                                	<span style="font-size: 16px;font-weight: bold;">Location</span><br>
+                                	<div class="checkbox"><!-- 21 -->
+                               			<label><input type="checkbox" id="check20" ng-click="pickColumn('isCountry')" ng-model="isCountry" value="1">Country</label>
+									</div>
+									<div class="checkbox"><!-- 22 -->
+                               			<label><input type="checkbox" id="check21" ng-click="pickColumn('isCounty')" ng-model="isCounty" value="1">County</label>
+									</div>
+									<div class="checkbox"><!-- 24 -->
+                               			<label><input type="checkbox" id="check23" ng-click="pickColumn('isParish')" ng-model="isParish" value="1">Parish</label>
+									</div>
+									<div class="checkbox"><!-- 23 -->
+                               			<label><input type="checkbox" id="check22" ng-click="pickColumn('isState')" ng-model="isState" value="1">State</label>
+									</div>
+									<div class="checkbox"><!-- 63 -->
+                               			<label><input type="checkbox" id="check62" ng-click="pickColumn('isCity')" ng-model="isCity" value="1">City</label>
+									</div>
+									<div class="checkbox"><!-- 64 -->
+                               			<label><input type="checkbox" id="check63" ng-click="pickColumn('isLatLon')" ng-model="isLatLon" value="1">Latitude-Longitude</label>
+									</div>
+									<br>
+									<span style="font-size: 16px;font-weight: bold;">Personnel</span><br>
+									<div class="checkbox"><!-- 25 -->
+                               			<label><input type="checkbox" id="check24" ng-click="pickColumn('isTechnician')" ng-model="isTechnician" value="1">Technician</label>
+									</div>
+									<div class="checkbox"><!-- 26 -->
+                               			<label><input type="checkbox" id="check25" ng-click="pickColumn('isWirelineEngineer')" ng-model="isWirelineEngineer" value="1">Wireline Engineer</label>
+									</div>
+									<div class="checkbox"><!-- 65 -->
+                               			<label><input type="checkbox" id="check64" ng-click="pickColumn('isCompanyMan')" ng-model="isCompanyMan" value="1">Company Man</label>
+									</div>
+									<div class="checkbox"><!-- 66 -->
+                               			<label><input type="checkbox" id="check65" ng-click="pickColumn('isSales')" ng-model="isSales" value="1">Sales</label>
+									</div>
+									<br>
+									<span style="font-size: 16px;font-weight: bold;">Contact Information</span><br>
+									<div class="checkbox"><!-- 67 -->
+                               			<label><input type="checkbox" id="check66" ng-click="pickColumn('isRigPhone')" ng-model="isRigPhone" value="1">Rig Phone #</label>
+									</div>
+									<div class="checkbox"><!-- 68 -->
+                               			<label><input type="checkbox" id="check67" ng-click="pickColumn('isRigFax')" ng-model="isRigFax" value="1">Rig Fax #</label>
+									</div>
+									<div class="checkbox"><!-- 69 -->
+                               			<label><input type="checkbox" id="check68" ng-click="pickColumn('isRigEmail')" ng-model="isRigEmail" value="1">Rig Email</label>
+									</div>
+									<div class="checkbox"><!-- 70 -->
+                               			<label><input type="checkbox" id="check69" ng-click="pickColumn('isEngineerPhone')" ng-model="isEngineerPhone" value="1">Engineer Phone #</label>
+									</div>
+									<div class="checkbox"><!-- 71 -->
+                               			<label><input type="checkbox" id="check70" ng-click="pickColumn('isEngineerEmail')" ng-model="isEngineerEmail" value="1">Engineer Email</label>
+									</div>
+                                </div>
+	                   		</div>
+	                        <div class="col-md-12"><hr></div>
+	                        <div class="col-md-12">
+	                        	<div class="horizontalOverflow">
+		                            <table ng-table="objTableParams" show-filter="false" class="table">
+		                            	<thead>
+									    	<tr>
+									    		<td><b>RTA #</b></td>
+									        	<td ng-repeat="column in columns">
+									          		<b>{{column.title}}</b>
+									        	</td>
+									    	</tr>
+									    </thead>
+									    <tbody>
+			                                <tr ng-repeat="jobQuery in $data" ng-hide="jobQuery.matchRunIdx != null && jobQuery.matchRunIdx.length == 0">
+			                                    <td>
+			                                        <a href="#/jobInfoDetail/{{jobQuery._id}}">{{jobQuery.uid}}</a>
+			                                    </td>
+			                                    <td ng-repeat="column in columns" >
+			                                        <span ng-if="column.type=='date'">{{formatTime(jobQuery[column.variable], 'MM/dd/yy')}}</span>
+			                                        <span ng-if="column.type=='string'">{{getNestedVar(jobQuery, column.variable)}}</span>
+			                                        <span ng-if="column.type=='int'">{{getNestedVar(jobQuery, column.variable)}}</span>
+			                                        <span ng-if="column.countVar" ng-repeat="currNum in item_count(jobQuery[column.countVar])">
+			                                        	<span ng-show="jobQuery.matchRunIdx == null || array_contains(jobQuery.matchRunIdx, currNum)">
+				                                        	<span ng-if="column.type=='YesNo'">
+				                                    			{{jobQuery[column.variable + currNum] == '0' ? 'No' : jobQuery[column.variable + currNum] == '1' ? 'Yes' : ''}}
+				                                    		</span>
+				                                    		<span ng-if="column.type=='YesNoNA'">
+				                                    			{{jobQuery[column.variable + currNum] == '0' ? 'No' : jobQuery[column.variable + currNum] == '1' ? 'Yes' : jobQuery[column.variable + currNum] == '2' ? 'N/A' : ''}}
+				                                    		</span>
+				                                    		<span ng-if="column.type=='string' || column.type=='int'">
+				                                    			{{getNestedVar(jobQuery, column.variable + currNum)}}
+				                                    		</span>
+				                                    		<span ng-if="column.type=='date'">
+				                                    			{{formatTime(jobQuery[column.variable + currNum], 'MM/dd/yy')}}
+				                                    		</span>
+				                                    		<span ng-if="column.type=='array'" ng-repeat="toolstring in jobQuery[column.variable + currNum] track by $index">
+		                                   						{{$first ? toolstring : (", " + toolstring)}}
+		                                   					</span>
+		                                   					<span ng-if="column.type=='ImpactProSlotSize'">
+					                                    		{{jobQuery[column.variable + currNum] == '0' ? '.25"' : jobQuery[column.variable + currNum] == '1' ? '.50"' : jobQuery[column.variable + currNum] == '2' ? '.75"' : jobQuery[column.variable + currNum] == '3' ? 'Blank' : jobQuery[column.variable + currNum] == '4' ? 'N/A' : ''}}
+					                                    	</span>
+		                                   					<br>
+	                                   					</span>
+			                                    	</span>
+			                                    	<span ng-if="column.type=='Technician'">
+			                                    		{{jobQuery.technician2 ? jobQuery.technician + '/' + jobQuery.technician2 : jobQuery.technician}}
+			                                    	</span>
+			                                    	<span ng-if="column.type=='YesNo'">
+			                                    		{{jobQuery[column.variable] == '0' ? 'No' : jobQuery[column.variable] == '1' ? 'Yes' : ''}}
+			                                    	</span>
+			                                    	<span ng-if="column.type=='YesNoNA'">
+			                                    		{{jobQuery[column.variable] == '0' ? 'No' : jobQuery[column.variable] == '1' ? 'Yes' : jobQuery[column.variable] == '2' ? 'N/A' : ''}}
+			                                    	</span>
+			                                    	<span ng-if="column.type=='JobType'">
+			                                    		{{jobQuery[column.variable] == '0' ? 'Land' : jobQuery[column.variable] == '1' ? 'Offshore' : jobQuery[column.variable] == '2' ? 'International' : ''}}
+			                                    	</span>
+			                                    	<span ng-if="column.type=='WellCondition'">
+			                                    		{{mergeString(', ', jobQuery.isCO2?'CO2':'', jobQuery.isH2S?'H2S':'', jobQuery.isHighTemp?'High Temperature':'', jobQuery.isHighPress?'High Pressure':'', jobQuery.isOther?jobQuery.isOtherVal:'')}}
+			                                    	</span>
+			                                    	<span ng-if="column.type=='WellType'">
+			                                    		{{jobQuery[column.variable] == '0' ? 'Developmental' : jobQuery[column.variable] == '1' ? 'Exploration' : jobQuery[column.variable] == '2' ? 'Appraisal' : ''}}
+			                                    	</span>
+			                                    	<span ng-if="column.type=='JobEnv'">
+			                                    		{{jobQuery[column.variable] == '0' ? 'Land' : jobQuery[column.variable] == '1' ? 'Inland Waters' : jobQuery[column.variable] == '2' ? 'Shelf' : jobQuery[column.variable] == '3' ? 'Deepwater' : ''}}
+			                                    	</span>
+			                                    	<span ng-if="column.type=='ImpactPro'">
+			                                    		{{jobQuery[column.variable] == '0' ? 'No' : jobQuery[column.variable] == '1' ? 'Yes' : ''}}
+			                                    	</span>
+			                                    	<span ng-if="column.type=='JarSerialJob'">
+			                                    		{{mergeString(', ', jobQuery.serial1, jobQuery.serial2, jobQuery.serial3, jobQuery.serial4, jobQuery.serial5, jobQuery.serial6, jobQuery.serial7, jobQuery.serial8, jobQuery.serial9, jobQuery.serial10, jobQuery.serial11, jobQuery.serial12, jobQuery.serial13, jobQuery.serial14, jobQuery.serial15)}}
+			                                    	</span>
+			                                    	<span ng-if="column.type=='JarType'">
+			                                    		{{mergeStringNoDup(', ', jobQuery.toolType1, jobQuery.toolType2, jobQuery.toolType3, jobQuery.toolType4, jobQuery.toolType5, jobQuery.toolType6, jobQuery.toolType7, jobQuery.toolType8, jobQuery.toolType9, jobQuery.toolType10, jobQuery.toolType11, jobQuery.toolType12, jobQuery.toolType13, jobQuery.toolType14, jobQuery.toolType15)}}
+			                                    	</span>
+			                                    	<span ng-if="column.type=='LatLon'">
+			                                    		{{jobQuery.latitude && jobQuery.longitude?jobQuery.latitude + ", " + jobQuery.longitude:''}}
+			                                    	</span>
+			                                    </td>
+			                                </tr>
+		                                </tbody>
+		                            </table>
+		                    	</div>
+	                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

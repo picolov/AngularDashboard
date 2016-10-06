@@ -1,0 +1,53 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>
+						<ul class="nav nav-tabs">
+							<li class=""><a href="#/contact">Individual</a></li>
+							<li class=""><a href="#/company">Company</a></li>
+							<li class="active"><a href="#/isiEmployee" style="cursor: pointer;">ISI Employee</a></li>
+						</ul>
+					</h4>
+					<div class="options">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Employee Listing</h4>
+                            <div class="btn-group pull-right">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table ng-table="objTableParams" show-filter="true" class="table">
+                                <tr ng-repeat="profile in $data">
+                                    <td data-title="'Employee Name'" sortable="'employeeName'" filter="{ 'employeeName': 'text' }">
+                                    	<a ng-if="haveAllAccess('@isiEmployeeDetail')" href="#/isiEmployeeDetail/{{profile._id}}">{{profile.employeeName}}</a>
+                                        <span ng-if="!haveAllAccess('@isiEmployeeDetail')">{{profile.employeeName}}</span>
+                                    </td>
+                                    <td data-title="'Mobile Phone'" sortable="'mobile'" filter="{ 'mobile': 'text' }">
+                                        {{profile.mobile}}
+                                    </td>
+                                    <td data-title="'Email'" sortable="'email'" filter="{ 'email': 'text' }">
+                                    	{{profile.email}}
+                                    </td>
+                                    <td data-title="'Skype'" sortable="'skype'" filter="{ 'skype': 'text' }">
+                                    	{{profile.skype}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

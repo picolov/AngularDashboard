@@ -1,0 +1,96 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Outgoing Jar Sign In/Sign Out Detail</h4>
+
+                            <div class="pull-right">
+                                <a ng-if="!obj.job" ng-href="#/jarManagerInOutEdit/{{_id}}" class="btn btn-primary">Edit</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Outgoing Jar Sign In/Sign Out Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<form name="formInfo" class="formObj form-horizontal" novalidate>
+                                		<div class="col-md-12">
+	                                      	<div class="col-md-6">
+	                                            <div class="form-group">
+	                                                <label for="serial" class="col-sm-3 control-label">Jar/Basket/Sling Serial #</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.job?(jobInfo.type=='0'? (obj.serialType == '0'?obj.serial:obj.serialType == '1'?'Basket: ' + obj.basket:obj.serialType == '2'?'Sling: ' + obj.sling:''): obj.serial) : (obj.serialType == '0'?obj.jarType + ' - ' + obj.serial:obj.serialType == '1'?'Basket: ' + obj.basket:obj.serialType == '2'?'Sling: ' + obj.sling:'')}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="destination" class="col-sm-3 control-label">Destination</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.destination}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="date" class="col-sm-3 control-label">Date</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{formatTime(obj.date, 'MM/dd/yy')}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="inOut" class="col-sm-3 control-label">In/Out</label>
+	                                                <div class="col-sm-9">
+	                                                	<label class="control-label2">{{obj.inOut == '0'?'In':obj.inOut == '1'?'Out':''}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="ran" class="col-sm-3 control-label">Ran</label>
+	                                                <div class="col-sm-9">
+	                                                	<label class="control-label2">{{obj.ran == '0'?'Y':obj.ran == '1'?'N':''}}</label>
+	                                                </div>
+	                                            </div>
+	                                      	</div>
+	                                      	<div class="col-md-6">
+	                                      		<div class="form-group">
+	                                                <label for="level" class="col-sm-3 control-label">Level</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.level}}</label>
+	                                                </div>
+	                                            </div>
+	                                      		<div class="form-group">
+	                                                <label for="name" class="col-sm-3 control-label">RTA#</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{jobInfo.uid}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="fa" class="col-sm-3 control-label">FA #</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.fa}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="et" class="col-sm-3 control-label">ET #</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.et}}</label>
+	                                                </div>
+	                                            </div>
+	                                      		<div class="form-group">
+	                                                <label for="name" class="col-sm-3 control-label">Initials</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.name}}</label>
+	                                                </div>
+	                                            </div>
+	                                      	</div>
+                                      	</div>
+                                   	</form>
+                               	</div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

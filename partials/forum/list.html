@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Topics Listing</h4>
+                            <div class="btn-group pull-right">
+                                <a href="#/forumTopicNew" class="btn btn-primary btn-sm ">New Topic</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table ng-table="objTableParams" show-filter="true" class="table">
+                                <tr ng-repeat="item in $data">
+                                    <td class="col-md-2" data-title="'Title'" sortable="'title'" filter="{ 'title': 'text' }">
+                                        <a href="#/forumTopicDetail/{{item._id}}">{{item.title}}</a>
+                                    </td>
+                                    <td class="col-md-2" data-title="'Created By'" sortable="'user.fullName'" filter="{ 'user.fullName': 'text' }">
+                                        {{item.user.fullName}}
+                                    </td>
+                                    <td class="col-md-2" data-title="'Date'" sortable="'createdTime'" filter="{ 'createdTime': 'text' }">
+                                        {{formatTime(item.createdTime)}}
+                                    </td>
+                                    <td class="col-md-2" data-title="'Last Reply By'" sortable="'replyUser.fullName'" filter="{ 'replyUser.fullName': 'text' }">
+                                        {{item.replyUser.fullName}}
+                                    </td>
+                                    <td class="col-md-2" data-title="'Reply Date'" sortable="'replyTime'" filter="{ 'replyTime': 'text' }">
+                                        {{formatTime(item.replyTime)}}
+                                    </td>
+                                    <td class="col-md-1" data-title="'Views'" sortable="'view'" filter="{ 'view': 'text' }">
+                                        {{item.view}}
+                                    </td>
+                                    <td class="col-md-1" data-title="'Reply'" sortable="'reply'" filter="{ 'reply': 'text' }">
+                                        {{item.reply}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

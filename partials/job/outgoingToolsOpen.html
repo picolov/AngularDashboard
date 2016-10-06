@@ -1,0 +1,68 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}" class="current"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Outgoing Tools Detail</h4>
+
+                            <div class="pull-right">
+                            </div>
+                        </div>
+                        <form name="formInfo" class="formObj form-horizontal" novalidate>
+	                        <div class="col-md-12">
+	                            <div class="form-group">
+	                                <label class="col-sm-6 control-label">Outgoing Open Hole Jar Inspection</label>
+	                                <div class="col-sm-6">
+	                                	<a ng-if="!inspection && (jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit'))" ng-href="#/jobInfoOutgoingTools0InspectionNew/{{_id}}" class="btn btn-primary">Add</a>
+	                                    <a ng-if="inspection && (jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit'))" ng-href="#/jobInfoOutgoingTools0InspectionEdit/{{_id}}" class="btn btn-primary">Edit</a>
+	                                    <a ng-if="inspection" ng-href="#/jobInfoOutgoingTools0InspectionDetail/{{_id}}" class="btn btn-primary">View</a>
+                               			<!-- <a ng-if="inspection" href="javascript:;" ng-click="detailInspectionPdf()" class="btn btn-primary">Pdf</a> -->
+	                                </div>
+	                            </div>
+	                            <div ng-if="hasBA" class="form-group">
+	                                <label class="col-sm-6 control-label">Open Hole Jar Leak & Continuity Check - BAKER</label>
+	                                <div class="col-sm-6">
+	                                	<a ng-href="#/jobInfoOutgoingTools0LeakBakerList/{{_id}}" class="btn btn-primary">List</a>
+	                                </div>
+	                            </div>
+	                            <div ng-if="hasSLB" class="form-group">
+	                                <label class="col-sm-6 control-label">Open Hole Jar Leak & Continuity Check - SCHLUMBERGER</label>
+	                                <div class="col-sm-6">
+	                                	<a ng-href="#/jobInfoOutgoingTools0LeakBergerList/{{_id}}" class="btn btn-primary">List</a>
+	                                </div>
+	                            </div>
+	                            <div ng-if="hasHAL" class="form-group">
+	                                <label class="col-sm-6 control-label">Open Hole Jar Leak & Continuity Check - HALLIBURTON</label>
+	                                <div class="col-sm-6">
+	                                	<a ng-href="#/jobInfoOutgoingTools0LeakBurtonList/{{_id}}" class="btn btn-primary">List</a>
+	                                </div>
+	                            </div>
+	                            <div class="form-group">
+	                                <label class="col-sm-6 control-label">Jar Sign In / Sign Out Sheet</label>
+	                                <div class="col-sm-6">
+	                                	<a ng-href="#/jobInfoOutgoingToolsInOutList/{{_id}}" class="btn btn-primary">List</a>
+	                                </div>
+	                            </div>
+	                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

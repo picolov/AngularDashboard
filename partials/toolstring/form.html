@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Toolstring Detail</h4>
+
+                            <div class="pull-right">
+                            	<span ng-show="formInfo.$invalid" class="label label-danger">form not completed</span>
+                                <a href="javascript:;" ng-click="save()" class="btn btn-primary" ng-disabled="formInfo.$invalid">Save</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Toolstring Information</h4>
+                                    <div class="options">
+                                        <div><small>* = Required Information</small></div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-9">
+                                        <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                            <div class="form-group">
+                                                <label for="code" class="col-sm-3 control-label">Toolstring Code <span style="color:red">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="code" id="code" ng-maxlength="40" ng-model="obj.code" required>
+                                                    <p ng-show="formInfo.code.$invalid && !formInfo.code.$pristine" class="help-block text-danger">Enter a valid Toolstring code.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name" class="col-sm-3 control-label">Toolstring Name <span style="color:red">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="name" id="name" ng-maxlength="40" ng-model="obj.name" required>
+                                                    <p ng-show="formInfo.name.$invalid && !formInfo.name.$pristine" class="help-block text-danger">Enter a valid Toolstring name.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+			                                	<label for="category" class="col-sm-3 control-label">Category <span style="color:red">*</span></label>
+			                                	<div class="col-sm-9">
+			                                    	<label class="radio-inline">
+														<input uncheckable-radio type="radio" name="category" id="category1" ng-model="obj.category" value="Baker" required> Baker
+													</label>
+													<label class="radio-inline">
+														<input uncheckable-radio type="radio" name="category" id="category2" ng-model="obj.category" value="Schlumberger" required> Schlumberger
+													</label>
+													<label class="radio-inline">
+														<input uncheckable-radio type="radio" name="category" id="category3" ng-model="obj.category" value="Halliburton" required> Halliburton
+													</label>
+			                                 	</div>
+			                             	</div>
+                                            <div class="form-group">
+                                                <label for="company" class="col-sm-3 control-label">Company</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="company" id="company" ng-maxlength="40" ng-model="obj.company">
+                                                    <p ng-show="formInfo.company.$invalid && !formInfo.company.$pristine" class="help-block text-danger">Enter a valid Company.</p>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

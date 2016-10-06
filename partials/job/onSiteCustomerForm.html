@@ -1,0 +1,333 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="current"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Customer Satisfaction Report Detail</h4>
+
+                            <div class="pull-right">
+                            	<span ng-show="formInfo.$invalid" class="label label-danger">form not completed</span>
+                                <a href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+                                <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Customer Satisfaction Report Form</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+		                                        <label for="customer" class="col-sm-3 control-label">Customer Name</label>
+		                                        <div class="col-sm-9">
+		                                            <ui-select name="customer" id="customer" ng-model="obj.customer" ng-disabled="disabled">
+		                                                <ui-select-match allow-clear placeholder="Search...">{{$select.selected.name}}</ui-select-match>
+		                                                <ui-select-choices repeat="customer in companyList | filter: $select.search">
+		                                                    <span ng-bind-html="customer.name | highlight: $select.search"></span>
+		                                                </ui-select-choices>
+		                                            </ui-select>
+		                                            <p ng-show="formInfo.customer.$invalid && !formInfo.customer.$pristine" class="help-block text-danger">not a valid company.</p>
+		                                        </div>
+		                                    </div>
+                                            <div class="form-group">
+                                                <label for="customerRepName" class="col-sm-3 control-label">Company Representative Name</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control" name="customerRepName" id="customerRepName" maxlength="100" ng-model="obj.customerRepName">
+                                                    <p ng-show="formInfo.customerRepName.$invalid && !formInfo.customerRepName.$pristine" class="help-block text-danger">Enter a valid Customer Representative.</p>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                	<div class="input-group date">
+					                                    <input date-picko type="text" class="form-control" ng-model="obj.customerRepDate" name="customerRepDate" id="customerRepDate"/>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+                                                    <p ng-show="formInfo.customerRepDate.$invalid && !formInfo.customerRepDate.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jobTitle" class="col-sm-3 control-label">Job Title</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="jobTitle" id="jobTitle" maxlength="100" ng-model="obj.jobTitle">
+                                                    <p ng-show="formInfo.jobTitle.$invalid && !formInfo.jobTitle.$pristine" class="help-block text-danger">Enter a valid Job Title.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+                                                <label for="customerLocation" class="col-sm-3 control-label">Customer Location</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="customerLocation" id="customerLocation" maxlength="100" ng-model="obj.customerLocation">
+                                                    <p ng-show="formInfo.customerLocation.$invalid && !formInfo.customerLocation.$pristine" class="help-block text-danger">Enter a valid Customer Location.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="isiFacility" class="col-sm-3 control-label">ISI Facility</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="isiFacility" id="isiFacility" maxlength="100" ng-model="obj.isiFacility">
+                                                    <p ng-show="formInfo.isiFacility.$invalid && !formInfo.isiFacility.$pristine" class="help-block text-danger">Enter a valid ISI Facility.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<hr>
+                                        </div>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+                                                <label for="point1" class="col-sm-3 control-label">1. Communication with the customer</label>
+                                                <div class="col-sm-9">
+                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check1" id="check1a" ng-model="obj.point1" value="2"> Poor
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check1" id="check1b" ng-model="obj.point1" value="4"> Mediocre
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check1" id="check1c" ng-model="obj.point1" value="6"> Adequate
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check1" id="check1d" ng-model="obj.point1" value="8"> Good
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check1" id="check1e" ng-model="obj.point1" value="10"> Excellent
+													</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point2" class="col-sm-3 control-label">2. Technical Support</label>
+                                                <div class="col-sm-9">
+                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check2" id="check2a" ng-model="obj.point2" value="2"> Poor
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check2" id="check2b" ng-model="obj.point2" value="4"> Mediocre
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check2" id="check2c" ng-model="obj.point2" value="6"> Adequate
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check2" id="check2d" ng-model="obj.point2" value="8"> Good
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check2" id="check2e" ng-model="obj.point2" value="10"> Excellent
+													</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point3" class="col-sm-3 control-label">3. Document Submission</label>
+                                                <div class="col-sm-9">
+                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check3" id="check3a" ng-model="obj.point3" value="2"> Poor
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check3" id="check3b" ng-model="obj.point3" value="4"> Mediocre
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check3" id="check3c" ng-model="obj.point3" value="6"> Adequate
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check3" id="check3d" ng-model="obj.point3" value="8"> Good
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check3" id="check3e" ng-model="obj.point3" value="10"> Excellent
+													</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point4" class="col-sm-3 control-label">4. Order/Project Management</label>
+                                                <div class="col-sm-9">
+                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check4" id="check4a" ng-model="obj.point4" value="2"> Poor
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check4" id="check4b" ng-model="obj.point4" value="4"> Mediocre
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check4" id="check4c" ng-model="obj.point4" value="6"> Adequate
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check4" id="check4d" ng-model="obj.point4" value="8"> Good
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check4" id="check4e" ng-model="obj.point4" value="10"> Excellent
+													</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point5" class="col-sm-3 control-label">5. Product Design</label>
+                                                <div class="col-sm-9">
+                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check5" id="check5a" ng-model="obj.point5" value="2"> Poor
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check5" id="check5b" ng-model="obj.point5" value="4"> Mediocre
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check5" id="check5c" ng-model="obj.point5" value="6"> Adequate
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check5" id="check5d" ng-model="obj.point5" value="8"> Good
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check5" id="check5e" ng-model="obj.point5" value="10"> Excellent
+													</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+                                                <label for="point6" class="col-sm-3 control-label">6. Product Quality</label>
+                                                <div class="col-sm-9">
+                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check6" id="check6a" ng-model="obj.point6" value="2"> Poor
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check6" id="check6b" ng-model="obj.point6" value="4"> Mediocre
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check6" id="check6c" ng-model="obj.point6" value="6"> Adequate
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check6" id="check6d" ng-model="obj.point6" value="8"> Good
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check6" id="check6e" ng-model="obj.point6" value="10"> Excellent
+													</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point7" class="col-sm-3 control-label">7. Delivery Performance</label>
+                                                <div class="col-sm-9">
+                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check7" id="check7a" ng-model="obj.point7" value="2"> Poor
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check7" id="check7b" ng-model="obj.point7" value="4"> Mediocre
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check7" id="check7c" ng-model="obj.point7" value="6"> Adequate
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check7" id="check7d" ng-model="obj.point7" value="8"> Good
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check7" id="check7e" ng-model="obj.point7" value="10"> Excellent
+													</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point8" class="col-sm-3 control-label">8. Health, Safety & Environmental Impact</label>
+                                                <div class="col-sm-9">
+                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check8" id="check8a" ng-model="obj.point8" value="2"> Poor
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check8" id="check8b" ng-model="obj.point8" value="4"> Mediocre
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check8" id="check8c" ng-model="obj.point8" value="6"> Adequate
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check8" id="check8d" ng-model="obj.point8" value="8"> Good
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check8" id="check8e" ng-model="obj.point8" value="10"> Excellent
+													</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point9" class="col-sm-3 control-label">9. Commercial Management (Pricing)</label>
+                                                <div class="col-sm-9">
+                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check9" id="check9a" ng-model="obj.point9" value="2"> Poor
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check9" id="check9b" ng-model="obj.point9" value="4"> Mediocre
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check9" id="check9c" ng-model="obj.point9" value="6"> Adequate
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check9" id="check9d" ng-model="obj.point9" value="8"> Good
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check9" id="check9e" ng-model="obj.point9" value="10"> Excellent
+													</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point10" class="col-sm-3 control-label">10. Product Performance</label>
+                                                <div class="col-sm-9">
+                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check10" id="check10a" ng-model="obj.point10" value="2"> Poor
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check10" id="check10b" ng-model="obj.point10" value="4"> Mediocre
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check10" id="check10c" ng-model="obj.point10" value="6"> Adequate
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check10" id="check10d" ng-model="obj.point10" value="8"> Good
+													</label>
+													<label style="margin-bottom: 0px; margin-top: 8px;">
+														<input uncheckable-radio type="radio" name="check10" id="check10e" ng-model="obj.point10" value="10"> Excellent
+													</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<hr>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<div class="form-group">
+                                                <label for="score" class="col-sm-6 control-label">Total Score</label>
+                                                <div class="col-sm-6">
+                                                    <label class="form-control">{{1*obj.point1 + 1*obj.point2 + 1*obj.point3 + 1*obj.point4 + 1*obj.point5 + 1*obj.point6 + 1*obj.point7 + 1*obj.point8 + 1*obj.point9 + 1*obj.point10}}</label>                                                    
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="score" class="col-sm-6 control-label">Overall Customer Performance Rating Percentage</label>
+                                                <div class="col-sm-6">
+                                                    <label class="form-control">{{(1*obj.point1 + 1*obj.point2 + 1*obj.point3 + 1*obj.point4 + 1*obj.point5 + 1*obj.point6 + 1*obj.point7 + 1*obj.point8 + 1*obj.point9 + 1*obj.point10) / 100}}</label>                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<hr>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<div class="form-group">
+                                                <label class="col-sm-3 control-label">Customer Additional Comments</label>
+                                                <div class="col-sm-9">
+                                                    <textarea name="comment" id="comment" maxlength="500" ng-model="obj.comment" cols="50" rows="4" class="form-control"></textarea>
+                                                    <p ng-show="formInfo.comment.$invalid && !formInfo.comment.$pristine" class="help-block text-danger">not a valid comments.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,192 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                        	<select class="pull-left" style="margin: 0 0 20px;" ng-change="jobSelectChange(jobSelected)"
+                        	ng-model="jobSelected" ng-options="status as status.text for status in newStatusList">
+                            </select>
+                            <!-- <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Job Listing</h4> -->
+                            <div class="pull-right">
+                                <a href="#/jobInfoNew" class="btn btn-primary btn-sm ">Add New Job</a>
+                            </div>
+                        </div>
+                        <div ng-if="jobSelected._id == '1'" class="col-md-12">
+                        	<b style="font-size: 18px;"><u>Active Jobs</u></b>
+                        	<div class="horizontalOverflow">
+	                            <table ng-table="activeTableParams" show-filter="true" class="table">
+	                                <tr ng-repeat="job in $data" on-last-repeat>
+	                                    <td data-title="'RTA #'" sortable="'uid'" filter="{ 'uid': 'text' }">
+	                                        <a href="#/jobInfoDetail/{{job._id}}">{{job.uid}}</a>
+	                                    </td>
+	                                    <td data-title="'W/L Company'" sortable="'serviceCompany.name'" filter="{ 'serviceCompany.name': 'text' }">
+	                                        {{job.serviceCompany.name}}
+	                                    </td>
+	                                    <td data-title="'Oil Company'" sortable="'oilCompany.name'" filter="{ 'oilCompany.name': 'text' }">
+	                                        {{job.oilCompany.name}}
+	                                    </td>
+	                                    <td data-title="'Drilling Rig'" sortable="'rigName'" filter="{ 'rigName': 'text' }">
+	                                        {{job.rigName}}
+	                                    </td>
+	                                    <td data-title="'Location'" sortable="'block'" filter="{ 'block': 'text' }">
+	                                        <i ng-if="job.latitude && job.longitude" class="fa fa-globe mapPopover" ng-attr-data-location="{{job.latitude + ',' + job.longitude}}"> {{!isEmpty(job.block)?job.block:(!isEmpty(job.county)?job.county:job.parish) + (!isEmpty(job.state)?", " + job.state:"")}}</i>
+	                                        <span ng-if="!job.latitude || !job.longitude"> {{!isEmpty(job.block)?job.block:(!isEmpty(job.county)?job.county:job.parish) + (!isEmpty(job.state)?", " + job.state:"")}}</span>
+	                                    </td>
+	                                    <td data-title="'Est. Runs'" sortable="'progress'" filter="{ 'progress': 'text' }">
+	                                        <div class="contextual-progress">
+											    <div class="clearfix">
+											        <div class="progress-title">{{job.currentRun}} of {{job.runs}}</div>
+											        <div class="progress-percentage">{{(job.currentRun/job.runs) * 100| number:0}}%</div>
+											    </div>
+											    <div class="progress">
+											        <div class="progress-bar progress-bar-info" style="width: {{(job.currentRun/job.runs) * 100}}%"></div>
+											    </div>
+											</div>
+	                                    </td>
+	                                    <td data-title="'Tool Type'" sortable="'typeOfTool'" filter="{ 'typeOfTool': 'text' }">
+	                                        {{job.typeOfTool}}
+	                                    </td>
+	                                    <td data-title="'Current Revenue'" sortable="'currentRevenue'" filter="{ 'currentRevenue': 'text' }">
+	                                        {{job.dailyJob?job.dailyJob.currentRevenue:'' | currency}}
+	                                    </td>
+	                                    <td data-title="'Start Date & Technician'" sortable="'technician'" filter="{ 'technician': 'text' }">
+	                                        {{job.dailyJob?formatTime(job.dailyJob.fromDate):''}} {{job.technician?"(" + job.technician + ")":''}}
+	                                    </td>
+	                                    <td data-title="'Field or Prospect'" sortable="'field'" filter="{ 'field': 'text' }">
+	                                        {{job.field | ifEmpty:'N/A'}}
+	                                    </td>
+	                                    <td data-title="'API Number'" sortable="'api'" filter="{ 'api': 'text' }">
+	                                        {{job.api | ifEmpty:'N/A'}}
+	                                    </td>
+	                                    <td data-title="'Notes'" sortable="'job.dailyJob.notes'" filter="{ 'job.dailyJob.notes': 'text' }" style="min-width:200px;">
+	                                        <textarea ng-model="job.dailyJob.notes" cols="50" rows="3" class="full-width disabled-textarea" readonly></textarea>
+	                                    </td>
+	                                </tr>
+	                            </table>
+                            </div>
+                        </div>
+                        <div ng-if="jobSelected._id == '1'" class="col-md-12">
+                        	<hr>
+                        	<b style="font-size: 18px"><u>Upcoming Jobs</u></b>
+                        	<div class="horizontalOverflow">
+	                            <table ng-table="upcomingTableParams" show-filter="true" class="table">
+	                                <tr ng-repeat="job in $data" on-last-repeat ng-class="{passDateRow: beforeToday(job.startDate)}">
+	                                    <td data-title="'RTA #'" sortable="'uid'" filter="{ 'uid': 'text' }">
+	                                        <a href="#/jobInfoDetail/{{job._id}}">{{job.uid}}</a>
+	                                    </td>
+	                                    <td data-title="'W/L Company'" sortable="'serviceCompany.name'" filter="{ 'serviceCompany.name': 'text' }">
+	                                        {{job.serviceCompany.name}}
+	                                    </td>
+	                                    <td data-title="'Oil Company'" sortable="'oilCompany.name'" filter="{ 'oilCompany.name': 'text' }">
+	                                        {{job.oilCompany.name}}
+	                                    </td>
+	                                    <td data-title="'Drilling Rig'" sortable="'rigName'" filter="{ 'rigName': 'text' }">
+	                                        {{job.rigName}}
+	                                    </td>
+	                                    <td data-title="'Location'" sortable="'block'" filter="{ 'block': 'text' }">
+	                                        <i ng-if="job.latitude && job.longitude" class="fa fa-globe mapPopover" ng-attr-data-location="{{job.latitude + ',' + job.longitude}}"> {{!isEmpty(job.block)?job.block:(!isEmpty(job.county)?job.county:job.parish) + (!isEmpty(job.state)?", " + job.state:"")}}</i>
+	                                        <span ng-if="!job.latitude || !job.longitude"> {{!isEmpty(job.block)?job.block:(!isEmpty(job.county)?job.county:job.parish) + (!isEmpty(job.state)?", " + job.state:"")}}</span>
+	                                    </td>
+	                                    <td data-title="'Est. Runs'" sortable="'runs'" filter="{ 'runs': 'text' }">
+	                                        {{job.runs}}
+	                                    </td>
+	                                    <td data-title="'Tool Type'" sortable="'typeOfTool'" filter="{ 'typeOfTool': 'text' }">
+	                                        {{job.typeOfTool}}
+	                                    </td>
+	                                    <td data-title="'Est. Revenue'" sortable="'currentRevenue'" filter="{ 'currentRevenue': 'text' }">
+	                                        {{job.estimatedRevenue | currency}}
+	                                    </td>
+	                                    <td data-title="'Est. Start Date'" sortable="'startDate'" filter="{ 'startDate': 'text' }">
+	                                        {{formatTime(job.startDate)}}
+	                                    </td>
+	                                    <td data-title="'Field or Prospect'" sortable="'field'" filter="{ 'field': 'text' }">
+	                                        {{job.field | ifEmpty:'N/A'}}
+	                                    </td>
+	                                    <td data-title="'API Number'" sortable="'api'" filter="{ 'api': 'text' }">
+	                                        {{job.api | ifEmpty:'N/A'}}
+	                                    </td>
+	                                    <td data-title="'Notes'" sortable="'job.comment'" filter="{ 'job.comment': 'text' }" style="min-width:200px;">
+	                                        <textarea ng-model="job.comment" cols="50" rows="3" class="full-width disabled-textarea" readonly></textarea>
+	                                    </td>
+	                                </tr>
+	                            </table>
+                            </div>
+                        </div>
+                        <div ng-if="jobSelected._id == '2'" class="col-md-12">
+                        	<div class="horizontalOverflow">
+	                            <table ng-table="completedTableParams" show-filter="true" class="table">
+	                                <tr ng-repeat="job in $data" on-last-repeat>
+	                                	<td data-title="'Rig Name'" sortable="'rigName'" filter="{ 'rigName': 'text' }">
+	                                        {{job.rigName}}
+	                                    </td>
+	                                    <td data-title="'RTA #'" sortable="'uid'" filter="{ 'uid': 'text' }">
+	                                        <a href="#/jobInfoDetail/{{job._id}}">{{job.uid}}</a>
+	                                    </td>
+	                                    <td data-title="'Oil & Gas Company'" sortable="'oilCompany.name'" filter="{ 'oilCompany.name': 'text' }">
+	                                        {{job.oilCompany.name}}
+	                                    </td>
+	                                    <td data-title="'Service Company'" sortable="'serviceCompany.name'" filter="{ 'serviceCompany.name': 'text' }">
+	                                        {{job.serviceCompany.name}}
+	                                    </td>
+	                                    <td data-title="'Location'" sortable="'latitude'" filter="{ 'latitude': 'text' }">
+	                                        <i ng-if="job.latitude && job.longitude" class="fa fa-globe mapPopover" ng-attr-data-location="{{job.latitude + ',' + job.longitude}}"> {{!isEmpty(job.block)?job.block:(!isEmpty(job.county)?job.county:job.parish) + (!isEmpty(job.state)?", " + job.state:"")}}</i>
+	                                        <span ng-if="!job.latitude || !job.longitude"> {{!isEmpty(job.block)?job.block:(!isEmpty(job.county)?job.county:job.parish) + (!isEmpty(job.state)?", " + job.state:"")}}</span>
+	                                    </td>
+	                                    <td data-title="'Job Progress'" sortable="'progress'" filter="{ 'progress': 'text' }">
+	                                        <div class="contextual-progress">
+											    <div class="clearfix">
+											        <div class="progress-title">{{job.currentRun}} of {{job.runs}}</div>
+											        <div class="progress-percentage">{{(job.currentRun/job.runs) * 100| number:0}}%</div>
+											    </div>
+											    <div class="progress">
+											        <div class="progress-bar progress-bar-info" style="width: {{(job.currentRun/job.runs) * 100}}%"></div>
+											    </div>
+											</div>
+	                                    </td>
+	                                </tr>
+	                            </table>
+                            </div>
+                        </div>
+                        <div ng-if="jobSelected._id == '3'" class="col-md-12">
+                        	<div class="horizontalOverflow">
+	                            <table ng-table="canceledTableParams" show-filter="true" class="table">
+	                                <tr ng-repeat="job in $data" on-last-repeat>
+	                                	<td data-title="'Rig Name'" sortable="'rigName'" filter="{ 'rigName': 'text' }">
+	                                        {{job.rigName}}
+	                                    </td>
+	                                    <td data-title="'RTA #'" sortable="'uid'" filter="{ 'uid': 'text' }">
+	                                        <a href="#/jobInfoDetail/{{job._id}}">{{job.uid}}</a>
+	                                    </td>
+	                                    <td data-title="'Oil & Gas Company'" sortable="'oilCompany.name'" filter="{ 'oilCompany.name': 'text' }">
+	                                        {{job.oilCompany.name}}
+	                                    </td>
+	                                    <td data-title="'Service Company'" sortable="'serviceCompany.name'" filter="{ 'serviceCompany.name': 'text' }">
+	                                        {{job.serviceCompany.name}}
+	                                    </td>
+	                                    <td data-title="'Location'" sortable="'latitude'" filter="{ 'latitude': 'text' }">
+	                                        <i ng-if="job.latitude && job.longitude" class="fa fa-globe mapPopover" ng-attr-data-location="{{job.latitude + ',' + job.longitude}}"> {{!isEmpty(job.block)?job.block:(!isEmpty(job.county)?job.county:job.parish) + (!isEmpty(job.state)?", " + job.state:"")}}</i>
+	                                        <span ng-if="!job.latitude || !job.longitude"> {{!isEmpty(job.block)?job.block:(!isEmpty(job.county)?job.county:job.parish) + (!isEmpty(job.state)?", " + job.state:"")}}</span>
+	                                    </td>
+	                                    <td data-title="'Job Progress'" sortable="'progress'" filter="{ 'progress': 'text' }">
+	                                        <div class="contextual-progress">
+											    <div class="clearfix">
+											        <div class="progress-title">{{job.currentRun}} of {{job.runs}}</div>
+											        <div class="progress-percentage">{{(job.currentRun/job.runs) * 100| number:0}}%</div>
+											    </div>
+											    <div class="progress">
+											        <div class="progress-bar progress-bar-info" style="width: {{(job.currentRun/job.runs) * 100}}%"></div>
+											    </div>
+											</div>
+	                                    </td>
+	                                </tr>
+	                            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

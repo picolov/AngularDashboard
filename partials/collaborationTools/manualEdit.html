@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                        	<h4 class="pull-left" style="margin: 0 0 20px;">
+                                <i class="fa fa-share-alt"></i>&nbsp;&nbsp;Field Operation Manual
+                            </h4>
+                            <div class="pull-right">
+                                <a href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                        	<div class="form-group">
+                                <label for="name" class="col-sm-3 control-label">Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="name" id="name" ng-maxlength="100" ng-model="obj.name">
+                                    <p ng-show="formInfo.name.$invalid && !formInfo.name.$pristine" class="help-block text-danger">Enter a valid Name.</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Size</label>
+                                <div class="col-sm-9">
+                                    <label class="control-label2">{{obj.size}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Upload Date</label>
+                                <div class="col-sm-9">
+                                    <label class="control-label2">{{formatTime(obj.uploadDate, 'MM/dd/yy hh:mm:ss')}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function changeInputUpload(dom){
+        
+        
+    }
+</script>

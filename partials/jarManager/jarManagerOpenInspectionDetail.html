@@ -1,0 +1,195 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Outgoing Open Hole Jar Inspection Detail</h4>
+
+                            <div class="pull-right">
+                                <a ng-if="!obj.job" ng-href="#/jarManagerOpenInspectionEdit/{{_id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Outgoing Open Hole Jar Inspection Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<form name="formInfo" class="formObj form-horizontal" novalidate>
+                                		<div class="col-md-6">
+                                			<div class="form-group">
+                                                <label for="sentDate" class="col-sm-3 control-label">Date Jar(s) Sent Out</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{formatTime(obj.sentDate, 'MM/dd/yy')}}</label>
+                                                </div>
+                                            </div>
+                                		</div>
+                                		<div class="col-md-6">
+                                			<div class="form-group">
+                                                <label for="rta" class="col-sm-3 control-label">RTA</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.uid}}</label>
+                                                </div>
+                                            </div>
+                                		</div>
+                                		<div class="col-md-12">
+                                      		<hr>
+                                      	</div>
+                                      	<div class="col-md-12">
+                                      		<hr>
+	                                      	<div class="col-md-6">
+	                                            <div class="form-group">
+	                                                <label for="serial1" class="col-sm-3 control-label">Serial Number</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.job?obj.serial1:obj.jarType1 + ' - ' + obj.serial1}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="serial2" class="col-sm-3 control-label">Serial Number</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.job?obj.serial2:obj.jarType2 + ' - ' + obj.serial2}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="serial3" class="col-sm-3 control-label">Serial Number</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.job?obj.serial3:obj.jarType3 + ' - ' + obj.serial3}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="description" class="col-sm-3 control-label">Description of Jar</label>
+	                                                <div class="col-sm-9">
+	                                                    <textarea name="description" id="description" cols="50" rows="4" class="form-control" readonly>{{obj.job?mergeStringNoDup(', ', getToolType(obj.serial1), getToolType(obj.serial2), getToolType(obj.serial3), getToolType(obj.serial4), getToolType(obj.serial5), getToolType(obj.serial6)) : mergeStringNoDup(', ', obj.jarType1, obj.jarType2, obj.jarType3, obj.jarType4, obj.jarType5, obj.jarType6)}}</textarea>
+	                                                </div>
+	                                            </div>
+	                                      	</div>
+	                                      	<div class="col-md-6">
+	                                      		<div class="form-group">
+	                                                <label for="serial4" class="col-sm-3 control-label">Serial Number</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.job?obj.serial4:obj.jarType4 + ' - ' + obj.serial4}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="serial5" class="col-sm-3 control-label">Serial Number</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.job?obj.serial5:obj.jarType5 + ' - ' + obj.serial5}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="serial6" class="col-sm-3 control-label">Serial Number</label>
+	                                                <div class="col-sm-9">
+	                                                    <label class="control-label2">{{obj.job?obj.serial6:obj.jarType6 + ' - ' + obj.serial6}}</label>
+	                                                </div>
+	                                            </div>
+	                                      	</div>
+                                      	</div>
+				                        <div class="col-md-12">
+				                        	<hr>
+				                        	<div class="col-md-6">
+				                        		<div class="form-group">
+	                                                <label for="check1" class="col-sm-8 control-label">Connections for appropriate tightness</label>
+	                                                <div class="col-sm-4">
+														<label class="control-label2">{{obj.check1 == '0' ? 'Yes' : obj.check1 == '1' ? 'No': ''}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="check2" class="col-sm-8 control-label">All set screws are installed properly</label>
+	                                                <div class="col-sm-4">
+	                                                	<label class="control-label2">{{obj.check2 == '0' ? 'Yes' : obj.check2 == '1' ? 'No': ''}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="check3" class="col-sm-8 control-label">Checked for leaks and found to be acceptable</label>
+	                                                <div class="col-sm-4">
+	                                                	<label class="control-label2">{{obj.check3 == '0' ? 'Yes' : obj.check3 == '1' ? 'No': ''}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="check4" class="col-sm-8 control-label">Checked continuity and found to be acceptable</label>
+	                                                <div class="col-sm-4">
+	                                                	<label class="control-label2">{{obj.check4 == '0' ? 'Yes' : obj.check4 == '1' ? 'No': ''}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="check5" class="col-sm-8 control-label">Windows installed properly</label>
+	                                                <div class="col-sm-4">
+	                                                	<label class="control-label2">{{obj.check5 == '0' ? 'Yes' : obj.check5 == '1' ? 'No': ''}}</label>
+	                                                </div>
+	                                            </div>
+				                        	</div>
+				                        	<div class="col-md-6">
+	                                            <div class="form-group">
+	                                                <label for="check6" class="col-sm-8 control-label">Thread protector O-rings installed properly</label>
+	                                                <div class="col-sm-4">
+	                                                	<label class="control-label2">{{obj.check6 == '0' ? 'Yes' : obj.check6 == '1' ? 'No': ''}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="check7" class="col-sm-8 control-label">Tattle tail button installed and working properly</label>
+	                                                <div class="col-sm-4">
+	                                                	<label class="control-label2">{{obj.check7 == '0' ? 'Yes' : obj.check7 == '1' ? 'No': ''}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="check8" class="col-sm-8 control-label">Ensure Piston is spaced to 5.5" (MFT Jars)</label>
+	                                                <div class="col-sm-4">
+	                                                	<label class="control-label2">{{obj.check8 == '0' ? 'Yes' : obj.check8 == '1' ? 'No': ''}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="check9" class="col-sm-8 control-label">Ensure safety clamp is installed (MFT Jars)</label>
+	                                                <div class="col-sm-4">
+	                                                	<label class="control-label2">{{obj.check9 == '0' ? 'Yes' : obj.check9 == '1' ? 'No': ''}}</label>
+	                                                </div>
+	                                            </div>
+				                        	</div>
+				                        	<div class="col-md-12">
+				                        		<div class="form-group">
+	                                                <label for="additionalComment" class="col-sm-3 control-label">Any additional comment</label>
+	                                                <div class="col-sm-9">
+	                                                    <textarea name="additionalComment" id="additionalComment" ng-model="obj.additionalComment" cols="50" rows="4" class="form-control" readonly></textarea>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="signatureName" class="col-sm-3 control-label">Technician Name</label>
+	                                                <div class="col-sm-5">
+	                                                    <label class="control-label2">{{obj.signatureName}}</label>
+	                                                </div>
+	                                                <div class="col-sm-4">
+	                                                    <label class="control-label2">{{formatTime(obj.signatureDate, 'MM/dd/yy')}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="signatureName" class="col-sm-3 control-label">Facility Manager or Engineering Manager Name</label>
+	                                                <div class="col-sm-5">
+	                                                    <label class="control-label2">{{obj.facilityName}}</label>
+	                                                </div>
+	                                                <div class="col-sm-4">
+	                                                    <label class="control-label2">{{formatTime(obj.facilityDate, 'MM/dd/yy')}}</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="thirdPartyName" class="col-sm-3 control-label">Third Party Inspector Name</label>
+	                                                <div class="col-sm-5">
+	                                                    <label class="control-label2">{{obj.thirdPartyName}}</label>
+	                                                </div>
+	                                                <div class="col-sm-4">
+	                                                    <label class="control-label2">{{formatTime(obj.thirdPartyDate, 'MM/dd/yy')}}</label>
+	                                                </div>
+	                                            </div>
+				                        	</div>
+				                        </div>
+                                   	</form>
+                               	</div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,271 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}" class="current"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="current"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Jar Settings Detail</h4>
+
+                            <div class="pull-right">
+                            	<a ng-if="(jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit')) && (myJob(jobInfo) || haveAllAccess('@onSiteEdit'))" ng-href="#/jobInfoJarSetsOpenHoleEdit/{{_id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Jar Pre-Set Approval Detail</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-12" ng-repeat="item in getItemCount">
+                                            <hr>
+                                            <div class="panel panel-gray"> 
+				                                <div class="panel-body">
+				                                	<div class="col-md-12 clearfix">
+							                            <h4 class="pull-left" style="margin: 0 0 20px;">Run # {{obj['run_' + item.idx] | ifEmpty:'N/A'}}</h4>
+							                        </div>
+				                                	<div class="col-md-6">
+			                                            <div class="form-group">
+			                                                <label class="col-sm-3 control-label">Date</label>
+			                                                <div class="col-sm-9">
+			                                                	<label class="control-label2">{{formatTime(obj['fromDate_' + item.idx], 'MM/dd/yy') | ifEmpty:'N/A'}} - {{formatTime(obj['toDate_' + item.idx], 'MM/dd/yy') | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="from" class="col-sm-3 control-label">Start Time</label>
+			                                                <div class="col-sm-9">
+			                                                	<label class="control-label2">{{obj['start_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="to" class="col-sm-3 control-label">End Time</label>
+			                                                <div class="col-sm-9">
+			                                                	<label class="control-label2">{{obj['end_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="wif_{{item.idx}}" class="col-sm-3 control-label">WIF</label>
+			                                                <div class="col-sm-9">
+			                                                	<label class="control-label2">{{obj['wif_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="msp_{{item.idx}}" class="col-sm-3 control-label">MSP</label>
+			                                                <div class="col-sm-9">
+			                                                	<label class="control-label2">{{obj['msp_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="wob_{{item.idx}}" class="col-sm-3 control-label">WOB</label>
+			                                                <div class="col-sm-9">
+			                                                    <label class="control-label2">{{obj['wob_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="wp_{{item.idx}}" class="col-sm-3 control-label">WP</label>
+			                                                <div class="col-sm-9">
+			                                                    <label class="control-label2">{{obj['wp_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="wia_{{item.idx}}" class="col-sm-3 control-label">WIA (lbs)</label>
+			                                                <div class="col-sm-9">
+			                                                	<label class="control-label2">{{obj['wia_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="pullHead_{{item.idx}}" class="col-sm-3 control-label">Max Pull at head (lbs)</label>
+			                                                <div class="col-sm-9">
+			                                                	<label class="control-label2">{{obj['pullHead_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                        </div>
+			                                        <div class="col-md-6">
+			                                            <div class="form-group">
+			                                                <label class="col-sm-3 control-label">Jar Serial #</label>
+			                                                <div class="col-sm-9">
+			                                                    <label class="control-label2">{{obj['jarSerial_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label class="col-sm-3 control-label">Toolstring Name</label>
+			                                                <div class="col-sm-9">
+			                                                	<label class="control-label2">
+			                                                		<span ng-repeat="toolstring in obj['toolstringName_' + item.idx]">
+				                                   						{{$first ? toolstring : (", " + toolstring)}}
+				                                   					</span>
+				                                   					<span ng-if="!obj['toolstringName_' + item.idx].length">
+				                                   						N/A
+				                                   					</span>
+			                                                	</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label class="col-sm-3 control-label">Toolstring Length (ft)</label>
+			                                                <div class="col-sm-9">
+			                                                	<label class="control-label2">{{obj['toolstringLength_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label class="col-sm-3 control-label"># of Activation</label>
+			                                                <div class="col-sm-9">
+			                                                	<label class="control-label2">{{obj['numOfActivation_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+						                                	<label for="activation_{{item.idx}}" class="col-sm-3 control-label">Activation</label>
+						                                	<div class="col-sm-9">
+						                                		<label class="control-label2">{{obj['activation_' + item.idx] == '1'? 'Yes':obj['activation_' + item.idx] == '0'? 'No':'' | ifEmpty:'N/A'}}</label>
+						                                   </div>
+						                              	</div>
+						                              	<div class="form-group">
+						                                	<label for="toolsFreed_{{item.idx}}" class="col-sm-3 control-label">Tools Freed</label>
+						                                	<div class="col-sm-9">
+						                                		<label class="control-label2">{{obj['toolsFreed_' + item.idx] == '1'? 'Yes':obj['toolsFreed_' + item.idx] == '0'? 'No':obj['toolsFreed_' + item.idx] == '2'? 'N/A':'' | ifEmpty:'N/A'}}</label>
+						                                   </div>
+						                              	</div>
+						                              	<div class="form-group">
+						                                	<label for="fishing_{{item.idx}}" class="col-sm-3 control-label">Fishing</label>
+						                                	<div class="col-sm-9">
+						                                		<label class="control-label2">{{obj['fishing_' + item.idx] == '1'? 'Yes':obj['fishing_' + item.idx] == '0'? 'No':'' | ifEmpty:'N/A'}}</label>
+						                                   </div>
+						                              	</div>
+						                              	<div class="form-group">
+						                                	<label for="impactPro_{{item.idx}}" class="col-sm-3 control-label">Impact Pro</label>
+						                                	<div class="col-sm-9">
+						                                		<label class="control-label2">{{obj['impactPro_' + item.idx] == '1'? 'Yes':obj['impactPro_' + item.idx] == '0'? 'No':'' | ifEmpty:'N/A'}}</label>
+						                                   </div>
+						                              	</div>
+						                              	<div class="form-group">
+						                                    <label class="col-sm-3 control-label">Impact Pro Slot Size</label>
+						                                    <div class="col-sm-9" id="status">
+						                                        <label class="control-label2">{{obj['impactProSlotSize_' + item.idx] == '0'? '.25"':obj['impactProSlotSize_' + item.idx] == '1'? '.50"':obj['impactProSlotSize_' + item.idx] == '2'? '.75"':obj['impactProSlotSize_' + item.idx] == '3'? 'Blank':obj['impactProSlotSize_' + item.idx] == '4'? 'N/A':'' | ifEmpty:'N/A'}}</label>
+						                                    </div>
+						                                </div>
+			                                        </div>
+			                                        <div class="col-md-12">
+			                                            <hr>
+			                                        </div>
+			                                        <div class="col-md-12">
+			                                            <div ng-hide="jobInfo.type == '1'" class="form-group">
+			                                                <div class="col-sm-12">
+			                                                    <label class="control-label2">A. {{obj['wif_' + item.idx]?obj['wif_' + item.idx]:'WIF'}} Plus (2,000lbs) = Total (A) {{obj['wif_' + item.idx]?((1*obj['wif_' + item.idx]) + 2000): '' | roundPoint:2}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div ng-hide="jobInfo.type == '1'" class="form-group">
+			                                                <div class="col-sm-12">
+			                                                    <label class="control-label2">B. {{obj['msp_' + item.idx]?(1*obj['msp_' + item.idx]):'MSP'}} Minus ({{obj['wob_' + item.idx]?(1*obj['wob_' + item.idx]):'WOB'}} Minus {{obj['wif_' + item.idx]?(1*obj['wif_' + item.idx]):'WIF'}}) Minus (2,000lbs) = Total (B) {{obj['msp_' + item.idx] && obj['wob_' + item.idx] && obj['wif_' + item.idx]?(1*obj['msp_' + item.idx] - (1*obj['wob_' + item.idx] - 1*obj['wif_' + item.idx]) - 2000): '' | roundPoint:2}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div ng-hide="jobInfo.type == '1'" class="form-group">
+			                                                <div class="col-sm-12">
+			                                                    <label class="control-label2">C. {{obj['wp_' + item.idx]?(1*obj['wp_' + item.idx]):'WP'}} Minus (2,000lbs) = Total (C) {{obj['wp_' + item.idx]?(1*obj['wp_' + item.idx] - 2000): '' | roundPoint:2}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div ng-hide="jobInfo.type == '1'" class="form-group">
+			                                                <label class="col-sm-6 control-label">Maximum Tool Setting (lowest value of Total’s A, B & C above) =</label>
+			                                                <div class="col-sm-6">
+			                                                    <label class="control-label2" >{{obj['wif_' + item.idx] && obj['msp_' + item.idx] && obj['wob_' + item.idx] && obj['wp_' + item.idx]? (minimum([(1*obj['wif_' + item.idx]) + 2000, '(A)'], [(1*obj['msp_' + item.idx] - (1*obj['wob_' + item.idx] - 1*obj['wif_' + item.idx]) - 2000), '(B)'], [(1*obj['wp_' + item.idx] - 2000), '(C)']) ):''}} {{obj['wif_' + item.idx] && obj['msp_' + item.idx] && obj['wob_' + item.idx] && obj['wp_' + item.idx]? (minimum((1*obj['wif_' + item.idx]) + 2000, 1*obj['msp_' + item.idx] - (1*obj['wob_' + item.idx] - 1*obj['wif_' + item.idx]) - 2000, 1*obj['wp_' + item.idx] - 2000) ):'' | roundPoint:2 | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div ng-hide="jobInfo.type == '1'" class="form-group">
+			                                                <label for="allowance_{{item.idx}}" class="col-sm-6 control-label">Allowance for drag/well conditions</label>
+			                                                <div class="col-sm-6">
+			                                                    <label class="control-label2">{{obj['allowance_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="tool_{{item.idx}}" class="col-sm-6 control-label">Tool string weight in air</label>
+			                                                <div class="col-sm-6">
+			                                                    <label class="control-label2">{{obj['wia_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="recommended_{{item.idx}}" class="col-sm-6 control-label">Recommended pre-set maximum impact effect</label>
+			                                                <div class="col-sm-6">
+			                                                    <label class="control-label2">{{obj['recommended_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="actualJar_{{item.idx}}" class="col-sm-6 control-label">Pre-set actually used on jar</label>
+			                                                <div class="col-sm-6">
+			                                                    <label class="control-label2">{{obj['actualJar_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                            <div class="form-group">
+			                                                <label for="ifPreset_{{item.idx}}" class="col-sm-6 control-label">If pre-set selected is other than recommend maximum explain</label>
+			                                                <div class="col-sm-6">
+			                                                    <label class="control-label2">{{obj['ifPreset_' + item.idx] | ifEmpty:'N/A'}}</label>
+			                                                </div>
+			                                            </div>
+			                                        </div>
+			                                        <div class="col-md-12">
+			                                        	<hr>
+				                                        <div class="form-group">
+				                                        	<label for="signatureName_{{item.idx}}" class="col-sm-6 control-label">Signature Name</label>
+				                                        	<div class="col-sm-3">
+				                                        		<label class="control-label2">{{obj['signatureName_' + item.idx] | ifEmpty:'N/A'}}</label>
+				                                        	</div>
+				                                        	<div class="col-sm-3">
+			                                        			<label class="control-label2">{{formatTime(obj['signatureDate_' + item.idx], 'MM/dd/yy') | ifEmpty:'N/A'}}</label>
+				                                        	</div>
+				                                        </div>
+				                                        <div class="form-group">
+				                                        	<label for="techName_{{item.idx}}" class="col-sm-6 control-label">ISI Technician</label>
+				                                        	<div class="col-sm-3">
+				                                        		<label class="control-label2">{{obj['techName_' + item.idx] | ifEmpty:'N/A'}}</label>
+				                                        	</div>
+				                                        	<div class="col-sm-3">
+				                                        		<label class="control-label2">{{formatTime(obj['techDate_' + item.idx], 'MM/dd/yy') | ifEmpty:'N/A'}}</label>
+				                                        	</div>
+				                                        </div>
+				                                        <div class="form-group">
+				                                        	<label for="wlcoName_{{item.idx}}" class="col-sm-6 control-label">W/L Co. Engineer</label>
+				                                        	<div class="col-sm-3">
+				                                        		<label class="control-label2">{{obj['wlcoName_' + item.idx] | ifEmpty:'N/A'}}</label>
+				                                        	</div>
+				                                        	<div class="col-sm-3">
+				                                        		<label class="control-label2">{{formatTime(obj['wlcoDate_' + item.idx], 'MM/dd/yy') | ifEmpty:'N/A'}}</label>
+				                                        	</div>
+				                                        </div>
+				                                        <div class="form-group">
+				                                        	<label for="oilName_{{item.idx}}" class="col-sm-6 control-label">Oil & Gas Co. Rep</label>
+				                                        	<div class="col-sm-3">
+				                                        		<label class="control-label2">{{obj['oilName_' + item.idx] | ifEmpty:'N/A'}}</label>
+				                                        	</div>
+				                                        	<div class="col-sm-3">
+				                                        		<label class="control-label2">{{formatTime(obj['oilDate_' + item.idx], 'MM/dd/yy') | ifEmpty:'N/A'}}</label>
+				                                        	</div>
+				                                        </div>
+			                                        </div>
+				                                </div>
+			                                </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

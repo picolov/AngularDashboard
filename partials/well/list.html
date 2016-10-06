@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Well Listing</h4>
+                            <div class="btn-group pull-right">
+                                <a href="#/wellNew" class="btn btn-primary btn-sm ">New Well</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table ng-table="objTableParams" show-filter="true" class="table">
+                                <tr ng-repeat="well in $data">
+                                    <td data-title="'Number'" sortable="'number'" filter="{ 'number': 'text' }">
+                                        <a href="#/wellDetail/{{well._id}}">{{well.number}}</a>
+                                    </td>
+                                    <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">
+                                        {{well.name}}
+                                    </td>
+                                    <td data-title="'Country'" sortable="'country'" filter="{ 'country': 'text' }">
+                                        {{well.country}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

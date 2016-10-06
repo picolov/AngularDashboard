@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Well Detail</h4>
+
+                            <div class="pull-right">
+                            	<span ng-show="formInfo.$invalid" class="label label-danger">form not completed</span>
+                                <a href="javascript:;" ng-click="save()" class="btn btn-primary" ng-disabled="formInfo.$invalid">Save</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Well Information</h4>
+                                    <div class="options">
+                                        <div><small>* = Required Information</small></div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-9">
+                                        <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                            <div class="form-group">
+                                                <label for="number" class="col-sm-3 control-label">Well Number <span style="color:red">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="number" id="number" ng-maxlength="40" ng-model="obj.number" required>
+                                                    <p ng-show="formInfo.number.$invalid && !formInfo.number.$pristine" class="help-block text-danger">Enter a valid well number.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="name" class="col-sm-3 control-label">Well Name <span style="color:red">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="name" id="name" ng-maxlength="40" ng-model="obj.name" required>
+                                                    <p ng-show="formInfo.name.$invalid && !formInfo.name.$pristine" class="help-block text-danger">Enter a valid well name.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="country" class="col-sm-3 control-label">Country</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="country" id="country" ng-maxlength="40" ng-model="obj.country">
+                                                    <p ng-show="formInfo.country.$invalid && !formInfo.country.$pristine" class="help-block text-danger">Enter a valid Country.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="latitude" class="col-sm-3 control-label">Latitude</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="latitude" id="latitude" ng-maxlength="40" ng-model="obj.latitude">
+                                                    <p ng-show="formInfo.latitude.$invalid && !formInfo.latitude.$pristine" class="help-block text-danger">Enter a valid latitude.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="longitude" class="col-sm-3 control-label">Longitude</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="longitude" id="longitude" ng-maxlength="40" ng-model="obj.longitude">
+                                                    <p ng-show="formInfo.longitude.$invalid && !formInfo.longitude.$pristine" class="help-block text-danger">Enter a valid longitude.</p>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

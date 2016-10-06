@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <div class="pull-right">
+                                <div class="ui-glossaryBox">
+                                    <form  role="search">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search" name="q" ng-model="searchText">
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-default ui-glossarySearch" type="submit"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <a ng-show="haveAllAccess('@glossaryEdit')" ng-href="#/collaborationToolsGlossaryForm/" class="btn btn-primary">New Glossary</a>
+                            </div>
+                            <h4 class="pull-left" style="margin: 0 0 20px;">
+                                <i class="fa fa-share-alt"></i>&nbsp;&nbsp;Glossary
+                            </h4>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-condensed">
+                                <tbody>
+                                <tr ng-table="objTableParams" ng-repeat="glossary in showData">
+                                    <td style="border: 0;">
+                                        <div class="faq-live">
+                                            <div class="faq-show">
+                                                <input type="hidden" name="_id" value="{{glossary._id}}"/>
+                                                <h4 class="ui-inblock">{{glossary.name}}</h4>&nbsp;&nbsp;
+                                                <a ng-show="haveAllAccess('@glossaryEdit')" href="" class="btn-faq btn-goEdit"><i class="fa fa-edit"></i></a>
+                                                <a ng-show="haveAllAccess('@glossaryEdit')" href="javascript:;" class="btn-faq btn-goDelete"><i class="fa fa-trash"></i></a>
+                                                <p>{{glossary.description}}</p>
+                                            </div>
+                                            <div class="faq-edit ui-none">
+                                                <input type="hidden" name="_id" value="{{glossary._id}}"/>
+                                                <input type="text" class="ui-inblock faq-input" name="question" value="{{glossary.name}}">&nbsp;&nbsp;
+                                                <a href="javascript:;" class="btn-faq btn-goSave" data-mode="glossary"><i class="fa fa-floppy-o"></i></a>
+                                                <a href="" class="btn-faq btn-goBack"><i class="fa fa-times"></i></a>
+                                                <textarea class="faq-area" name="answer">{{glossary.description}}</textarea>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <script>
+                                        loadDomCollab(updateGlossaryURL, deleteGlossaryURL);
+                                    </script>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <ul class="pagination">
+								<li ng-repeat="i in getNumber(pageCount) track by $index" ng-class="{active:currentPage==$index+1}"><a ng-click="selectPage($index+1)">{{$index+1}}</a></li>
+							</ul>
+                            <script></script>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>
+						<ul class="nav nav-tabs">
+							<li class=""><a href="#/contact">Individual</a></li>
+							<li class="active"><a href="#/company" style="cursor: pointer;">Company</a></li>
+							<li class=""><a href="#/isiEmployee">ISI Employee</a></li>
+						</ul>
+					</h4>
+					<div class="options">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Company Listing</h4>
+                            <div class="btn-group pull-right">
+                                <a ng-if="haveAllAccess('@companyModif')" href="#/companyNew" class="btn btn-primary btn-sm ">New Company</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table ng-table="objTableParams" show-filter="true" class="table">
+                                <tr ng-repeat="company in $data">
+                                    <td data-title="'Name'" sortable="'name'" filter="{ 'name': 'text' }">
+                                        <a href="#/companyDetail/{{company._id}}">{{company.name}}</a>
+                                    </td>
+                                    <td data-title="'Status'" sortable="'status.name'" filter="{ 'status.name': 'text' }">
+                                        {{company.status.name}}
+                                    </td>
+                                    <td data-title="'Phone'" sortable="'phone'" filter="{ 'phone': 'text' }">
+                                        {{company.phone}}
+                                    </td>
+                                    <td data-title="'Website'" sortable="'website'" filter="{ 'website': 'text' }">
+                                        {{company.website}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

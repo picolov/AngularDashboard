@@ -1,0 +1,499 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="current"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;JSEA Detail</h4>
+
+                            <div class="pull-right">
+                            	<a ng-if="obj.uploadedFile" href="javascript:;" ng-click="download(obj.uploadedFile)" class="btn btn-primary">Download</a>
+                            	<span ng-if="(jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit')) && (myJob(jobInfo) || haveAllAccess('@onSiteEdit'))" class="btn btn-primary btn-file">
+                                    {{obj.uploadedFile?'Change File' : 'Upload File'}}<input type="file" id="upload" name="upload" onchange="angular.element(this).scope().upload()"/>
+                                </span>
+                            	<a ng-if="(jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit')) && (myJob(jobInfo) || haveAllAccess('@onSiteEdit'))" ng-href="#/jobInfoOnSiteJSEAEdit/{{_id + '|' + obj_id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+                            </div>
+                        </div>
+
+                        <form name="formInfo" class="formObj form-horizontal col-md-12" novalidate>
+                            <div class="panel panel-gray col-md-12">
+                                <div class="panel-heading">
+                                    <h4>Pre-Job Safety Meeting</h4>
+                                </div>
+                                <div class="panel-body">
+	                                <div class="col-md-6">
+	                                	<div class="form-group">
+	                                		<label for="date" class="col-sm-3 control-label">Date</label>
+	                                		<div class="col-sm-9">
+	                                			<label class="control-label2">{{formatTime(obj.date, 'MM/dd/yy')}}</label>
+                                            </div>
+                                        </div>
+	                                	<div class="form-group">
+	                                        <label for="rev" class="col-sm-3 control-label">Rev</label>
+	                                        <div class="col-sm-9">
+	                                            <label class="control-label2">{{obj.rev}}</label>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="company" class="col-sm-3 control-label">Company</label>
+	                                        <div class="col-sm-9">
+	                                            <label class="control-label2">{{jobInfo.oilCompany.name}}</label>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="location" class="col-sm-3 control-label">Location</label>
+	                                        <div class="col-sm-9">
+	                                            <label class="control-label2">{{jobInfo.rigName}}</label>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="djrNo" class="col-sm-3 control-label">DJR#</label>
+	                                        <div class="col-sm-9">
+	                                        	<label class="control-label2">{{dailyJob.ticketNo}}</label>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="col-md-6">
+	                                	<div class="form-group">
+                                            <label for="version" class="col-sm-3 control-label">Choose One</label>
+                                            <div class="col-sm-9">
+                                            	<label class="control-label2">{{obj.version == '0'?'Revised':obj.version == '1'?'New':''}}</label>
+                                            </div>
+                                        </div>
+	                                	<div class="form-group">
+	                                        <label for="technician" class="col-sm-3 control-label">ISI Technician</label>
+	                                        <div class="col-sm-9">
+	                                            <label class="control-label2">{{obj.technician}}</label>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="workActivity" class="col-sm-3 control-label">Work Activity (job)</label>
+	                                        <div class="col-sm-9">
+	                                            <label class="control-label2">{{obj.workActivity}}</label>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="approvedBy" class="col-sm-3 control-label">JSA Approved By</label>
+	                                        <div class="col-sm-9">
+	                                            <label class="control-label2">{{obj.approvedBy}}</label>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="signature" class="col-sm-3 control-label">Supervisor Signature</label>
+	                                        <div class="col-sm-9">
+	                                            <label class="control-label2">{{obj.signature}}</label>
+	                                        </div>
+	                                    </div>
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-gray col-md-12">
+                                <div class="panel-heading">
+                                    <h4>Pre-Job Hazard Assessment</h4>
+                                </div>
+                                <div class="panel-body">
+	                                <div class="col-md-3">
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess1" id="assess1" ng-model="obj.assess1" value="1" disabled>Chemical Exposure</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess2" id="assess2" ng-model="obj.assess2" value="1" disabled>Hazardous Atmosphere</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess3" id="assess3" ng-model="obj.assess3" value="1" disabled>Noise</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess4" id="assess4" ng-model="obj.assess4" value="1" disabled>Working Surfaces</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess5" id="assess5" ng-model="obj.assess5" value="1" disabled>Potential Energy</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess6" id="assess6" ng-model="obj.assess6" value="1" disabled>Walking Surfaces</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess7" id="assess7" ng-model="obj.assess7" value="1" disabled>Ignition Sources</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess8" id="assess8" ng-model="obj.assess8" value="1" disabled>Fire/Explosion</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess9" id="assess9" ng-model="obj.assess9" value="1" disabled>Pressure</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess10" id="assess10" ng-model="obj.assess10" value="1" disabled>Lifting</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess11" id="assess11" ng-model="obj.assess11" value="1" disabled>Overhead</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess12" id="assess12" ng-model="obj.assess12" value="1" disabled>Machinery</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess13" id="assess13" ng-model="obj.assess13" value="1" disabled>Heat Stress</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess14" id="assess14" ng-model="obj.assess14" value="1" disabled>Spills</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess15" id="assess15" ng-model="obj.assess15" value="1" disabled>Slips/Trips</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess16" id="assess16" ng-model="obj.assess16" value="1" disabled>Falls/Open Holes</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess17" id="assess17" ng-model="obj.assess17" value="1" disabled>Chips/Slivers</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess18" id="assess18" ng-model="obj.assess18" value="1" disabled>Pinch Points</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess19" id="assess19" ng-model="obj.assess19" value="1" disabled>Other</label>
+                                			<input type="text" class="" name="assess19Val" id="assess19Val" ng-model="obj.assess19Val">
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="assess20" id="assess20" ng-model="obj.assess20" value="1" disabled>Other</label>
+                                			<input type="text" class="" name="assess20Val" id="assess20Val" ng-model="obj.assess20Val">
+										</div>
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-gray col-md-8">
+                                <div class="panel-heading">
+                                    <h4>Environmental Issues</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<div class="col-md-6">
+                                		<div class="form-group">
+	                                        <label for="weather" class="col-sm-6 control-label">Weather Conditions</label>
+	                                        <div class="col-sm-6">
+	                                            <label class="control-label2">{{obj.weather}}</label>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="msds" class="col-sm-6 control-label">MSDS</label>
+	                                        <div class="col-sm-6">
+	                                            <label class="control-label2">{{obj.msds}}</label>
+	                                        </div>
+	                                    </div>
+                                	</div>
+                                	<div class="col-md-6">
+                                		<div class="form-group">
+	                                        <label for="eyewash" class="col-sm-6 control-label">Eyewash/Shower</label>
+	                                        <div class="col-sm-6">
+	                                            <label class="control-label2">{{obj.eyewash}}</label>
+	                                        </div>
+	                                    </div>
+	                                    <div class="form-group">
+	                                        <label for="material" class="col-sm-6 control-label">Containment Material</label>
+	                                        <div class="col-sm-6">
+	                                            <label class="control-label2">{{obj.material}}</label>
+	                                        </div>
+	                                    </div>
+                                	</div>
+                                </div>
+                            </div>
+                            <div class="panel panel-gray col-md-4">
+                                <div class="panel-heading">
+                                    <h4>Permit/Procedure</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<div class="form-group">
+                                        <label for="lockOut" class="col-sm-6 control-label">Lock Out/Tag Out</label>
+                                        <div class="col-sm-6">
+                                            <label class="control-label2">{{obj.lockOut}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="other" class="col-sm-6 control-label">Other</label>
+                                        <div class="col-sm-6">
+                                            <label class="control-label2">{{obj.other}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 text-center">
+                            	<h4>Work Sequence (Job Steps)</h4>
+                            </div>
+                            <div class="col-xs-4 text-center">
+                            	<h4>Hazards or Potential for Incident</h4>
+                            </div>
+                            <div class="col-xs-5 text-center">
+                            	<h4>Recommendations to Eliminate or Reduce Hazards</h4>
+                            </div>
+                            <div class="col-xs-3"><label class="control-label2">{{obj.work1?obj.work1:'&nbsp;'}}</label></div>
+                            <div class="col-xs-4"><label class="control-label2">{{obj.hazard1?obj.hazard1:'&nbsp;'}}</label></div>
+                            <div class="col-xs-5"><label class="control-label2">{{obj.recommend1?obj.recommend1:'&nbsp;'}}</label></div>
+                            <div class="col-xs-3"><label class="control-label2">{{obj.work2?obj.work2:'&nbsp;'}}</label></div>
+                            <div class="col-xs-4"><label class="control-label2">{{obj.hazard2?obj.hazard2:'&nbsp;'}}</label></div>
+                            <div class="col-xs-5"><label class="control-label2">{{obj.recommend2?obj.recommend2:'&nbsp;'}}</label></div>
+                            <div class="col-xs-3"><label class="control-label2">{{obj.work3?obj.work3:'&nbsp;'}}</label></div>
+                            <div class="col-xs-4"><label class="control-label2">{{obj.hazard3?obj.hazard3:'&nbsp;'}}</label></div>
+                            <div class="col-xs-5"><label class="control-label2">{{obj.recommend3?obj.recommend3:'&nbsp;'}}</label></div>
+                            <div class="col-xs-3"><label class="control-label2">{{obj.work4?obj.work4:'&nbsp;'}}</label></div>
+                            <div class="col-xs-4"><label class="control-label2">{{obj.hazard4?obj.hazard4:'&nbsp;'}}</label></div>
+                            <div class="col-xs-5"><label class="control-label2">{{obj.recommend4?obj.recommend4:'&nbsp;'}}</label></div>
+                            <div class="col-xs-3"><label class="control-label2">{{obj.work5?obj.work5:'&nbsp;'}}</label></div>
+                            <div class="col-xs-4"><label class="control-label2">{{obj.hazard5?obj.hazard5:'&nbsp;'}}</label></div>
+                            <div class="col-xs-5"><label class="control-label2">{{obj.recommend5?obj.recommend5:'&nbsp;'}}</label></div>
+                            <div class="col-xs-3"><label class="control-label2">{{obj.work6?obj.work6:'&nbsp;'}}</label></div>
+                            <div class="col-xs-4"><label class="control-label2">{{obj.hazard6?obj.hazard6:'&nbsp;'}}</label></div>
+                            <div class="col-xs-5"><label class="control-label2">{{obj.recommend6?obj.recommend6:'&nbsp;'}}</label></div>
+                            <div class="col-xs-3"><label class="control-label2">{{obj.work7?obj.work7:'&nbsp;'}}</label></div>
+                            <div class="col-xs-4"><label class="control-label2">{{obj.hazard7?obj.hazard7:'&nbsp;'}}</label></div>
+                            <div class="col-xs-5"><label class="control-label2">{{obj.recommend7?obj.recommend7:'&nbsp;'}}</label></div>
+                            <div class="col-xs-3"><label class="control-label2">{{obj.work8?obj.work8:'&nbsp;'}}</label></div>
+                            <div class="col-xs-4"><label class="control-label2">{{obj.hazard8?obj.hazard8:'&nbsp;'}}</label></div>
+                            <div class="col-xs-5"><label class="control-label2">{{obj.recommend8?obj.recommend8:'&nbsp;'}}</label></div>
+                            <div class="col-xs-3"><label class="control-label2">{{obj.work9?obj.work9:'&nbsp;'}}</label></div>
+                            <div class="col-xs-4"><label class="control-label2">{{obj.hazard9?obj.hazard9:'&nbsp;'}}</label></div>
+                            <div class="col-xs-5"><label class="control-label2">{{obj.recommend9?obj.recommend9:'&nbsp;'}}</label></div>
+                            <div class="col-xs-3"><label class="control-label2">{{obj.work10?obj.work10:'&nbsp;'}}</label></div>
+                            <div class="col-xs-4"><label class="control-label2">{{obj.hazard10?obj.hazard10:'&nbsp;'}}</label></div>
+                            <div class="col-xs-5"><label class="control-label2">{{obj.recommend10?obj.recommend10:'&nbsp;'}}</label></div>
+                            
+                            <div class="col-md-12">&nbsp;</div>
+                            <div class="panel panel-gray col-md-12">
+                                <div class="panel-heading">
+                                    <h4>Personal Protective Equipment Required To Complete The Job</h4>
+                                </div>
+                                <div class="panel-body">
+	                                <div class="col-md-3">
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect1" id="protect1" ng-model="obj.protect1" value="1" disabled>Hard Hat</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect2" id="protect2" ng-model="obj.protect2" value="1" disabled>Ear Plug</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect3" id="protect3" ng-model="obj.protect3" value="1" disabled>Safety Glasses</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+	                                	<div class="checkbox">
+                                			<label><input type="checkbox" name="protect4" id="protect4" ng-model="obj.protect4" value="1" disabled>Safety Shoes</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect5" id="protect5" ng-model="obj.protect5" value="1" disabled>Gloves</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect6" id="protect6" ng-model="obj.protect6" value="1" disabled>Respiratory Protection</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+	                                	<div class="checkbox">
+                                			<label><input type="checkbox" name="protect7" id="protect7" ng-model="obj.protect7" value="1" disabled>Fire Extinguisher</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect8" id="protect8" ng-model="obj.protect8" value="1" disabled>Safety Harness</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect9" id="protect9" ng-model="obj.protect9" value="1" disabled>Lanyard</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+	                                	<div class="checkbox">
+                                			<label><input type="checkbox" name="protect10" id="protect10" ng-model="obj.protect10" value="1" disabled>Self-Retrcting Lifeline</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect11" id="protect11" ng-model="obj.protect11" value="1" disabled>Floating Equipment</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="protect12" id="protect12" ng-model="obj.protect12" value="1" disabled>Other</label>
+                                			<input type="text" class="" name="protect12Val" id="protect12Val" ng-model="obj.protect12Val">
+										</div>
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-gray col-md-12">
+                                <div class="panel-heading">
+                                    <h4>Tools/Equipment Needed To Complete The Job</h4>
+                                </div>
+                                <div class="panel-body">
+	                                <div class="col-md-3">
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool1" id="tool1" ng-model="obj.tool1" value="1" disabled>Crane</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool2" id="tool2" ng-model="obj.tool2" value="1" disabled>Cherry Picker</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool3" id="tool3" ng-model="obj.tool3" value="1" disabled>Forklift</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+	                                	<div class="checkbox">
+                                			<label><input type="checkbox" name="tool4" id="tool4" ng-model="obj.tool4" value="1" disabled>Scaffolding</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool5" id="tool5" ng-model="obj.tool5" value="1" disabled>Pipe Wrench</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool6" id="tool6" ng-model="obj.tool6" value="1" disabled>Hammer Wrench</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+	                                	<div class="checkbox">
+                                			<label><input type="checkbox" name="tool7" id="tool7" ng-model="obj.tool7" value="1" disabled>Sledge Hammer</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool8" id="tool8" ng-model="obj.tool8" value="1" disabled>Slings</label>
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool9" id="tool9" ng-model="obj.tool9" value="1" disabled>Shackles</label>
+										</div>
+	                                </div>
+	                                <div class="col-md-3">
+	                                	<div class="checkbox">
+                                			<label><input type="checkbox" name="tool10" id="tool10" ng-model="obj.tool10" value="1" disabled>Other</label>
+                                			<input type="text" class="" name="tool10Val" id="tool10Val" ng-model="obj.tool10Val">
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool11" id="tool11" ng-model="obj.tool11" value="1" disabled>Other</label>
+                                			<input type="text" class="" name="tool11Val" id="tool11Val" ng-model="obj.tool11Val">
+										</div>
+										<div class="checkbox">
+                                			<label><input type="checkbox" name="tool12" id="tool12" ng-model="obj.tool12" value="1" disabled>Other</label>
+                                			<input type="text" class="" name="tool12Val" id="tool12Val" ng-model="obj.tool12Val">
+										</div>
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 text-center">
+                            	<h4>Name (Printed)</h4>
+                            </div>
+                            <div class="col-xs-6 text-center">
+                            	<h4>Company & Location</h4>
+                            </div>
+                            <div class="col-xs-6"><label class="control-label2">{{obj.printedName1?obj.printedName1:'&nbsp;'}}</label></div>
+                            <div class="col-xs-6"><label class="control-label2">{{obj.location1?obj.location1:'&nbsp;'}}</label></div>
+                            <div class="col-xs-6"><label class="control-label2">{{obj.printedName2?obj.printedName2:'&nbsp;'}}</label></div>
+                            <div class="col-xs-6"><label class="control-label2">{{obj.location2?obj.location2:'&nbsp;'}}</label></div>
+                            <div class="col-xs-6"><label class="control-label2">{{obj.printedName3?obj.printedName3:'&nbsp;'}}</label></div>
+                            <div class="col-xs-6"><label class="control-label2">{{obj.location3?obj.location3:'&nbsp;'}}</label></div>
+                            <div class="col-xs-6"><label class="control-label2">{{obj.printedName4?obj.printedName4:'&nbsp;'}}</label></div>
+                            <div class="col-xs-6"><label class="control-label2">{{obj.location4?obj.location4:'&nbsp;'}}</label></div>
+                            <div class="col-xs-6"><label class="control-label2">{{obj.printedName5?obj.printedName5:'&nbsp;'}}</label></div>
+                            <div class="col-xs-6"><label class="control-label2">{{obj.location5?obj.location5:'&nbsp;'}}</label></div>
+                            <div class="col-xs-6"><label class="control-label2">{{obj.printedName6?obj.printedName6:'&nbsp;'}}</label></div>
+                            <div class="col-xs-6"><label class="control-label2">{{obj.location6?obj.location6:'&nbsp;'}}</label></div>
+                            <div class="col-md-12">&nbsp;</div>
+                            <div class="panel panel-gray col-md-12">
+                                <div class="panel-heading">
+                                    <h4>Post Job Analysis (Choose Answers)</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">1. Was the JSEA reviewed by everyone involved in the task?</label>
+	                                	<div class="col-sm-6">
+	                                		<label class="control-label2">{{obj.answer1 == '0'?'Yes':obj.answer1 == '1'?'No, explain: ' + obj.answer1Val:''}}</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">2. Was this a Routine or Non-Routine Task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="control-label2">{{obj.answer2 == '0'?'Yes':obj.answer2 == '1'?'No, explain: ' + obj.answer2Val:''}}</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">3. Was this job performed within training boundaries?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="control-label2">{{obj.answer3 == '0'?'Yes':obj.answer3 == '1'?'No, explain: ' + obj.answer3Val:''}}</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">4. Was anything else done prior to starting the task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="control-label2">{{obj.answer4 == '0'?'Yes':obj.answer4 == '1'?'No, explain: ' + obj.answer4Val:''}}</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">5. Was other work being done on location at the same time?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="control-label2">{{obj.answer5 == '0'?'Yes':obj.answer5 == '1'?'No, explain: ' + obj.answer5Val:''}}</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">6. Were there any difficulties or issues during the task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="control-label2">{{obj.answer6 == '0'?'Yes':obj.answer6 == '1'?'No, explain: ' + obj.answer6Val:''}}</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">7. How long did the task take (list number of days and/or hours)?</label>
+	                                	<div class="col-sm-6">
+											<label class="control-label2">{{obj.answer7Val}}</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">8. Did personnel have trouble recognizing what to do or how to do it?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="control-label2">{{obj.answer8 == '0'?'Yes':obj.answer8 == '1'?'No, explain: ' + obj.answer8Val:''}}</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">9. Was communication a problem during the task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="control-label2">{{obj.answer9 == '0'?'Yes':obj.answer9 == '1'?'No, explain: ' + obj.answer9Val:''}}</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">10. Was there ever any pressure to rush the task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="control-label2">{{obj.answer10 == '0'?'Yes':obj.answer10 == '1'?'No, explain: ' + obj.answer10Val:''}}</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">11. Was the JSEA revised when changes occurred?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="control-label2">{{obj.answer11 == '0'?'Yes':obj.answer11 == '1'?'No, explain: ' + obj.answer11Val:''}}</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">12. Were any steps/practices not used or are in need of improvement?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="control-label2">{{obj.answer12 == '0'?'Yes':obj.answer12 == '1'?'No, explain: ' + obj.answer12Val:''}}</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">13. Was there any equipment/material failure during the task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="control-label2">{{obj.answer13 == '0'?'Yes':obj.answer13 == '1'?'No, explain: ' + obj.answer13Val:''}}</label>
+	                                   	</div>
+	                              	</div>
+	                              	<div class="form-group">
+	                                	<label for="type" class="col-sm-6 control-label">14. Were all environmental issues/questions addressed during the task?</label>
+	                                	<div class="col-sm-6">
+	                                   		<label class="control-label2">{{obj.answer14 == '0'?'Yes':obj.answer14 == '1'?'No, explain: ' + obj.answer14Val:''}}</label>
+	                                   	</div>
+	                              	</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

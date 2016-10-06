@@ -1,0 +1,83 @@
+
+body.login{
+    background-color: #FFFFFF;
+}
+
+.login-root{
+    padding: 10px;
+    box-sizing: border-box;
+    background: #f7f8fa;
+    /*border-radius: 8px;*/
+    margin-top: 130px;
+    border-top: 2px solid #2bbce0;
+    border-bottom: 1px solid #DDDDDD;
+    border-right: 1px solid #DDDDDD;
+    border-left: 1px solid #DDDDDD;
+}
+
+.erps-inputup{
+    margin: 0;
+}
+
+.erps-inputup > input{
+    border-radius: 5px 5px 0 0;
+    height: 40px;
+}
+
+.erps-inputdown{
+    /*top: -1px;*/
+    position: relative;
+}
+
+.erps-inputdown > input{
+    border-radius: 0 0 5px 5px;
+    height: 40px;
+}
+
+.erps-btnlogin{
+    margin-bottom: 15px;
+    font-size: 18px;
+    height: 50px;
+}
+
+.erps-logpad{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.erps-logremb{
+    font-size: 12px;
+    vertical-align: middle;
+    height: 20px;
+    margin-top: 25px;
+}
+
+.erps-logremb label{
+    line-height: 20px;
+}
+
+.erps-logimg{
+    -webkit-transition: all 0.4s ease-in-out;
+       -moz-transition: all 0.4s ease-in-out;
+         -o-transition: all 0.4s ease-in-out;
+            transition: all 0.4s ease-in-out;
+}
+
+.erps-logfoot{
+    text-align: center;
+    margin-top: 10px;
+    color: #000;
+    font-size: 11px;
+}
+
+@media (min-width: 992px){
+    .erps-logimg {
+        margin-top: 25px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .erps-logimg {
+        margin-top: 0;
+    }
+}

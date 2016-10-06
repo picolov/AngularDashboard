@@ -1,0 +1,245 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoRTA/{{_id}}" class="current"><span>RTA</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;RTA Detail</h4>
+
+                            <div class="pull-right">
+                            	<a ng-href="#/jobInfoRTAEdit/{{_id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>RTA Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">RTA</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.uid}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Printed On</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{formatTime(obj.printedOnDate, 'MM/dd/yy')}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Sold From</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.soldFrom}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Bill To</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.billTo.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">&nbsp;</label>
+                                                <div class="col-sm-9">
+                                                    <textarea cols="50" rows="4" class="form-control">{{obj.billTo.billingStreet + "\n" + obj.billTo.billingCity + "\n" + obj.billTo.billingState + "\n" + obj.billTo.billingZip}}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Ship To</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.shipTo.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">&nbsp;</label>
+                                                <div class="col-sm-9">
+                                                    <textarea cols="50" rows="4" class="form-control">{{obj.shipTo.billingStreet + "\n" + obj.shipTo.billingCity + "\n" + obj.shipTo.billingState + "\n" + obj.shipTo.billingZip}}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Remit To</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.remitTo.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">&nbsp;</label>
+                                                <div class="col-sm-9">
+                                                    <textarea cols="50" rows="4" class="form-control">{{obj.remitTo.billingStreet + "\n" + obj.remitTo.billingCity + "\n" + obj.remitTo.billingState + "\n" + obj.remitTo.billingZip}}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+				                                 <label class="col-sm-3 control-label">Customer</label>
+				                                 <div class="col-sm-9">
+				                                     <label class="control-label2">{{obj.customerName}} - {{formatTime(obj.customerDate, 'MM/dd/yy')}}</label>
+				                                 </div>
+				                        	</div>
+				                        	<div class="form-group">
+				                                 <label class="col-sm-3 control-label">ISI Reps</label>
+				                                 <div class="col-sm-9">
+				                                     <label class="control-label2">{{obj.isiRepName}} - {{formatTime(obj.isiRepDate, 'MM/dd/yy')}}</label>
+				                                 </div>
+				                        	</div>
+                                      	</div>
+                                      	<div class="col-md-6">
+                                      		<div class="form-group">
+                                                <label class="col-sm-3 control-label">Oil Company</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.oilCompany.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Block/Lease/Fld</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.block}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">OCSG</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.ocsg}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Well</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.wellName}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Bskt/Slg</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.bskt}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Wireline Co.</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.serviceCompany.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Field Contact</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.fieldContact}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">AFE</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.afe}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">PO</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.po}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Cost Center</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.costCenter}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Daily Job</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.dailyJob}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Rig</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.rigName}}</label>
+                                                </div>
+                                            </div>
+                                      	</div>
+                                      	
+                                      	<div class="col-md-12">
+                                      		<hr>
+				                            <table ng-table="objTableParams" show-filter="true" class="table">
+				                                <tr ng-repeat="rentItem in $data">
+				                                    <td data-title="'Item'" sortable="'item'" filter="{ 'item': 'text' }">
+				                                        {{rentItem.item}}
+				                                    </td>
+				                                    <td data-title="'Description'" sortable="'description'" filter="{ 'description': 'text' }">
+				                                        {{rentItem.description}}
+				                                    </td>
+				                                    <td data-title="'Units'" sortable="'units'" filter="{ 'units': 'text' }">
+				                                        {{rentItem.units}}
+				                                    </td>
+				                                    <td data-title="'Rent Days Per Unit'" sortable="'dayPerUnit'" filter="{ 'dayPerUnit': 'text' }">
+				                                        {{rentItem.dayPerUnit}}
+				                                    </td>
+				                                    <td data-title="'Rent Rate Per Unit'" sortable="'ratePerUnit'" filter="{ 'ratePerUnit': 'text' }">
+				                                        {{rentItem.ratePerUnit}}
+				                                    </td>
+				                                    <td data-title="'UOM'" sortable="'uom'" filter="{ 'uom': 'text' }">
+				                                        {{rentItem.uom}}
+				                                    </td>
+				                                    <td data-title="'Extended Price'" sortable="'extendedPrice'" filter="{ 'extendedPrice': 'text' }">
+				                                        {{rentItem.extendedPrice}}
+				                                    </td>
+				                                </tr>
+				                            </table>
+				                        </div>
+                                   	</form>
+                               	</div>
+                        	</div>
+                        </div>
+                        <div class="col-md-12">
+                        	<div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>System Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Created By</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.createdBy}}</label>
+                                                    <br>
+                                                    <label class="control-label2">{{formatTime(obj.createdTime)}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Updated By</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.updatedBy}}</label>
+                                                    <br>
+                                                    <label class="control-label2">{{formatTime(obj.updatedTime)}}</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,731 @@
+<div class="container">
+    <div class="row">
+		<div class="col-md-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-target="#upcoming" data-toggle="tab">Upcoming</a></li>
+							<li class=""><a data-target="#active" data-toggle="tab" ng-click="resizeActivePanel()">Active</a></li>
+						</ul>
+					</h4>
+					<div class="options">
+					</div>
+				</div>
+			</div>
+		</div>
+    	<form class="formObj form-horizontal" novalidate>
+    		<div class="tab-content">
+				<div class="tab-pane active" id="upcoming">
+			    	<div class="col-md-6 upcoming-panel" ng-repeat="job in upcomingJob" on-last-repeat event-name="upcomingRepeatDone">
+			            <div class="panel panel-orange">
+			                <div class="panel-body">
+			                	<div class="form-group">
+			                        <label class="col-sm-3 control-label">RTA #</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2"><a href="#/jobInfoDetail/{{job._id}}">{{job.uid}}</a></label>
+			                        </div>
+			                    </div>
+			                	<div class="form-group">
+			                        <label class="col-sm-3 control-label">Rig/Company</label>
+			                        <div class="col-sm-5">
+			                            <label class="control-label2">{{job.rigName}}</label>
+			                        </div>
+			                        <div class="col-sm-4">
+			                            <label class="control-label2">{{job.oilCompany.name}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Wireline Company</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.serviceCompany.name}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Job Type</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.environment == '0' ? 'Land' : job.environment == '1' ? 'Offshore' : job.environment == '2' ? 'International' : ''}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Well Condition</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{mergeString(', ', job.isCO2?'CO2':'', job.isH2S?'H2S':'', job.isHighTemp?'High Temperature':'', job.isHighPress?'High Pressure':'', job.isOther?job.isOtherVal:'')}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Location</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.environment=='0'?job.city + ", " + job.state + (job.county?" " + job.county + " County":job.parish?" " + job.parish + " Parish":""):job.environment=='1'?job.block:''}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Potential Call Out Date</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{formatTime(job.startDate, 'MM/dd/yy')}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Contact Name</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{mergeString(" ", job.contact.titleName, job.contact.firstName, job.contact.middleName, job.contact.lastName)}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Last Contact Date</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{formatTime(job.contactDate, 'MM/dd/yy')}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Follow Up Date</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{formatTime(job.followDate, 'MM/dd/yy')}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Impact Pro</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.impactPro == '0' ? '0' : job.impactPro == '1' ? '1' : '0'}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.impactProCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.impactProTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Estimated No Runs</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.run}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.runCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.runTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">&nbsp;</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">&nbsp;</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label">Total</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.totalAll | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Comments</label>
+			                        <div class="col-sm-9">
+			                            <textarea ng-model="job.comment" cols="50" rows="4" class="full-width disabled-textarea" readonly></textarea>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+		        </div>
+		        
+		        <div class="tab-pane" id="active">
+		        	<div class="col-md-6 active-panel" ng-repeat="job in activeJob" on-last-repeat event-name="activeRepeatDone">
+			            <div class="panel panel-green">
+			            	<!-- offshore -->
+			                <div ng-if="job.environment == '1' && !job.isHighTemp && !job.isHighPress" class="panel-body">
+			                	<div class="form-group">
+			                        <label class="col-sm-3 control-label">RTA #</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2"><a href="#/jobInfoDetail/{{job._id}}">{{job.uid}}</a></label>
+			                        </div>
+			                    </div>
+			                	<div class="form-group">
+			                        <label class="col-sm-3 control-label">Rig/Company</label>
+			                        <div class="col-sm-5">
+			                            <label class="control-label2">{{job.rigName}}</label>
+			                        </div>
+			                        <div class="col-sm-4">
+			                            <label class="control-label2">{{job.oilCompany.name}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Wireline Company</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.serviceCompany.name}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Well Condition</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{mergeString(', ', job.isCO2?'CO2':'', job.isH2S?'H2S':'', job.isHighTemp?'High Temperature':'', job.isHighPress?'High Pressure':'', job.isOther?job.isOtherVal:'')}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Location</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.environment=='0'?job.city + ", " + job.state + (job.county?" " + job.county + " County":job.parish?" " + job.parish + " Parish":""):job.environment=='1'?job.block:''}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Operator</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.technician.employeeName}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Completed # of Runs</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.run}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.runCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.runTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Activation</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.activation}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.activationCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.activationTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Tool Stand By Day</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.standBy}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.standByCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.standByTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Technician Day</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.tech}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.techCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.techTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Impact Pro</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.impactPro == '0' ? '0' : job.impactPro == '1' ? '1' : '0'}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.impactProCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.impactProTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Remaining Runs</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.remain}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.remainCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.remainTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Date Shipped on Service Order</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.serviceOrder?formatTime(job.serviceOrder.shipDate, 'MM/dd/yy'):''}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label">Total</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.totalAll | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Completion Date</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.dailyJob?formatTime(job.dailyJob.toDate, 'MM/dd/yy'):''}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Job Update</label>
+			                        <div class="col-sm-9">
+			                            <textarea ng-model="job.lastUpdate" cols="50" rows="4" class="full-width disabled-textarea" readonly></textarea>
+			                        </div>
+			                    </div>
+			                </div>
+			                <!-- offshore HP/HT -->
+			                <div ng-if="job.environment == '1' && (job.isHighTemp || job.isHighPress)" class="panel-body">
+			                	<div class="form-group">
+			                        <label class="col-sm-3 control-label">RTA #</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2"><a href="#/jobInfoDetail/{{job._id}}">{{job.uid}}</a></label>
+			                        </div>
+			                    </div>
+			                	<div class="form-group">
+			                        <label class="col-sm-3 control-label">Rig/Company</label>
+			                        <div class="col-sm-5">
+			                            <label class="control-label2">{{job.rigName}}</label>
+			                        </div>
+			                        <div class="col-sm-4">
+			                            <label class="control-label2">{{job.oilCompany.name}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Wireline Company</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.serviceCompany.name}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Well Condition</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{mergeString(', ', job.isCO2?'CO2':'', job.isH2S?'H2S':'', job.isHighTemp?'High Temperature':'', job.isHighPress?'High Pressure':'', job.isOther?job.isOtherVal:'')}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Location</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.environment=='0'?job.city + ", " + job.state + (job.county?" " + job.county + " County":job.parish?" " + job.parish + " Parish":""):job.environment=='1'?job.block:''}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Operator</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.technician.employeeName}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Tool Preparation Charge</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.tool}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.toolCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.toolTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Completed # of Runs</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.run}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.runCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.runTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Activation</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.activation}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.activationCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.activationTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Tool Stand By Day</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.standBy}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.standByCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.standByTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Technician Day</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.tech}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.techCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.techTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Impact Pro</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.impactPro == '0' ? '0' : job.impactPro == '1' ? '1' : '0'}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.impactProCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.impactProTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Remaining Runs</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.remain}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.remainCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.remainTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Date Shipped on Service Order</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.serviceOrder?formatTime(job.serviceOrder.shipDate, 'MM/dd/yy'):''}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label">Total</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.totalAll | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Completion Date</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.dailyJob?formatTime(job.dailyJob.toDate, 'MM/dd/yy'):''}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Job Update</label>
+			                        <div class="col-sm-9">
+			                            <textarea ng-model="job.lastUpdate" cols="50" rows="4" class="full-width disabled-textarea" readonly></textarea>
+			                        </div>
+			                    </div>
+			                </div>
+			                <!-- Land -->
+			                <div ng-if="job.environment == '0' && !job.isHighTemp && !job.isHighPress" class="panel-body">
+			                	<div class="form-group">
+			                        <label class="col-sm-3 control-label">RTA #</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2"><a href="#/jobInfoDetail/{{job._id}}">{{job.uid}}</a></label>
+			                        </div>
+			                    </div>
+			                	<div class="form-group">
+			                        <label class="col-sm-3 control-label">Rig/Company</label>
+			                        <div class="col-sm-5">
+			                            <label class="control-label2">{{job.rigName}}</label>
+			                        </div>
+			                        <div class="col-sm-4">
+			                            <label class="control-label2">{{job.oilCompany.name}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Wireline Company</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.serviceCompany.name}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Well Condition</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{mergeString(', ', job.isCO2?'CO2':'', job.isH2S?'H2S':'', job.isHighTemp?'High Temperature':'', job.isHighPress?'High Pressure':'', job.isOther?job.isOtherVal:'')}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Location</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.environment=='0'?job.city + ", " + job.state + (job.county?" " + job.county + " County":job.parish?" " + job.parish + " Parish":""):job.environment=='1'?job.block:''}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Operator</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.technician.employeeName}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Run Charge: 1st day charge</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.first}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.firstCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.firstTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Run Charge: Additional day charge</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.additional}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.additionalCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.additionalTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Activation</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.activation}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.activationCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.activationTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Tool Stand By Day</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.standBy}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.standByCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.standByTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Technician Day</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.tech}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.techCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.techTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Impact Pro</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.impactPro == '0' ? '0' : job.impactPro == '1' ? '1' : '0'}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.impactProCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.impactProTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Remaining Runs</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.remain}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.remainCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.remainTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Date Shipped on Service Order</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.serviceOrder?formatTime(job.serviceOrder.shipDate, 'MM/dd/yy'):''}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label">Total</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.totalAll | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Completion Date</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.dailyJob?formatTime(job.dailyJob.toDate, 'MM/dd/yy'):''}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Job Update</label>
+			                        <div class="col-sm-9">
+			                            <textarea ng-model="job.lastUpdate" cols="50" rows="4" class="full-width disabled-textarea" readonly></textarea>
+			                        </div>
+			                    </div>
+			                </div>
+			                <!-- Land HP HT-->
+			                <div ng-if="job.environment == '0' && (job.isHighTemp || job.isHighPress)" class="panel-body">
+			                	<div class="form-group">
+			                        <label class="col-sm-3 control-label">RTA #</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2"><a href="#/jobInfoDetail/{{job._id}}">{{job.uid}}</a></label>
+			                        </div>
+			                    </div>
+			                	<div class="form-group">
+			                        <label class="col-sm-3 control-label">Rig/Company</label>
+			                        <div class="col-sm-5">
+			                            <label class="control-label2">{{job.rigName}}</label>
+			                        </div>
+			                        <div class="col-sm-4">
+			                            <label class="control-label2">{{job.oilCompany.name}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Wireline Company</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.serviceCompany.name}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Well Condition</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{mergeString(', ', job.isCO2?'CO2':'', job.isH2S?'H2S':'', job.isHighTemp?'High Temperature':'', job.isHighPress?'High Pressure':'', job.isOther?job.isOtherVal:'')}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Location</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.environment=='0'?job.city + ", " + job.state + (job.county?" " + job.county + " County":job.parish?" " + job.parish + " Parish":""):job.environment=='1'?job.block:''}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Operator</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.technician.employeeName}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Tool Preparation Charge</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.tool}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.toolCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.toolTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Completed # of Runs</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.run}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.runCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.runTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Activation</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.activation}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.activationCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.activationTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Tool Stand By Day</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.standBy}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.standByCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.standByTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Technician Day</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.tech}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.techCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.techTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Impact Pro</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.impactPro == '0' ? '0' : job.impactPro == '1' ? '1' : '0'}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.impactProCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.impactProTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Remaining Runs</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.remain}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">Pricing: {{job.remainCharge | currency}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.remainTotal | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Date Shipped on Service Order</label>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.serviceOrder?formatTime(job.serviceOrder.shipDate, 'MM/dd/yy'):''}}</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label">Total</label>
+			                        </div>
+			                        <div class="col-sm-3">
+			                            <label class="control-label2">{{job.totalAll | currency}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Completion Date</label>
+			                        <div class="col-sm-9">
+			                            <label class="control-label2">{{job.dailyJob?formatTime(job.dailyJob.toDate, 'MM/dd/yy'):''}}</label>
+			                        </div>
+			                    </div>
+			                    <div class="form-group">
+			                        <label class="col-sm-3 control-label">Job Update</label>
+			                        <div class="col-sm-9">
+			                            <textarea ng-model="job.lastUpdate" cols="50" rows="4" class="full-width disabled-textarea" readonly></textarea>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+		        </div>
+	        </div>
+	        
+        </form>
+    </div>
+</div>

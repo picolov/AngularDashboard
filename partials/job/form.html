@@ -1,0 +1,584 @@
+<div class="container">
+    <div class="row">
+	    <div class="col-md-12 panel panel-info">
+	        <div class="panel-body">
+	            <div class="row">
+	                <div class="col-md-12 clearfix">
+	                    <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Job Detail</h4>
+	
+	                    <div class="pull-right">
+	                    	<span ng-show="formInfo.$invalid" class="label label-danger">form not completed</span>
+	                        <a href="javascript:;" ng-click="save()" class="btn btn-primary" ng-disabled="formInfo.$invalid">Save</a>
+	                        <span ng-if="statusJob != '2' || haveAllAccess('@completeJobUpload')" class="btn btn-primary btn-file">
+                                    Upload <input type="file" id="upload" name="upload" onchange="angular.element(this).scope().upload()"/>
+                            </span>
+	                        <a href="#/jobInfo" class="btn btn-primary">Cancel</a>
+	                    </div>
+	                </div>
+	                <form name="formInfo" class="formObj form-horizontal" novalidate>
+	                	<div class="col-md-12">
+                            <table class="table table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td class="col-md-3">File Name</td>
+                                        <td class="col-md-3">Size</td>
+                                        <td class="col-md-3">Upload Date</td>
+                                        <td class="col-md-3">Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="uploadedFile in obj.uploadedFile">
+                                        <td data-title="'Name'">
+                                            {{uploadedFile.name}}
+                                        </td>
+                                        <td data-title="'Size'">
+                                            {{uploadedFile.size}}
+                                        </td>
+                                        <td data-title="'Upload Date'">
+                                            {{formatTime(uploadedFile.uploadDate, 'MM/dd/yy hh:mm:ss')}}
+                                        </td>
+                                        <td data-title="'Action'">
+                                            <a href="javascript:;" ng-click="download(uploadedFile.url)" class="btn btn-blue">Download</a>
+                                            <a ng-if="statusJob != '2' || haveAllAccess('@completeJobUpload')" href="javascript:;" ng-click="deleteFile(uploadedFile)" class="btn btn-blue">Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+		           		<div class="col-md-6 panel panel-gray">
+		                    <div class="panel-heading">
+		                        <h4>Job Information</h4>
+		                        <div class="options">
+		                            <div><small>* = Required Information</small></div>
+		                        </div>
+		                    </div>
+		                    <div class="panel-body">
+		                    	<div class="form-group">
+								    <label for="uid" class="col-sm-3 control-label">Job UID*</label>
+								    <div class="col-sm-9">
+								        <input type="text" class="form-control" name="uid" id="uid" maxlength="100" ng-model="obj.uid" required>
+								        <p ng-show="formInfo.uid.$invalid && !formInfo.uid.$pristine" class="help-block text-danger">Enter a valid UID.</p>
+								    </div>
+								</div>
+								<div class="form-group">
+                                	<label for="type" class="col-sm-3 control-label">Service Order Type*</label>
+                                	<div class="col-sm-9">
+                                   		<label class="radio-inline">
+											<input uncheckable-radio type="radio" name="type" id="type1" ng-model="obj.type" value="0" required> Open Hole
+										</label>
+										<label class="radio-inline">
+											<input uncheckable-radio type="radio" name="type" id="type2" ng-model="obj.type" value="1" required> Cased Hole
+										</label>
+                                   </div>
+                              	</div>
+                              	<div class="form-group">
+                                	<label for="environment" class="col-sm-3 control-label">Job Type*</label>
+                                 	<div class="col-sm-9">
+                                    	<label class="radio-inline">
+											<input uncheckable-radio type="radio" name="environment" id="environment1" ng-model="obj.environment" value="0" required> Land
+										</label>
+										<label class="radio-inline">
+											<input uncheckable-radio type="radio" name="environment" id="environment2" ng-model="obj.environment" value="1" required> Offshore
+										</label>
+										<label class="radio-inline">
+											<input uncheckable-radio type="radio" name="environment" id="environment2" ng-model="obj.environment" value="2" required> International
+										</label>
+                                	</div>
+                              	</div>
+                              	<div class="form-group">
+                                	<label for="jobEnv" class="col-sm-3 control-label">Environment</label>
+                                 	<div class="col-sm-9">
+                                    	<label class="radio-inline">
+											<input uncheckable-radio type="radio" name="jobEnv" id="jobEnv1" ng-model="obj.jobEnv" value="0"> Land
+										</label>
+										<label class="radio-inline">
+											<input uncheckable-radio type="radio" name="jobEnv" id="jobEnv2" ng-model="obj.jobEnv" value="1"> Inland Waters
+										</label>
+										<label class="radio-inline">
+											<input uncheckable-radio type="radio" name="jobEnv" id="jobEnv2" ng-model="obj.jobEnv" value="2"> Shelf
+										</label>
+										<label class="radio-inline">
+											<input uncheckable-radio type="radio" name="jobEnv" id="jobEnv3" ng-model="obj.jobEnv" value="3"> Deepwater
+										</label>
+                                	</div>
+                              	</div>
+                              	<div class="form-group">
+                                	<label class="col-sm-3 control-label">Well Condition</label>
+                                	<div class="col-sm-9">
+                                    	<label class="checkbox-inline">
+											<input type="checkbox" name="isCO2" id="isCO2" ng-model="obj.isCO2" value="1"> CO2
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" name="isH2S" id="isH2s" ng-model="obj.isH2S" value="1"> H2S
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" name="isHighTemp" id="isHighTemp" ng-model="obj.isHighTemp" value="1"> High Temp
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" name="isHighPress" id="isHighPress" ng-model="obj.isHighPress" value="1"> High Press
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" name="isOther" id="isOther" ng-model="obj.isOther" value="1"> Other
+											<input type="text" class="" name="isOtherVal" id="isOtherVal" maxlength="100" ng-model="obj.isOtherVal">
+	                                        <p ng-show="formInfo.isOtherVal.$invalid && !formInfo.isOtherVal.$pristine" class="help-block text-danger">Enter a valid Condition.</p>
+										</label>
+                                 	</div>
+                             	</div>
+                             	<div class="form-group">
+                                	<label for="wellType" class="col-sm-3 control-label">Well Type</label>
+                                	<div class="col-sm-9">
+                                    	<label class="radio-inline">
+											<input uncheckable-radio type="radio" name="wellType" id="wellType1" ng-model="obj.wellType" value="0"> Developmental
+										</label>
+										<label class="radio-inline">
+											<input uncheckable-radio type="radio" name="wellType" id="wellType2" ng-model="obj.wellType" value="1"> Exploration
+										</label>
+										<label class="radio-inline">
+											<input uncheckable-radio type="radio" name="wellType" id="wellType3" ng-model="obj.wellType" value="2"> Appraisal
+										</label>
+                                 	</div>
+                             	</div>
+                             	<div class="form-group">
+                                    <label for="rigName" class="col-sm-3 control-label">Rig Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="rigName" id="rigName" maxlength="100" ng-model="obj.rigName" placeholder="N/A">
+                                        <p ng-show="formInfo.rigName.$invalid && !formInfo.rigName.$pristine" class="help-block text-danger">not a valid Rig Name.</p>
+                                    </div>
+                                </div>
+                             	<div class="form-group">
+                                    <label for="rigType" class="col-sm-3 control-label">Platform</label>
+                                    <div class="col-sm-9" id="rigType">
+                                        <ui-select ng-model="obj.rigType" ng-disabled="disabled" search-enabled="false">
+                                            <ui-select-match allow-clear placeholder="N/A">{{$select.selected.name}}</ui-select-match>
+                                            <ui-select-choices repeat="rigType in rigTypeList | filter: $select.search">
+                                                <span ng-bind-html="rigType.name | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="wellName" class="col-sm-3 control-label">Well Name/#</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="wellName" id="wellName" maxlength="100" ng-model="obj.wellName" placeholder="N/A">
+                                        <p ng-show="formInfo.wellName.$invalid && !formInfo.wellName.$pristine" class="help-block text-danger">not a valid Well Name.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="block" class="col-sm-3 control-label">Block</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" maxlength="100" name="block" id="block" ng-model="obj.block" placeholder="N/A">
+                                        <p ng-show="formInfo.block.$invalid && !formInfo.block.$pristine" class="help-block text-danger">not a valid Block.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lease" class="col-sm-3 control-label">Lease</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" maxlength="100" name="lease" id="lease" ng-model="obj.lease" placeholder="N/A">
+                                        <p ng-show="formInfo.lease.$invalid && !formInfo.lease.$pristine" class="help-block text-danger">not a valid Lease.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="field" class="col-sm-3 control-label">Field</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" maxlength="100" name="field" id="field" ng-model="obj.field" placeholder="N/A">
+                                        <p ng-show="formInfo.field.$invalid && !formInfo.field.$pristine" class="help-block text-danger">not a valid Field.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="afe" class="col-sm-3 control-label">AFE#</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="afe" id="afe" maxlength="100" ng-model="obj.afe" placeholder="N/A">
+                                        <p ng-show="formInfo.afe.$invalid && !formInfo.afe.$pristine" class="help-block text-danger">not a valid AFE.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ocsg" class="col-sm-3 control-label">OCSG</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="ocsg" id="ocsg" maxlength="100" ng-model="obj.ocsg" placeholder="N/A">
+                                        <p ng-show="formInfo.ocsg.$invalid && !formInfo.ocsg.$pristine" class="help-block text-danger">not a valid OCSG.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="stateLease" class="col-sm-3 control-label">State Lease #</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="stateLease" id="stateLease" maxlength="100" ng-model="obj.stateLease" placeholder="N/A">
+                                        <p ng-show="formInfo.stateLease.$invalid && !formInfo.stateLease.$pristine" class="help-block text-danger">not a valid State Lease Number.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="api" class="col-sm-3 control-label">API</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="api" id="api" maxlength="100" ng-model="obj.api" placeholder="N/A">
+                                        <p ng-show="formInfo.api.$invalid && !formInfo.api.$pristine" class="help-block text-danger">not a valid API.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="po" class="col-sm-3 control-label">PO#</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="po" id="po" maxlength="100" ng-model="obj.po" placeholder="N/A">
+                                        <p ng-show="formInfo.po.$invalid && !formInfo.po.$pristine" class="help-block text-danger">not a valid PO.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+	                                 <label for="startDate" class="col-sm-3 control-label">Potential Dates</label>
+	                                 <div class="col-sm-9">
+	                                 	<div class="input-group date">
+		                                    <input date-picko type="text" class="form-control" ng-model="obj.startDate" name="startDate" id="startDate" placeholder="N/A"/>
+		                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                                </div>
+	                                     <p ng-show="formInfo.startDate.$invalid && !formInfo.startDate.$pristine" class="help-block text-danger">not a valid Date.</p>
+	                                 </div>
+	                        	</div>
+	                        	<div class="form-group">
+                                    <label for="runs" class="col-sm-3 control-label"># of Runs</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" name="runs" id="runs" maxlength="20" ng-model="obj.runs" placeholder="N/A">
+                                        <p ng-show="formInfo.runs.$invalid && !formInfo.runs.$pristine" class="help-block text-danger">not a valid Number of Runs.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="estimatedRevenue" class="col-sm-3 control-label">Estimated Revenue</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="estimatedRevenue" id="estimatedRevenue" ng-maxlength="40" ng-model="obj.estimatedRevenue" ng-pattern="REGEX_CURRENCY" placeholder="N/A">
+                                        <p ng-show="formInfo.estimatedRevenue.$invalid && !formInfo.estimatedRevenue.$pristine" class="help-block text-danger">not a valid Estimated Revenue.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                	<label for="impactPro" class="col-sm-3 control-label">Impact Pro</label>
+                                	<div class="col-sm-9">
+                                   		<label class="radio-inline">
+											<input uncheckable-radio type="radio" name="impactPro" id="impactPro1" ng-model="obj.impactPro" value="0"> No
+										</label>
+										<label class="radio-inline">
+											<input uncheckable-radio type="radio" name="impactPro" id="impactPro2" ng-model="obj.impactPro" value="1"> Yes
+										</label>
+                                   </div>
+                              	</div>
+	                        	<div class="form-group">
+                                    <label for="deviation" class="col-sm-3 control-label">Deviation (deg)</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" only-num class="form-control" name="deviation" id="deviation" maxlength="20" ng-model="obj.deviation" placeholder="N/A">
+                                        <p ng-show="formInfo.deviation.$invalid && !formInfo.deviation.$pristine" class="help-block text-danger">not a valid Deviation.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="temp" class="col-sm-3 control-label">Temp (F)</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" only-num class="form-control" name="temp" id="temp" maxlength="20" ng-model="obj.temp" placeholder="N/A">
+                                        <p ng-show="formInfo.temp.$invalid && !formInfo.temp.$pristine" class="help-block text-danger">not a valid Temp.</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="status" class="col-sm-3 control-label">Job Status</label>
+                                    <div class="col-sm-9" id="status">
+                                        <ui-select ng-model="obj.status" ng-disabled="disabled" search-enabled="false">
+                                            <ui-select-match allow-clear placeholder="N/A">{{$select.selected.name}}</ui-select-match>
+                                            <ui-select-choices repeat="status in statusList | filter: $select.search">
+                                                <span ng-bind-html="status.name | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                </div>
+                                <div ng-if="obj.status && obj.status._id == '0'" class="form-group">
+                                    <label for="comment" class="col-sm-3 control-label">Comments</label>
+                                    <div class="col-sm-9">
+                                        <textarea name="comment" id="comment" maxlength="500" ng-model="obj.comment" cols="50" rows="4" class="form-control" placeholder="N/A"></textarea>
+                                        <p ng-show="formInfo.comment.$invalid && !formInfo.comment.$pristine" class="help-block text-danger">not a valid comments.</p>
+                                    </div>
+                                </div>
+		                    </div>
+		               	</div>
+						<div class="col-md-6">
+							<div class="col-md-12 panel panel-gray">
+			                    <div class="panel-heading">
+			                        <h4>Location</h4>
+			                        <div class="options">
+			                        </div>
+			                    </div>
+			                    <div class="panel-body">
+			                    	<div class="form-group">
+									    <label for="country" class="col-sm-3 control-label">Country</label>
+									    <div class="col-sm-9">
+									        <ui-select ng-model="obj.country" ng-disabled="disabled" search-enabled="true" on-select="selectCountry($item, $model)">
+	                                            <ui-select-match allow-clear placeholder="N/A">{{$select.selected.name}} ({{$select.selected.code}})</ui-select-match>
+	                                            <ui-select-choices repeat="country.name as country in countryList | filter: $select.search">
+	                                                <span ng-bind-html="country.name + '(' + country.code + ')' | highlight: $select.search"></span>
+	                                            </ui-select-choices>
+	                                        </ui-select>
+									        <p ng-show="formInfo.country.$invalid && !formInfo.country.$pristine" class="help-block text-danger">Enter a valid Country.</p>
+									    </div>
+									</div>
+									<div ng-if="obj.country && obj.country=='United States'" class="form-group">
+	                                    <label for="region" class="col-sm-3 control-label">Region</label>
+	                                    <div class="col-sm-9" id="region">
+	                                        <ui-select ng-model="obj.region" ng-disabled="disabled" search-enabled="false">
+	                                            <ui-select-match allow-clear placeholder="N/A">{{$select.selected.name}}</ui-select-match>
+	                                            <ui-select-choices repeat="region in regionList | filter: $select.search">
+	                                                <span ng-bind-html="region.name | highlight: $select.search"></span>
+	                                            </ui-select-choices>
+	                                        </ui-select>
+	                                    </div>
+	                                </div>
+									<div class="form-group">
+									    <label for="county" class="col-sm-3 control-label">County</label>
+									    <div class="col-sm-9">
+									        <input type="text" class="form-control" name="county" id="county" maxlength="100" ng-model="obj.county" placeholder="N/A">
+									        <p ng-show="formInfo.county.$invalid && !formInfo.county.$pristine" class="help-block text-danger">Enter a valid County.</p>
+									    </div>
+									</div>
+									<div class="form-group">
+									    <label for="city" class="col-sm-3 control-label">City</label>
+									    <div class="col-sm-9">
+									        <input type="text" class="form-control" name="city" id="city" maxlength="100" ng-model="obj.city" placeholder="N/A">
+									        <p ng-show="formInfo.city.$invalid && !formInfo.city.$pristine" class="help-block text-danger">Enter a valid City.</p>
+									    </div>
+									</div>
+									<div class="form-group">
+									    <label for="state" class="col-sm-3 control-label">State</label>
+									    <div class="col-sm-9">
+									        <input ng-if="!obj.country || obj.country!='United States'" type="text" class="form-control" name="state" id="state" maxlength="100" ng-model="obj.state" placeholder="N/A">
+									        <ui-select ng-if="obj.country && obj.country=='United States'" ng-model="obj.state" ng-disabled="disabled" search-enabled="true">
+	                                            <ui-select-match allow-clear placeholder="N/A">{{$select.selected.name}} ({{$select.selected.code}})</ui-select-match>
+	                                            <ui-select-choices repeat="state.name as state in stateList | filter: $select.search">
+	                                                <span ng-bind-html="state.name + '(' + state.code + ')' | highlight: $select.search"></span>
+	                                            </ui-select-choices>
+	                                        </ui-select>
+									        <p ng-show="formInfo.state.$invalid && !formInfo.state.$pristine" class="help-block text-danger">Enter a valid State.</p>
+									    </div>
+									</div>
+									<div class="form-group">
+									    <label for="parish" class="col-sm-3 control-label">Parish</label>
+									    <div class="col-sm-9">
+									        <input type="text" class="form-control" name="parish" id="parish" maxlength="100" ng-model="obj.parish" placeholder="N/A">
+									        <p ng-show="formInfo.parish.$invalid && !formInfo.parish.$pristine" class="help-block text-danger">Enter a valid Parish.</p>
+									    </div>
+									</div>
+									<div class="form-group has-feedback">
+									    <label class="col-sm-3 control-label">Latitude, Longitude</label>
+									    <div class="col-sm-9">
+									    	<div class="input-group">
+									    		<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+			                                    <input name="latlng" id="latlng" class="form-control" type="text" placeholder="N/A" readonly style="cursor: pointer;background-color: #ffffff;opacity: 1;">
+			                                </div>
+			                                <span class="fa fa-remove form-control-feedback hover-button" aria-hidden="true" onclick="javascript:$('#latlng').val('');"></span>
+			                                <!-- <input name="latlng" id="latlng" class="form-control" ng-model="obj.latlng" type='text'> -->
+									        <!-- <p ng-show="formInfo.latlng.$invalid && !formInfo.latlng.$pristine" class="help-block text-danger">Enter a valid Latitude, Longitude.</p> -->
+									    </div>
+									</div>
+									
+								</div>
+							</div>
+							<div class="col-md-12 panel panel-gray">
+			                    <div class="panel-heading">
+			                        <h4>Contact Information</h4>
+			                        <div class="options">
+			                        </div>
+			                    </div>
+			                    <div class="panel-body">
+			                    	<div class="form-group">
+                                        <label for="rigPhone" class="col-sm-3 control-label">Rig Phone#</label>
+                                        <div class="col-sm-9">
+                                        	<div phone-picko name="rigPhone" id="rigPhone" ng-model="obj.rigPhone"></div>
+                                            <p ng-show="formInfo.rigPhone.$invalid && !formInfo.rigPhone.$pristine" class="help-block text-danger">not a valid phone number.</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rigFax" class="col-sm-3 control-label">Rig Fax#</label>
+                                        <div class="col-sm-9">
+                                        	<div phone-picko name="rigFax" id="rigFax" ng-model="obj.rigFax"></div>
+                                            <p ng-show="formInfo.rigFax.$invalid && !formInfo.rigFax.$pristine" class="help-block text-danger">not a valid fax number.</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="rigEmail" class="col-sm-3 control-label">Rig Email</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="rigEmail" id="rigEmail" ng-model="obj.rigEmail" maxlength="100" class="form-control" ng-pattern="REGEX_EMAIL" placeholder="N/A">
+                                            <p ng-show="formInfo.rigEmail.$invalid && !formInfo.rigEmail.$pristine" class="help-block text-danger">Enter a valid email.</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="engineerPhone" class="col-sm-3 control-label">Engineer Phone#</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{obj.wirelineEngineer.phone?obj.wirelineEngineer.phone:obj.wirelineEngineer.mobile?obj.wirelineEngineer.mobile:obj.wirelineEngineer.homePhone?obj.wirelineEngineer.homePhone:obj.wirelineEngineer.otherPhone?obj.wirelineEngineer.otherPhone:obj.wirelineEngineer.assistPhone?obj.wirelineEngineer.assistPhone:'' | ifEmpty:'N/A'}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="engineerEmail" class="col-sm-3 control-label">Engineer Email</label>
+                                        <div class="col-sm-9">
+                                            <label class="control-label2">{{obj.wirelineEngineer.email | ifEmpty:'N/A'}}</label>
+                                        </div>
+                                    </div>
+								</div>
+							</div>
+							<div class="col-md-12 panel panel-gray">
+			                    <div class="panel-heading">
+			                        <h4>Other Information</h4>
+			                        <div class="options">
+			                        </div>
+			                    </div>
+			                    <div class="panel-body">
+			                    	<div class="form-group">
+                                        <label for="oilCompany" class="col-sm-3 control-label">Oil & Gas Company</label>
+                                        <div class="col-sm-6">
+                                            <ui-select name="oilCompany" id="oilCompany" ng-model="obj.oilCompany" ng-disabled="disabled">
+                                                <ui-select-match allow-clear placeholder="N/A">{{$select.selected.name}}</ui-select-match>
+                                                <ui-select-choices repeat="oilCompany in companyList | filter: $select.search | property:'business._id':'0'">
+                                                    <span ng-bind-html="oilCompany.name | highlight: $select.search"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <p ng-show="formInfo.oilCompany.$invalid && !formInfo.oilCompany.$pristine" class="help-block text-danger">not a valid company.</p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                        	<a href="javascript:;" ng-click="addNewOilCompany('newOilCompany')" class="control-label fa fa-plus"> New</a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="serviceCompany" class="col-sm-3 control-label">Service Company</label>
+                                        <div class="col-sm-6">
+                                            <ui-select name="serviceCompany" id="serviceCompany" ng-model="obj.serviceCompany" ng-disabled="disabled">
+                                                <ui-select-match allow-clear placeholder="N/A">{{$select.selected.name}}</ui-select-match>
+                                                <ui-select-choices repeat="serviceCompany in companyList | filter: $select.search | property:'business._id':'1'">
+                                                    <span ng-bind-html="serviceCompany.name | highlight: $select.search"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <p ng-show="formInfo.serviceCompany.$invalid && !formInfo.serviceCompany.$pristine" class="help-block text-danger">not a valid company.</p>
+                                        </div>
+                                        <div class="col-sm-3">
+                                        	<a href="javascript:;" ng-click="addNewServiceCompany('newServiceCompany')" class="control-label fa fa-plus"> New</a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+	                                    <label for="wirelineEngineer" class="col-sm-3 control-label">Wireline Engineer</label>
+	                                    <div class="col-sm-6">
+	                                    	<ui-select name="wirelineEngineer" id="wirelineEngineer" ng-model="obj.wirelineEngineer" ng-disabled="disabled">
+                                                <ui-select-match allow-clear placeholder="N/A">{{$select.selected.titleName + ' ' + $select.selected.firstName + ' ' + $select.selected.middleName + ' ' + $select.selected.lastName}}</ui-select-match>
+                                                <ui-select-choices repeat="wirelineEngineer in contactList | filter: $select.search">
+                                                    <span ng-bind-html="wirelineEngineer.titleName + ' ' + wirelineEngineer.firstName + ' ' + wirelineEngineer.middleName + ' ' + wirelineEngineer.lastName | highlight: $select.search"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+	                                        <p ng-show="formInfo.wirelineEngineer.$invalid && !formInfo.wirelineEngineer.$pristine" class="help-block text-danger">not a valid Engineer Name.</p>
+	                                    </div>
+	                                    <div class="col-sm-3">
+                                        	<a href="javascript:;" ng-click="addNewContact('newEngineerContact')" class="control-label fa fa-plus"> New</a>
+                                        </div>
+	                                </div>
+	                                <div class="form-group">
+	                                    <label for="companyMan" class="col-sm-3 control-label">Company Man</label>
+	                                    <div class="col-sm-6">
+	                                    	<ui-select name="companyMan" id="companyMan" ng-model="obj.companyMan" ng-disabled="disabled" on-select="selectCompanyMan($item, $model)">
+                                                <ui-select-match allow-clear placeholder="N/A">{{$select.selected.titleName + ' ' + $select.selected.firstName + ' ' + $select.selected.middleName + ' ' + $select.selected.lastName}}</ui-select-match>
+                                                <ui-select-choices repeat="companyMan in contactList | filter: $select.search">
+                                                    <span ng-bind-html="companyMan.titleName + ' ' + companyMan.firstName + ' ' + companyMan.middleName + ' ' + companyMan.lastName | highlight: $select.search"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+	                                        <p ng-show="formInfo.companyMan.$invalid && !formInfo.companyMan.$pristine" class="help-block text-danger">not a valid Company Man Name.</p>
+	                                    </div>
+	                                    <div class="col-sm-3">
+                                        	<a href="javascript:;" ng-click="addNewContact('newCompanyManContact')" class="control-label fa fa-plus"> New</a>
+                                        </div>
+	                                </div>
+	                                <div class="form-group">
+	                                    <label for="dispatcher" class="col-sm-3 control-label">Dispatcher</label>
+	                                    <div class="col-sm-6">
+	                                    	<ui-select name="dispatcher" id="dispatcher" ng-model="obj.dispatcher" ng-disabled="disabled" on-select="selectDispatcher($item, $model)">
+                                                <ui-select-match allow-clear placeholder="N/A">{{$select.selected.titleName + ' ' + $select.selected.firstName + ' ' + $select.selected.middleName + ' ' + $select.selected.lastName}}</ui-select-match>
+                                                <ui-select-choices repeat="dispatcher in contactList | filter: $select.search">
+                                                    <span ng-bind-html="dispatcher.titleName + ' ' + dispatcher.firstName + ' ' + dispatcher.middleName + ' ' + dispatcher.lastName | highlight: $select.search"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+	                                        <p ng-show="formInfo.dispatcher.$invalid && !formInfo.dispatcher.$pristine" class="help-block text-danger">not a valid Dispatcher Name.</p>
+	                                    </div>
+	                                    <div class="col-sm-3">
+                                        	<a href="javascript:;" ng-click="addNewContact('newDispatcherContact')" class="control-label fa fa-plus"> New</a>
+                                        </div>
+	                                </div>
+                                    <div class="form-group">
+                                        <label for="technician" class="col-sm-3 control-label">Technician 1</label>
+                                        <div class="col-sm-6">
+                                            <ui-select tagging tagging-tokens="ENTER" tagging-label="('new')" name="technician" id="technician" ng-model="obj.technician" ng-disabled="disabled" title="Choose existing or write new">
+                                                <ui-select-match allow-clear placeholder="N/A">{{$select.selected}}</ui-select-match>
+                                                <ui-select-choices repeat="technician in technicianList | filter: $select.search">
+                                                    <span ng-bind-html="technician | highlight: $select.search"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <p ng-show="formInfo.technician.$invalid && !formInfo.technician.$pristine" class="help-block text-danger">not a valid person.</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="technician2" class="col-sm-3 control-label">Technician 2</label>
+                                        <div class="col-sm-6">
+                                            <ui-select tagging tagging-tokens="ENTER" tagging-label="('new')" name="technician2" id="technician2" ng-model="obj.technician2" ng-disabled="disabled" title="Choose existing or write new">
+                                                <ui-select-match allow-clear placeholder="N/A">{{$select.selected}}</ui-select-match>
+                                                <ui-select-choices repeat="technician2 in technicianList | filter: $select.search">
+                                                    <span ng-bind-html="technician2 | highlight: $select.search"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <p ng-show="formInfo.technician2.$invalid && !formInfo.technician2.$pristine" class="help-block text-danger">not a valid person.</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sales" class="col-sm-3 control-label">Sales</label>
+                                        <div class="col-sm-6">
+                                            <ui-select name="sales" id="sales" ng-model="obj.sales" ng-disabled="disabled">
+                                                <ui-select-match allow-clear placeholder="N/A">{{$select.selected.employeeName}}</ui-select-match>
+                                                <ui-select-choices repeat="sales in profileList | filter: { employeeName: $select.search, position: 'Sales' }">
+                                                    <span ng-bind-html="sales.employeeName | highlight: $select.search"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <p ng-show="formInfo.sales.$invalid && !formInfo.sales.$pristine" class="help-block text-danger">not a valid person.</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+	                                    <label for="contact" class="col-sm-3 control-label">Contact</label>
+	                                    <div class="col-sm-6">
+	                                    	<ui-select name="contact" id="contact" ng-model="obj.contact" ng-disabled="disabled">
+                                                <ui-select-match allow-clear placeholder="N/A">{{$select.selected.titleName + ' ' + $select.selected.firstName + ' ' + $select.selected.middleName + ' ' + $select.selected.lastName}}</ui-select-match>
+                                                <ui-select-choices repeat="contact in contactList | filter: $select.search">
+                                                    <span ng-bind-html="contact.titleName + ' ' + contact.firstName + ' ' + contact.middleName + ' ' + contact.lastName | highlight: $select.search"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+	                                        <p ng-show="formInfo.contact.$invalid && !formInfo.contact.$pristine" class="help-block text-danger">not a valid Contact Name.</p>
+	                                    </div>
+	                                    <div class="col-sm-3">
+                                        	<a href="javascript:;" ng-click="addNewContact('newContactContact')" class="control-label fa fa-plus"> New</a>
+                                        </div>
+	                                </div>
+	                                <div class="form-group">
+		                                 <label for="contactDate" class="col-sm-3 control-label">Last Contact Dates</label>
+		                                 <div class="col-sm-9">
+		                                 	<div class="input-group date">
+			                                    <input date-picko type="text" class="form-control" ng-model="obj.contactDate" name="contactDate" id="contactDate" placeholder="N/A"/>
+			                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			                                </div>
+		                                     <p ng-show="formInfo.contactDate.$invalid && !formInfo.contactDate.$pristine" class="help-block text-danger">not a valid Date.</p>
+		                                 </div>
+		                        	</div>
+		                        	<div class="form-group">
+		                                 <label for="followDate" class="col-sm-3 control-label">Follow Up Dates</label>
+		                                 <div class="col-sm-9">
+		                                 	<div class="input-group date">
+			                                    <input date-picko type="text" class="form-control" ng-model="obj.followDate" name="followDate" id="followDate" placeholder="N/A"/>
+			                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+			                                </div>
+		                                     <p ng-show="formInfo.followDate.$invalid && !formInfo.followDate.$pristine" class="help-block text-danger">not a valid Date.</p>
+		                                 </div>
+		                        	</div>
+								</div>
+							</div>
+						</div>
+	                </form>
+	            </div>
+	            <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+	     	</div>
+	  	</div>
+ 	</div>
+</div>

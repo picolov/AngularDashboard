@@ -1,0 +1,324 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoRTA/{{_id}}" class="current"><span>RTA</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;RTA Detail</h4>
+
+                            <div class="pull-right">
+                            	<a href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+                                <a ng-href="#/jobInfoRTA/{{_id}}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>RTA Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="rta" class="col-sm-3 control-label">RTA</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.uid}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="printedOnDate" class="col-sm-3 control-label">Printed On</label>
+                                                <div class="col-sm-9">
+                                                    <div class="input-group date date-picker" id="printedOnDatePicker">
+					                                    <input type="text" class="form-control" name="printedOnDate" id="printedOnDate" placeholder="mm/dd/yy" readonly>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+                                                    <p ng-show="formInfo.printedOnDate.$invalid && !formInfo.printedOnDate.$pristine" class="help-block text-danger">Enter a valid Printed On.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="soldFrom" class="col-sm-3 control-label">Sold From</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="soldFrom" id="soldFrom" ng-maxlength="40" ng-model="obj.soldFrom">
+                                                    <p ng-show="formInfo.soldFrom.$invalid && !formInfo.soldFrom.$pristine" class="help-block text-danger">Enter a valid Sold From.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="billTo" class="col-sm-3 control-label">Bill To</label>
+                                                <div class="col-sm-9">
+                                                    <ui-select name="billTo" id="billTo" ng-model="obj.billTo" ng-disabled="disabled">
+                                                        <ui-select-match allow-clear placeholder="Search...">{{$select.selected.name}}</ui-select-match>
+                                                        <ui-select-choices repeat="billTo in companyList | filter: $select.search">
+                                                            <span ng-bind-html="billTo.name | highlight: $select.search"></span>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <p ng-show="formInfo.billTo.$invalid && !formInfo.billTo.$pristine" class="help-block text-danger">not a valid company.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">&nbsp;</label>
+                                                <div class="col-sm-9">
+                                                    <textarea cols="50" rows="4" class="form-control">{{obj.billTo.billingStreet + "\n" + obj.billTo.billingCity + "\n" + obj.billTo.billingState + "\n" + obj.billTo.billingZip}}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="shipTo" class="col-sm-3 control-label">Ship To</label>
+                                                <div class="col-sm-9">
+                                                    <ui-select name="shipTo" id="shipTo" ng-model="obj.shipTo" ng-disabled="disabled">
+                                                        <ui-select-match allow-clear placeholder="Search...">{{$select.selected.name}}</ui-select-match>
+                                                        <ui-select-choices repeat="shipTo in companyList | filter: $select.search">
+                                                            <span ng-bind-html="shipTo.name | highlight: $select.search"></span>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <p ng-show="formInfo.shipTo.$invalid && !formInfo.shipTo.$pristine" class="help-block text-danger">Enter a valid Ship To.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">&nbsp;</label>
+                                                <div class="col-sm-9">
+                                                    <textarea cols="50" rows="4" class="form-control">{{obj.shipTo.billingStreet + "\n" + obj.shipTo.billingCity + "\n" + obj.shipTo.billingState + "\n" + obj.shipTo.billingZip}}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="remitTo" class="col-sm-3 control-label">Remit To</label>
+                                                <div class="col-sm-9">
+                                                    <ui-select name="remitTo" id="remitTo" ng-model="obj.remitTo" ng-disabled="disabled">
+                                                        <ui-select-match allow-clear placeholder="Search...">{{$select.selected.name}}</ui-select-match>
+                                                        <ui-select-choices repeat="remitTo in companyList | filter: $select.search">
+                                                            <span ng-bind-html="remitTo.name | highlight: $select.search"></span>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <p ng-show="formInfo.remitTo.$invalid && !formInfo.remitTo.$pristine" class="help-block text-danger">Enter a valid Remit To.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">&nbsp;</label>
+                                                <div class="col-sm-9">
+                                                    <textarea cols="50" rows="4" class="form-control">{{obj.remitTo.billingStreet + "\n" + obj.remitTo.billingCity + "\n" + obj.remitTo.billingState + "\n" + obj.remitTo.billingZip}}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="customerName" class="col-sm-3 control-label">Customer</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" ng-maxlength="100" class="form-control"  name="customerName" id="customerName" ng-model="obj.customerName">
+                                                    <p ng-show="formInfo.customerName.$invalid && !formInfo.customerName.$pristine" class="help-block text-danger">Enter a valid Customer Name.</p>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="input-group date date-picker" id="customerDatePicker">
+					                                    <input type="text" class="form-control" name="customerDate" id="customerDate" placeholder="mm/dd/yy" readonly>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+                                                    <p ng-show="formInfo.customerDate.$invalid && !formInfo.customerDate.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="isiRepName" class="col-sm-3 control-label">ISI Rep</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" ng-maxlength="100" class="form-control"  name="isiRepName" id="isiRepName" ng-model="obj.isiRepName">
+                                                    <p ng-show="formInfo.isiRepName.$invalid && !formInfo.isiRepName.$pristine" class="help-block text-danger">Enter a valid ISI Rep Name.</p>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="input-group date date-picker" id="isiRepDatePicker">
+					                                    <input type="text" class="form-control" name="isiRepDate" id="isiRepDate" placeholder="mm/dd/yy" readonly>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+                                                    <p ng-show="formInfo.isiRepDate.$invalid && !formInfo.isiRepDate.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+                                                </div>
+                                            </div>
+                                      	</div>
+                                      	<div class="col-md-6">
+                                      		<div class="form-group">
+                                                <label class="col-sm-3 control-label">Oil Company</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.oilCompany.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Block/Lease/Fld</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.block}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">OCSG</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.ocsg}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Well</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.wellName}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="bskt" class="col-sm-3 control-label">Bskt/Slg</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="bskt" id="bskt" ng-maxlength="100" ng-model="obj.bskt">
+                                                    <p ng-show="formInfo.bskt.$invalid && !formInfo.bskt.$pristine" class="help-block text-danger">Enter a valid Bskt.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Wireline Co.</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.serviceCompany.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="fieldContact" class="col-sm-3 control-label">Field Contact</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="fieldContact" id="fieldContact" ng-maxlength="100" ng-model="obj.fieldContact">
+                                                    <p ng-show="formInfo.fieldContact.$invalid && !formInfo.fieldContact.$pristine" class="help-block text-danger">Enter a valid Field Contact.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">AFE</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.afe}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">PO</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.po}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="costCenter" class="col-sm-3 control-label">Cost Center</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="costCenter" id="costCenter" ng-maxlength="100" ng-model="obj.costCenter">
+                                                    <p ng-show="formInfo.costCenter.$invalid && !formInfo.costCenter.$pristine" class="help-block text-danger">Enter a valid Cost Center.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dailyJob" class="col-sm-3 control-label">Daily Job</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control" name="dailyJob" id="dailyJob" ng-maxlength="5" ng-model="obj.dailyJob">
+                                                    <p ng-show="formInfo.dailyJob.$invalid && !formInfo.dailyJob.$pristine" class="help-block text-danger">Enter a valid Daily Job.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Rig</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.rigName}}</label>
+                                                </div>
+                                            </div>
+                                      	</div>
+                                      	
+                                      	<div class="col-md-12">
+                                      		<hr>
+	                                      	<div class="col-md-6">
+	                                            <div class="form-group">
+	                                                <label for="item" class="col-sm-3 control-label">Item</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="item" id="item" ng-maxlength="40" ng-model="item">
+	                                                    <p ng-show="formInfo.item.$invalid && !formInfo.item.$pristine" class="help-block text-danger">Enter a valid Item.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="description" class="col-sm-3 control-label">Description</label>
+	                                                <div class="col-sm-9">
+	                                                    <textarea name="description" id="description" ng-maxlength="500" ng-model="description" cols="50" rows="6" class="form-control"></textarea>
+	                                                    <p ng-show="formInfo.description.$invalid && !formInfo.description.$pristine" class="help-block text-danger">Enter a valid Description.</p>
+	                                                </div>
+	                                            </div>
+	                                      	</div>
+	                                      	<div class="col-md-6">
+	                                      		<div class="form-group">
+	                                                <label for="units" class="col-sm-3 control-label">Units</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="units" id="units" ng-maxlength="20" ng-model="units">
+	                                                    <p ng-show="formInfo.units.$invalid && !formInfo.units.$pristine" class="help-block text-danger">Enter a valid Units.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="dayPerUnit" class="col-sm-3 control-label">Rent Days Per Unit</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="dayPerUnit" id="dayPerUnit" ng-maxlength="20" ng-model="dayPerUnit">
+	                                                    <p ng-show="formInfo.dayPerUnit.$invalid && !formInfo.dayPerUnit.$pristine" class="help-block text-danger">Enter a valid Rent Days Per Unit.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="ratePerUnit" class="col-sm-3 control-label">Rent Rate Per Unit</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="ratePerUnit" id="ratePerUnit" ng-maxlength="20" ng-model="ratePerUnit">
+	                                                    <p ng-show="formInfo.ratePerUnit.$invalid && !formInfo.ratePerUnit.$pristine" class="help-block text-danger">Enter a valid Item.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="uom" class="col-sm-3 control-label">UOM</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="uom" id="uom" ng-maxlength="20" ng-model="uom">
+	                                                    <p ng-show="formInfo.uom.$invalid && !formInfo.uom.$pristine" class="help-block text-danger">Enter a valid UOM.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="extendedPrice" class="col-sm-3 control-label">Extended Price</label>
+	                                                <div class="col-sm-9">
+	                                                    <input type="text" class="form-control" name="extendedPrice" id="extendedPrice" ng-maxlength="20" ng-model="extendedPrice">
+	                                                    <p ng-show="formInfo.extendedPrice.$invalid && !formInfo.extendedPrice.$pristine" class="help-block text-danger">Enter a valid Units.</p>
+	                                                </div>
+	                                            </div>
+	                                      	</div>
+                                      	</div>
+                                      	<div class="col-md-12">&nbsp;</div>
+                                      	<div class="col-md-12 text-center">
+                                      		<a href="javascript:;" ng-click="addItem()" class="btn btn-primary">Add Item</a>
+                                      		<a href="javascript:;" ng-click="resetItemForm()" class="btn btn-primary">Reset</a>
+                                      	</div>
+                                      	<div class="col-md-12">&nbsp;</div>
+                                      	<div class="col-md-12">&nbsp;</div>
+                                      	<div class="col-md-12">
+				                            <table ng-table="objTableParams" show-filter="true" class="table">
+				                                <tr ng-repeat="rentItem in $data">
+				                                    <td data-title="'Item'" sortable="'item'" filter="{ 'item': 'text' }">
+				                                        {{rentItem.item}}
+				                                    </td>
+				                                    <td data-title="'Description'" sortable="'description'" filter="{ 'description': 'text' }">
+				                                        {{rentItem.description}}
+				                                    </td>
+				                                    <td data-title="'Units'" sortable="'units'" filter="{ 'units': 'text' }">
+				                                        {{rentItem.units}}
+				                                    </td>
+				                                    <td data-title="'Rent Days Per Unit'" sortable="'dayPerUnit'" filter="{ 'dayPerUnit': 'text' }">
+				                                        {{rentItem.dayPerUnit}}
+				                                    </td>
+				                                    <td data-title="'Rent Rate Per Unit'" sortable="'ratePerUnit'" filter="{ 'ratePerUnit': 'text' }">
+				                                        {{rentItem.ratePerUnit}}
+				                                    </td>
+				                                    <td data-title="'UOM'" sortable="'uom'" filter="{ 'uom': 'text' }">
+				                                        {{rentItem.uom}}
+				                                    </td>
+				                                    <td data-title="'Extended Price'" sortable="'extendedPrice'" filter="{ 'extendedPrice': 'text' }">
+				                                        {{rentItem.extendedPrice}}
+				                                    </td>
+				                                    <td data-title="'Action'">
+				                                        <a href="javascript:;" ng-click="deleteItem(rentItem.uid)" class="btn btn-primary"><i class="fa fa-minus"></i></a>
+				                                    </td>
+				                                </tr>
+				                            </table>
+				                        </div>
+                                   	</form>
+                               	</div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

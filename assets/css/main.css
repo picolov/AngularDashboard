@@ -1,0 +1,202 @@
+#wrapperMap {
+    width: 200px;
+    margin: 10px auto 0;
+    padding: 10px;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, .15);
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, .15);
+}
+
+#wrapperMap #whereAmIMap {
+    width: 180px;
+    height: 180px;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+/* parsley validation error message css*/
+.parsley-error-list{
+    list-style: none;
+    padding: 0;
+}
+.parsley-error-list li{
+    color: #dd4b39;
+}
+/* remedy for ui.bootstrap dependency */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+@media (max-width: 767px) {
+	.ng-table-hide-col-4 th.header.sortable:nth-child(4) {
+		display: none;
+	}
+	
+	.ng-table-hide-col-4 th.filter.ng-scope:nth-child(4) {
+		display: none;
+	}
+	
+	[data-title-text="Log Date"] {
+	    display: none;
+	}
+}
+
+
+.h_iframe iframe {width:100%; height:100%;}
+.h_iframe {
+    height: 100%;
+    padding: 0 0 40px 0;
+}
+
+/**
+*	Horizontal Overflow Container 
+*/
+.horizontalOverflow {
+	/* overflow: auto; */
+	overflow-x: auto; 
+	overflow-y: hidden;
+	margin: 0; 
+	padding: 0;
+	border: 0;
+	height: 100%;
+    white-space:nowrap;
+}
+
+/**
+*	Custom breadcrumbs
+*/
+
+.arrowcrumbs a {
+    padding: 10px 12px 10px;
+    margin-right: 5px;
+    background: #edeef0;
+    position: relative;
+    display: inline-block;
+}
+.arrowcrumbs a:before {
+    width: 0;
+    height: 0;
+    border-top: 20px inset transparent;
+    border-bottom: 20px inset transparent;
+    border-left: 20px solid #f7f8fa;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+}
+.arrowcrumbs a:after {
+    width: 0;
+    height: 0;
+    border-top: 20px inset transparent;
+    border-bottom: 20px inset transparent;
+    border-left: 20px solid #edeef0;
+    position: absolute;
+    content: "";
+    top: 0;
+    right: -20px;
+    z-index: 2;
+}
+.arrowcrumbs a:first-child:before,
+.arrowcrumbs a:last-child:after {
+    border: none;
+}
+.arrowcrumbs a:first-child {
+    -webkit-border-radius: 4px 0 0 4px;
+       -moz-border-radius: 4px 0 0 4px;
+            border-radius: 4px 0 0 4px;
+}
+.arrowcrumbs a:last-child {
+    -webkit-border-radius: 0 4px 4px 0;
+       -moz-border-radius: 0 4px 4px 0;
+            border-radius: 0 4px 4px 0;
+}
+.arrowcrumbs span {
+    margin: 0 5px 0 18px;
+    position: relative;
+    top: -1px;
+}
+.arrowcrumbs a:first-child span {
+    margin-left: 0;
+}
+.arrowcrumbs .current {
+    background: #007ACC;
+    color: #fff;
+}
+.arrowcrumbs .current:after {
+    border-left-color: #007ACC;
+}
+
+td .tooltip {
+    position:absolute
+}
+
+#map {
+	height: 500px;
+}
+
+.contextual-progress {
+    margin: 5px 0;
+}
+
+.colSelect {
+	background-color: #007ACC;
+	color: #FFFFFF;
+}
+
+.full-width {
+	width: 100%;
+	display: block;
+}
+
+.no-padding-horizontal {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.label-table {
+	border : gray thin;
+}
+
+.passDateRow {
+	background-color: red;
+	color: white;
+}
+
+.passDateRow a {
+	color: white;
+}
+
+.disabled-textarea {
+	border: 1px solid #eee;	
+}
+
+.enabled-textarea {
+	border: 1px solid #000;	
+}
+
+.enabled-textfield {
+	border: 1px solid #000;	
+}
+
+.job-color-0 {
+	background-color: #ffff66;
+}
+.job-color-1 {
+	background-color: #66ff66;
+}
+.job-color-2 {
+	background-color: #ff6666;
+}
+.job-color-3 {
+	background-color: #66ffff;
+}
+
+.hover-button {
+	cursor: pointer;
+	color: graytext;
+}
+
+.hover-button:HOVER {
+	cursor: pointer;
+	color: black;
+}

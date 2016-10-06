@@ -1,0 +1,91 @@
+<div class="container">
+    <div class="row">
+    	<div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                    	<div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Upcoming Job</h4>
+                            <div class="pull-right">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table ng-table="objTableParams" show-filter="false" class="table table-condensed table-bordered">
+                                <tr ng-repeat="job in $data" on-last-repeat>
+                                    <td data-title="'RTA #'">
+                                        <a href="#/jobInfoDetail/{{job._id}}">{{job.uid}}</a>
+                                    </td>
+                                    <td data-title="'Oil & Gas Company'">
+                                        {{job.oilCompany.name}}
+                                    </td>
+                                    <td data-title="'Rig Name'">
+                                        {{job.rigName}}
+                                    </td>
+                                    <td data-title="'Estimated Revenue'">
+                                        {{((job.runs? job.runs : 0) * (job.revenueRuns? job.revenueRuns : 0)) | currency}}
+                                    </td>
+                                    <td data-title="'Location'">
+                                        <i ng-if="job.latitude && job.longitude" class="fa fa-globe mapPopover" ng-attr-data-location="{{job.latitude + ',' + job.longitude}}"> Mini Map</i>
+                                    </td>
+                                    <td data-title="'Job Progress'">
+	                                    <div class="contextual-progress">
+										    <div class="clearfix">
+										        <div class="progress-title">{{job.dailyJob?job.dailyJob.numOfChargeFirst + job.dailyJob.numOfChargeAdditional + job.dailyJob.numOfChargeRun:'0'}} of {{job.runs}}</div>
+										        <div class="progress-percentage">{{job.dailyJob && job.runs?((job.dailyJob.numOfChargeFirst + job.dailyJob.numOfChargeAdditional + job.dailyJob.numOfChargeRun)/job.runs) * 100:0}}%</div>
+										    </div>
+										    <div class="progress">
+										        <div class="progress-bar progress-bar-info" style="width: {{job.dailyJob && job.runs?((job.dailyJob.numOfChargeFirst + job.dailyJob.numOfChargeAdditional + job.dailyJob.numOfChargeRun)/job.runs) * 100:0}}%"></div>
+										    </div>
+										</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                    	<div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Active Job</h4>
+                            <div class="pull-right">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <table ng-table="objTableParams2" show-filter="false" class="table table-condensed table-bordered">
+                                <tr ng-repeat="job in $data" on-last-repeat>
+                                    <td data-title="'RTA #'">
+                                        <a href="#/jobInfoDetail/{{job._id}}">{{job.uid}}</a>
+                                    </td>
+                                    <td data-title="'Oil & Gas Company'">
+                                        {{job.oilCompany.name}}
+                                    </td>
+                                    <td data-title="'Rig Name'">
+                                        {{job.rigName}}
+                                    </td>
+                                    <td data-title="'Location'">
+                                        <i ng-if="job.latitude && job.longitude" class="fa fa-globe mapPopover" ng-attr-data-location="{{job.latitude + ',' + job.longitude}}"> Mini Map</i>
+                                    </td>
+                                    <td data-title="'Job Progress'">
+	                                    <div class="contextual-progress">
+										    <div class="clearfix">
+										        <div class="progress-title">{{job.dailyJob?job.dailyJob.numOfChargeFirst + job.dailyJob.numOfChargeAdditional + job.dailyJob.numOfChargeRun:'0'}} of {{job.runs}}</div>
+										        <div class="progress-percentage">{{job.dailyJob && job.runs?((job.dailyJob.numOfChargeFirst + job.dailyJob.numOfChargeAdditional + job.dailyJob.numOfChargeRun)/job.runs) * 100:0}}%</div>
+										    </div>
+										    <div class="progress">
+										        <div class="progress-bar progress-bar-info" style="width: {{job.dailyJob && job.runs?((job.dailyJob.numOfChargeFirst + job.dailyJob.numOfChargeAdditional + job.dailyJob.numOfChargeRun)/job.runs) * 100:0}}%"></div>
+										    </div>
+										</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

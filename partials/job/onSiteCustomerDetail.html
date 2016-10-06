@@ -1,0 +1,177 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="current"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Customer Satisfaction Report Detail</h4>
+
+                            <div class="pull-right">
+                                <a ng-if="(jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit')) && (myJob(jobInfo) || haveAllAccess('@onSiteEdit'))" ng-href="#/jobInfoOnSiteCustomerEdit/{{_id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Customer Satisfaction Report Detail</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+		                                        <label for="customer" class="col-sm-3 control-label">Customer Name</label>
+		                                        <div class="col-sm-9">
+		                                            <label class="control-label2">{{obj.customer.name}}</label>
+		                                        </div>
+		                                    </div>
+                                            <div class="form-group">
+                                                <label for="customerRepName" class="col-sm-3 control-label">Company Representative Name</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.customerRepName}}</label>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                	<label class="control-label2">{{formatTime(obj.customerRepDate, 'MM/dd/yy')}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jobTitle" class="col-sm-3 control-label">Job Title</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.jobTitle}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+                                                <label for="customerLocation" class="col-sm-3 control-label">Customer Location</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.customerLocation}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="isiFacility" class="col-sm-3 control-label">ISI Facility</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.isiFacility}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<hr>
+                                        </div>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+                                                <label for="point1" class="col-sm-3 control-label">1. Communication with the customer</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.point1 == "2"?"Poor":obj.point1 == "4"?"Mediocre":obj.point1 == "6"?"Adequate":obj.point1 == "8"?"Good":obj.point1 == "10"?"Excelent":""}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point2" class="col-sm-3 control-label">2. Technical Support</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.point2 == "2"?"Poor":obj.point2 == "4"?"Mediocre":obj.point2 == "6"?"Adequate":obj.point2 == "8"?"Good":obj.point2 == "10"?"Excelent":""}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point3" class="col-sm-3 control-label">3. Document Submission</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.point3 == "2"?"Poor":obj.point3 == "4"?"Mediocre":obj.point3 == "6"?"Adequate":obj.point3 == "8"?"Good":obj.point3 == "10"?"Excelent":""}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point4" class="col-sm-3 control-label">4. Order/Project Management</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.point4 == "2"?"Poor":obj.point4 == "4"?"Mediocre":obj.point4 == "6"?"Adequate":obj.point4 == "8"?"Good":obj.point4 == "10"?"Excelent":""}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point5" class="col-sm-3 control-label">5. Product Design</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.point5 == "2"?"Poor":obj.point5 == "4"?"Mediocre":obj.point5 == "6"?"Adequate":obj.point5 == "8"?"Good":obj.point5 == "10"?"Excelent":""}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+                                                <label for="point6" class="col-sm-3 control-label">6. Product Quality</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.point6 == "2"?"Poor":obj.point6 == "4"?"Mediocre":obj.point6 == "6"?"Adequate":obj.point6 == "8"?"Good":obj.point6 == "10"?"Excelent":""}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point7" class="col-sm-3 control-label">7. Delivery Performance</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.point7 == "2"?"Poor":obj.point7 == "4"?"Mediocre":obj.point7 == "6"?"Adequate":obj.point7 == "8"?"Good":obj.point7 == "10"?"Excelent":""}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point8" class="col-sm-3 control-label">8. Health, Safety & Environmental Impact</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.point8 == "2"?"Poor":obj.point8 == "4"?"Mediocre":obj.point8 == "6"?"Adequate":obj.point8 == "8"?"Good":obj.point8 == "10"?"Excelent":""}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point9" class="col-sm-3 control-label">9. Commercial Management (Pricing)</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.point9 == "2"?"Poor":obj.point9 == "4"?"Mediocre":obj.point9 == "6"?"Adequate":obj.point9 == "8"?"Good":obj.point9 == "10"?"Excelent":""}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="point10" class="col-sm-3 control-label">10. Product Performance</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.point10 == "2"?"Poor":obj.point10 == "4"?"Mediocre":obj.point10 == "6"?"Adequate":obj.point10 == "8"?"Good":obj.point10 == "10"?"Excelent":""}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<hr>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<div class="form-group">
+                                                <label for="score" class="col-sm-6 control-label">Total Score</label>
+                                                <div class="col-sm-6">
+                                                    <label class="form-control">{{1*obj.point1 + 1*obj.point2 + 1*obj.point3 + 1*obj.point4 + 1*obj.point5 + 1*obj.point6 + 1*obj.point7 + 1*obj.point8 + 1*obj.point9 + 1*obj.point10}}</label>                                                    
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="score" class="col-sm-6 control-label">Overall Customer Performance Rating Percentage</label>
+                                                <div class="col-sm-6">
+                                                    <label class="form-control">{{(1*obj.point1 + 1*obj.point2 + 1*obj.point3 + 1*obj.point4 + 1*obj.point5 + 1*obj.point6 + 1*obj.point7 + 1*obj.point8 + 1*obj.point9 + 1*obj.point10) / 100}}</label>                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<hr>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<div class="form-group">
+                                                <label class="col-sm-3 control-label">Customer Additional Comments</label>
+                                                <div class="col-sm-9">
+                                                    <textarea name="comment" id="comment" ng-model="obj.comment" cols="50" rows="4" class="form-control" readonly></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

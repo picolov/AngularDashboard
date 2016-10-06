@@ -1,0 +1,243 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}" class="current"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Outgoing Cased Hole Jar Inspection Detail</h4>
+
+                            <div class="pull-right">
+                            	<a href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+                                <a ng-href="#/jobInfoOutgoingTools1/{{_id}}" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Outgoing Cased Hole Jar Inspection Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<form name="formInfo" class="formObj form-horizontal" novalidate>
+                                		<div class="col-md-6">
+                                			<div class="form-group">
+                                                <label for="sentDate" class="col-sm-3 control-label">Date Jar(s) Sent Out</label>
+                                                <div class="col-sm-9">
+                                                    <div class="input-group date">
+					                                    <input date-picko today-when-empty="true" type="text" class="form-control" ng-model="obj.sentDate" name="sentDate" id="sentDate"/>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+                                                    <p ng-show="formInfo.sentDate.$invalid && !formInfo.sentDate.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+                                                </div>
+                                            </div>
+                                		</div>
+                                		<div class="col-md-6">
+                                			<div class="form-group">
+                                                <label for="rta" class="col-sm-3 control-label">RTA</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.uid}}</label>
+                                                </div>
+                                            </div>
+                                		</div>
+                                		<div class="col-md-12">
+                                      		<hr>
+	                                      	<div class="col-md-6">
+	                                      		<div class="col-md-12" ng-repeat="item in getToolCount">
+		                                            <div class="form-group">
+		                                                <label for="serial{{item.idx}}" class="col-sm-3 control-label">Serial Number</label>
+		                                                <div class="col-sm-7">
+		                                                    <ui-select ng-model="obj['serial' + item.idx]" ng-disabled="disabled" search-enabled="false">
+		                                                        <ui-select-match allow-clear placeholder="-Pick a value-">{{$select.selected}}</ui-select-match>
+		                                                        <ui-select-choices repeat="serial in serialList track by $index | filter: $select.search">
+		                                                            <span ng-bind-html="serial | highlight: $select.search"></span>
+		                                                        </ui-select-choices>
+		                                                    </ui-select>
+		                                                </div>
+		                                                <div class="col-sm-2">
+		                                                	<a href="javascript:;" ng-click="addTool(item.idx, 'serial')" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+		                                                	<a href="javascript:;" ng-hide="obj.toolCount == 1" ng-click="deleteTool(item.idx, 'serial')" class="btn btn-primary"><i class="fa fa-minus"></i></a>
+		                                                </div>
+		                                            </div>
+	                                            </div>
+	                                            
+	                                            <div class="form-group">
+	                                                <label for="description" class="col-sm-3 control-label">Description of Jar</label>
+	                                                <div class="col-sm-9">
+	                                                    <textarea name="description" id="description" cols="50" rows="4" class="form-control" readonly>{{getDescJar()}}</textarea>
+	                                                </div>
+	                                            </div>
+	                                      	</div>
+	                                      	<div class="col-md-6">
+	                                      		&nbsp;
+	                                      	</div>
+                                      	</div>
+                                      	
+				                        <div class="col-md-12">
+				                        	<hr>
+				                        	<div class="col-md-6">
+				                        		<div class="form-group">
+	                                                <label for="check1" class="col-sm-8 control-label">Connections for appropriate tightness</label>
+	                                                <div class="col-sm-4">
+	                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check1" id="check1a" ng-model="obj.check1" value="0"> Yes
+														</label>
+														<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check1" id="check1b" ng-model="obj.check1" value="1"> No
+														</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="check2" class="col-sm-8 control-label">All set screws are installed properly</label>
+	                                                <div class="col-sm-4">
+	                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check2" id="check2a" ng-model="obj.check2" value="0"> Yes
+														</label>
+														<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check2" id="check2b" ng-model="obj.check2" value="1"> No
+														</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="check3" class="col-sm-8 control-label">Checked for leaks and found to be acceptable</label>
+	                                                <div class="col-sm-4">
+	                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check3" id="check3a" ng-model="obj.check3" value="0"> Yes
+														</label>
+														<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check3" id="check3b" ng-model="obj.check3" value="1"> No
+														</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="check4" class="col-sm-8 control-label">Checked continuity and found to be acceptable</label>
+	                                                <div class="col-sm-4">
+	                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check4" id="check4a" ng-model="obj.check4" value="0"> Yes
+														</label>
+														<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check4" id="check4b" ng-model="obj.check4" value="1"> No
+														</label>
+	                                                </div>
+	                                            </div>
+				                        	</div>
+				                        	<div class="col-md-6">
+				                        		<div class="form-group">
+	                                                <label for="check5" class="col-sm-8 control-label">Windows installed properly</label>
+	                                                <div class="col-sm-4">
+	                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check5" id="check5a" ng-model="obj.check5" value="0"> Yes
+														</label>
+														<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check5" id="check5b" ng-model="obj.check5" value="1"> No
+														</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="check6" class="col-sm-8 control-label">Thread protector O-rings installed properly</label>
+	                                                <div class="col-sm-4">
+	                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check6" id="check6a" ng-model="obj.check6" value="0"> Yes
+														</label>
+														<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check6" id="check6b" ng-model="obj.check6" value="1"> No
+														</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="check7" class="col-sm-8 control-label">Latches and unlatches correctly</label>
+	                                                <div class="col-sm-4">
+	                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check7" id="check7a" ng-model="obj.check7" value="0"> Yes
+														</label>
+														<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check7" id="check7b" ng-model="obj.check7" value="1"> No
+														</label>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="check8" class="col-sm-8 control-label">Outward appearance acceptable</label>
+	                                                <div class="col-sm-4">
+	                                                	<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check8" id="check8a" ng-model="obj.check8" value="0"> Yes
+														</label>
+														<label style="margin-bottom: 0px; margin-top: 8px;">
+															<input uncheckable-radio type="radio" name="check8" id="check8b" ng-model="obj.check8" value="1"> No
+														</label>
+	                                                </div>
+	                                            </div>
+				                        	</div>
+				                        	<div class="col-md-12">
+				                        		<div class="form-group">
+	                                                <label for="additionalComment" class="col-sm-3 control-label">Any additional comment</label>
+	                                                <div class="col-sm-9">
+	                                                    <textarea name="additionalComment" id="additionalComment" maxlength="300" ng-model="obj.additionalComment" cols="50" rows="4" class="form-control"></textarea>
+	                                                    <p ng-show="formInfo.additionalComment.$invalid && !formInfo.additionalComment.$pristine" class="help-block text-danger">not a valid comment.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="signatureName" class="col-sm-3 control-label">Technician Name</label>
+	                                                <div class="col-sm-5">
+	                                                    <input type="text" maxlength="100" class="form-control"  name="signatureName" id="signatureName" ng-model="obj.signatureName">
+	                                                    <p ng-show="formInfo.signatureName.$invalid && !formInfo.signatureName.$pristine" class="help-block text-danger">Enter a valid Technician Name.</p>
+	                                                </div>
+	                                                <div class="col-sm-4">
+	                                                    <div class="input-group date">
+						                                    <input date-picko today-when-empty="true" type="text" class="form-control" ng-model="obj.signatureDate" name="signatureDate" id="signatureDate"/>
+						                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						                                </div>
+	                                                    <p ng-show="formInfo.signatureDate.$invalid && !formInfo.signatureDate.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="facilityName" class="col-sm-3 control-label">Facility Manager or Engineering Manager Name</label>
+	                                                <div class="col-sm-5">
+	                                                    <input type="text" maxlength="100" class="form-control"  name="facilityName" id="facilityName" ng-model="obj.facilityName">
+	                                                    <p ng-show="formInfo.facilityName.$invalid && !formInfo.facilityName.$pristine" class="help-block text-danger">Enter a valid Facility Manager or Engineering Manager Name.</p>
+	                                                </div>
+	                                                <div class="col-sm-4">
+	                                                    <div class="input-group date">
+						                                    <input date-picko type="text" class="form-control" ng-model="obj.facilityDate" name="facilityDate" id="facilityDate"/>
+						                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						                                </div>
+	                                                    <p ng-show="formInfo.facilityDate.$invalid && !formInfo.facilityDate.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label for="thirdPartyName" class="col-sm-3 control-label">Third Party Inspector Name</label>
+	                                                <div class="col-sm-5">
+	                                                    <input type="text" maxlength="100" class="form-control"  name="thirdPartyName" id="thirdPartyName" ng-model="obj.thirdPartyName">
+	                                                    <p ng-show="formInfo.thirdPartyName.$invalid && !formInfo.thirdPartyName.$pristine" class="help-block text-danger">Enter a valid Third Party Name.</p>
+	                                                </div>
+	                                                <div class="col-sm-4">
+	                                                    <div class="input-group date">
+						                                    <input date-picko type="text" class="form-control" ng-model="obj.thirdPartyDate" name="thirdPartyDate" id="thirdPartyDate"/>
+						                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+						                                </div>
+	                                                    <p ng-show="formInfo.thirdPartyDate.$invalid && !formInfo.thirdPartyDate.$pristine" class="help-block text-danger">Enter a valid Date.</p>
+	                                                </div>
+	                                            </div>
+				                        	</div>
+				                        </div>
+                                   	</form>
+                               	</div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

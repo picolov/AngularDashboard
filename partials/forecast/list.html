@@ -1,0 +1,262 @@
+<div class="container">
+    <div class="row">
+    	<div class="col-md-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>
+						<ul class="nav nav-tabs">
+							<li ng-repeat="month in monthList" ng-class="{active:month.selected}"><a href="#/forecast/{{month.id}}">{{month.name}}</a></li>
+						</ul>
+					</h4>
+					<div class="options">
+					</div>
+				</div>
+			</div>
+		</div>
+    	<div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                    	<div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Forecast Report - {{monthNameList[currentMonth - 1]}}</h4>
+                            <div class="pull-right">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                        	<div class="horizontalOverflow">
+	                            <table ng-table="forecastTableParams" show-filter="false" class="table table-condensed table-bordered">
+	                                <tr ng-repeat="job in $data" on-last-repeat class="job-color-{{job.status._id}}">
+	                                	<td data-title="'Rig Name'">
+	                                        {{job.rigName}}
+	                                    </td>
+	                                    <td data-title="'RTA #'">
+	                                        <a href="#/jobInfoDetail/{{job._id}}">{{job.uid}}</a>
+	                                    </td>
+	                                	<td data-title="'Projected Date'">
+	                                        {{formatTime(job.startDate, 'MM/dd/yy')}}
+	                                    </td>
+	                                    <td data-title="'Start Date'">
+	                                        {{job.serviceOrder?formatTime(job.serviceOrder.shipDate, 'MM/dd/yy'):''}}
+	                                    </td>
+	                                    <td data-title="'End Date'">
+	                                        {{job.dailyJob?formatTime(job.dailyJob.toDate, 'MM/dd/yy'):''}}
+	                                    </td>
+	                                    <td data-title="'Job Type'">
+	                                        {{job.environment == '0' ? 'Land' : job.environment == '1' ? 'Offshore' : job.environment == '2' ? 'International' : ''}}
+	                                    </td>
+	                                    <td data-title="'Well Condition'">
+	                                        {{mergeString(', ', job.isCO2?'CO2':'', job.isH2S?'H2S':'', job.isHighTemp?'High Temperature':'', job.isHighPress?'High Pressure':'', job.isOther?job.isOtherVal:'')}}
+	                                    </td>	                                    
+	                                    <td data-title="'Operator/Service Company'">
+	                                        {{job.oilCompany.name}}/{{job.serviceCompany.name}}
+	                                    </td>
+	                                    <td data-title="'Impact Pro'">
+	                                        {{job.impactProTotal | currency}}
+	                                    </td>
+	                                    <td data-title="'#'">
+	                                        {{job.tool}}
+	                                    </td>
+	                                    <td data-title="'Tool Prep Charge'">
+	                                        {{job.toolCharge | currency}}
+	                                    </td>
+	                                    <td data-title="'Total'">
+	                                        {{job.toolTotal | currency}}
+	                                    </td>
+	                                    <td data-title="'#'">
+	                                        {{job.first}}
+	                                    </td>
+	                                    <td data-title="'First Day Charge'">
+	                                        {{job.firstCharge | currency}}
+	                                    </td>
+	                                    <td data-title="'Total'">
+	                                        {{job.firstTotal | currency}}
+	                                    </td>
+	                                    <td data-title="'#'">
+	                                        {{job.additional}}
+	                                    </td>
+	                                    <td data-title="'Additional Day Charge'">
+	                                        {{job.additionalCharge | currency}}
+	                                    </td>
+	                                    <td data-title="'Total'">
+	                                        {{job.additionalTotal | currency}}
+	                                    </td>
+	                                    <td data-title="'#'">
+	                                        {{job.run}}
+	                                    </td>
+	                                    <td data-title="'Run Charge'">
+	                                        {{job.runCharge | currency}}
+	                                    </td>
+	                                    <td data-title="'Total'">
+	                                        {{job.runTotal | currency}}
+	                                    </td>
+	                                    <td data-title="'#'">
+	                                        {{job.standBy}}
+	                                    </td>
+	                                    <td data-title="'Tool S/B'">
+	                                        {{job.standByCharge | currency}}
+	                                    </td>
+	                                    <td data-title="'Total'">
+	                                        {{job.standByTotal | currency}}
+	                                    </td>
+	                                    <td data-title="'#'">
+	                                        {{job.tech}}
+	                                    </td>
+	                                    <td data-title="'Technician'">
+	                                        {{job.techCharge | currency}}
+	                                    </td>
+	                                    <td data-title="'Total'">
+	                                        {{job.techTotal | currency}}
+	                                    </td>
+	                                    <td data-title="'#'">
+	                                        {{job.activation}}
+	                                    </td>
+	                                    <td data-title="'Activation'">
+	                                        {{job.activationCharge | currency}}
+	                                    </td>
+	                                    <td data-title="'Total'">
+	                                        {{job.activationTotal | currency}}
+	                                    </td>
+	                                    <td data-title="'Comments'" style="min-width:200px;">
+	                                        <textarea ng-model="job.comment" cols="50" rows="3" class="full-width disabled-textarea" readonly></textarea>
+	                                    </td>
+	                                </tr>
+	                                	<td data-title="'Rig Name'">
+	                                        
+	                                    </td>
+	                                    <td data-title="'RTA #'">
+	                                        
+	                                    </td>
+	                                	<td data-title="'Projected Date'">
+	                                        
+	                                    </td>
+	                                    <td data-title="'Start Date'">
+	                                        
+	                                    </td>
+	                                    <td data-title="'End Date'">
+	                                        
+	                                    </td>
+	                                    <td data-title="'Job Type'">
+	                                        
+	                                    </td>
+	                                    <td data-title="'Well Condition'">
+	                                        
+	                                    </td>	                                    
+	                                    <td data-title="'Operator/Service Company'">
+	                                        <b>Impact Pro Total</b>
+	                                    </td>
+	                                    <td data-title="'Impact Pro'">
+	                                        {{impactProTotalAll | currency}}
+	                                    </td>
+	                                    <td data-title="'#'">
+	                                        
+	                                    </td>
+	                                    <td data-title="'Tool Charge'">
+	                                        <b>Tool Prep Charge Total</b>
+	                                    </td>
+	                                    <td data-title="'Total'">
+	                                        {{toolTotalAll | currency}}
+	                                    </td>
+	                                    <td data-title="'#'">
+	                                        
+	                                    </td>
+	                                    <td data-title="'First Charge'">
+	                                        <b>First Day Total</b>
+	                                    </td>
+	                                    <td data-title="'Total'">
+	                                        {{firstTotalAll | currency}}
+	                                    </td>
+	                                    <td data-title="'#'">
+	                                        
+	                                    </td>
+	                                    <td data-title="'Additional Day Charge'">
+	                                        <b>Additional Day Total</b>
+	                                    </td>
+	                                    <td data-title="'Total'">
+	                                        {{additionalTotalAll | currency}}
+	                                    </td>
+	                                    <td data-title="'#'">
+	                                        
+	                                    </td>
+	                                    <td data-title="'Run Charge'">
+	                                        <b>Run Charge Total</b>
+	                                    </td>
+	                                    <td data-title="'Total'">
+	                                        {{runTotalAll | currency}}
+	                                    </td>
+	                                    <td data-title="'#'">
+	                                        
+	                                    </td>
+	                                    <td data-title="'Tool S/B'">
+	                                        <b>Tool S/B Total</b>
+	                                    </td>
+	                                    <td data-title="'Total'">
+	                                        {{standByTotalAll | currency}}
+	                                    </td>
+	                                    <td data-title="'#'">
+	                                        
+	                                    </td>
+	                                    <td data-title="'Technician'">
+	                                        <b>Technician Total</b>
+	                                    </td>
+	                                    <td data-title="'Total'">
+	                                        {{techTotalAll | currency}}
+	                                    </td>
+	                                    <td data-title="'#'">
+	                                        
+	                                    </td>
+	                                    <td data-title="'Activation'">
+	                                        <b>Activation Total</b>
+	                                    </td>
+	                                    <td data-title="'Total'">
+	                                        {{activationTotalAll | currency}}
+	                                    </td>
+	                                    <td data-title="'Comments'">
+	                                        
+	                                    </td>
+	                                <tr>
+	                                </tr>
+	                            </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12">&nbsp;</div>
+                        <div class="col-md-12">
+                        	<form name="formInfo" class="formObj form-horizontal" novalidate>
+	                        	<div class="form-group">
+		                            <label class="col-sm-3 control-label">Active Job Total</label>
+		                            <div class="col-sm-9" >
+		                                <label class="control-label2">{{activeJobTotal | currency}}&nbsp;</label>
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                            <label class="col-sm-3 control-label">Upcoming Job Total</label>
+		                            <div class="col-sm-9" >
+		                                <label class="control-label2">{{upcomingJobTotal | currency}}&nbsp;</label>
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                            <label class="col-sm-3 control-label">Completed Job Total</label>
+		                            <div class="col-sm-9" >
+		                                <label class="control-label2">{{completedJobTotal | currency}}&nbsp;</label>
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                            <label class="col-sm-3 control-label">Projected Total Revenue</label>
+		                            <div class="col-sm-9" >
+		                                <label class="control-label2">{{projectedTotalRevenue | currency}}&nbsp;</label>
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                            <label class="col-sm-3 control-label">Monthly Total Revenue</label>
+		                            <div class="col-sm-9" >
+		                                <label class="control-label2">{{monthlyTotalRevenue | currency}}&nbsp;</label>
+		                            </div>
+		                        </div>
+	                        </form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

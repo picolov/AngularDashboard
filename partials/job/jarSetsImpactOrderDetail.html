@@ -1,0 +1,221 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}" class="current"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}" class="current"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Jar Settings Impact order Detail</h4>
+
+                            <div class="pull-right">
+                            	<a ng-if="(jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit')) && (myJob(jobInfo) || haveAllAccess('@onSiteEdit'))" ng-href="#/jobInfoJarSetsImpactOrderEdit/{{_id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Impact Pro Service Order Form</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Order Date</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{formatTime(obj.orderDate, 'MM/dd/yy')}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Ordered By</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.orderedBy}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Operating Company</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.oilCompany.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Service Company</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.serviceCompany.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Contact Name</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.contactName}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Contact Phone</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.contactPhone}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Contact E-mail</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.contactEmail}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">RTA</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.uid}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Block/Lease/Field</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{mergeString('/', jobInfo.block, jobInfo.lease, jobInfo.field)}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Well Number</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.wellName}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Rig/Platform</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.rigName}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+	                                            <label for="detailsNotes" class="col-sm-3 control-label">Details/Notes</label>
+	                                            <div class="col-sm-9">
+	                                                <textarea name="detailsNotes" id="detailsNotes" maxlength="222" ng-model="obj.detailsNotes" cols="50" rows="4" class="form-control" readonly></textarea>
+	                                            </div>
+	                                        </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">ISI Rep</label>
+                                                <div class="col-sm-5">
+                                                    <label class="control-label2">{{obj.technician}}</label>
+                                                </div>
+                                                <div class="col-sm-4">
+					                                <label class="control-label2">{{formatTime(obj.isiRepDate, 'MM/dd/yy')}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Mail To</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.mailTo}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+										<div class="col-md-12 text-center">
+                                        	<hr>
+                                        	<h4>Tool String and Job Information</h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Mud Weight (lb/gal)</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{svo.mudWt}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Cable Type</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.cableType.name}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Cable Weight per 1000' in Air (lb)</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{dailyJob.cableWeight}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Max Safe Pull (lb)</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.maxSafePull}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Weak Point (lb)</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.weakPoint}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Total Depth (ft)</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{svo.td}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <hr>
+                                        </div>
+                                      	<div class="col-md-12">&nbsp;</div>
+                                      	<div class="col-md-12">
+				                            <table ng-table="objTableParams" class="table">
+				                                <tr ng-repeat="runItem in $data">
+				                                    <td data-title="'Run'" class="text-center">
+				                                        {{runItem.run}}
+				                                    </td>
+				                                    <td data-title="'Toolstring'" class="text-center">
+				                                        <span ng-repeat="toolstring in runItem.toolString">
+                                    						{{$first ? toolstring : (", " + toolstring)}}
+                                    					</span>
+				                                    </td>
+				                                    <td data-title="'Length'" class="text-center">
+				                                        {{runItem.length}}
+				                                    </td>
+				                                    <td data-title="'Weight in Fluid'" class="text-center">
+				                                        {{runItem.weightInFluid}}
+				                                    </td>
+				                                    <td data-title="'Weight in Air'" class="text-center">
+				                                        {{runItem.weightInAir}}
+				                                    </td>
+				                                    <td data-title="'Surface Tension @ Total Depth'" class="text-center">
+				                                        {{runItem.surfaceTensionTotalDepth}}
+				                                    </td>
+				                                    <td data-title="'Max Tool Outer Diameter'" class="text-center">
+				                                        {{runItem.maxToolOuterDiameter}}
+				                                    </td>
+				                                    <td data-title="'Target Jar Setting (Optional)'" class="text-center">
+				                                        {{runItem.targetJarSetting}}
+				                                    </td>
+				                                    <td data-title="'Target Max Jar Force (Optional)'" class="text-center">
+				                                        {{runItem.targetMaxJarForce}}
+				                                    </td>
+				                                </tr>
+				                            </table>
+				                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

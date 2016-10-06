@@ -1,0 +1,127 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}" class="current"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Open Hole Jar Leak & Continuity Check - HALLIBURTON Detail</h4>
+
+                            <div class="pull-right">
+                            	<a ng-if="(jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit'))" ng-href="#/jobInfoOutgoingTools0LeakBurtonEdit/{{_id + '|' + obj_id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="detailPdf()" class="btn btn-primary">Pdf</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Open Hole Jar Leak & Continuity Check - HALLIBURTON Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<form name="formInfo" class="formObj form-horizontal" novalidate>
+                                		<div class="col-md-6">
+                                			<div class="form-group">
+                                                <label for="jarModel" class="col-sm-3 control-label">Jar Model</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.jarModel == '0' ? 'MCT' : obj.jarModel == '1' ? 'MCX': ''}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jarType" class="col-sm-3 control-label">Jar Type</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.jarType == '0' ? '12-pin' : ''}}</label>
+                                                </div>
+                                            </div>
+                                			<div class="form-group">
+	                                            <label for="jarSerial" class="col-sm-3 control-label">Jar Serial #</label>
+	                                            <div class="col-sm-9">
+	                                                <label class="control-label2">{{obj.jarSerial}}</label>
+	                                            </div>
+                                            </div>
+                                			<div class="form-group">
+                                                <label for="date" class="col-sm-3 control-label">Date</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{formatTime(obj.date, 'MM/dd/yy')}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="rta" class="col-sm-3 control-label">RTA</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{jobInfo.uid}}</label>
+                                                </div>
+                                            </div>
+                                		</div>
+                                		<div class="col-md-6">
+                                			<div class="form-group">
+	                                            <label for="megSerial" class="col-sm-3 control-label">Meg-Meter Serial #</label>
+	                                            <div class="col-sm-9">
+	                                                <label class="control-label2">{{obj.megSerial}}</label>
+	                                            </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="megDate" class="col-sm-3 control-label">Meg-Meter Calibration Date</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{formatTime(obj.megDate, 'MM/dd/yy')}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inOut" class="col-sm-3 control-label">In/Out</label>
+                                                <div class="col-sm-9">
+                                                	<label class="control-label2">{{obj.inOut == '0' ? 'Incoming from: ' + obj.inOut0Value : obj.inOut == '1' ? 'Outgoing to: ' +  + obj.inOut1Value : ''}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="techName" class="col-sm-3 control-label">Technician</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.techName}} - {{formatTime(obj.techDate, 'MM/dd/yy')}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="facilityName" class="col-sm-3 control-label">Facility or Engineering Mgr</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.facilityName}} - {{formatTime(obj.facilityDate, 'MM/dd/yy')}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inspectorName" class="col-sm-3 control-label">Third Party Inspector</label>
+                                                <div class="col-sm-9">
+                                                    <label class="control-label2">{{obj.inspectorName}} - {{formatTime(obj.inspectorDate, 'MM/dd/yy')}}</label>
+                                                </div>
+                                            </div>
+                                		</div>
+                                      	<div class="col-md-12">
+                                			<hr>
+											<div class="form-group">
+										    	<label class="col-sm-2 text-center">Line #</label>
+	                                      		<label class="col-sm-5 text-center">Continuity</label>
+	                                      		<label class="col-sm-5 text-center">Leaks</label>
+											</div>
+											<div class="form-group" ng-repeat="i in getPinNumber(obj.jarType)">
+										    	<label class="col-sm-2 text-center">{{i}}</label>
+										    	<label class="col-sm-5 text-center">{{obj['continuity' + i]}}</label>
+										    	<label class="col-sm-5 text-center">{{obj['leaks' + i]}}</label>
+											</div>
+										</div>
+                                   	</form>
+                               	</div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <div class="pull-right">
+
+                                <!--@todo: link not defined-->
+                                <!--<a ng-href="#" class="btn btn-primary">Upload</a>-->
+                                <span ng-show="haveAllAccess('@manualEdit')" class="btn btn-primary btn-file">
+                                    Upload <input type="file" id="upload" name="upload" onchange="angular.element(this).scope().upload()"/>
+                                </span>
+                            </div>
+                            <h4 class="pull-left" style="margin: 0 0 20px;">
+                                <i class="fa fa-share-alt"></i>&nbsp;&nbsp;Field Operation Manual
+                            </h4>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td class="col-md-3">Name</td>
+                                        <td class="col-md-3">Size</td>
+                                        <td class="col-md-3">Upload Date</td>
+                                        <td class="col-md-3">Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-table="objTableParams" ng-repeat="manual in data">
+                                        <td data-title="'Name'">
+                                            {{manual.name}}
+                                        </td>
+                                        <td data-title="'Size'">
+                                            {{manual.size}}
+                                        </td>
+                                        <td data-title="'Upload Date'">
+                                            {{formatTime(manual.uploadDate, 'MM/dd/yy hh:mm:ss')}}
+                                        </td>
+                                        <td data-title="'Action'">
+                                            <a href="javascript:;" ng-click="download(manual.url)" class="btn btn-blue">Download</a>
+                                            <a ng-show="haveAllAccess('@manualEdit')" ng-href="#/collaborationToolsManualEdit/{{manual._id}}" class="btn btn-blue">Edit Name</a>
+                                            <a ng-show="haveAllAccess('@manualEdit')" href="javascript:;" ng-click="deleteObj(manual._id)" class="btn btn-blue">Delete</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function changeInputUpload(dom){
+        
+        
+    }
+</script>

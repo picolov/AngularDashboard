@@ -1,0 +1,244 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#/contact" style="cursor: pointer;">Individual</a></li>
+							<li class=""><a href="#/company">Company</a></li>
+							<li class=""><a href="#/isiEmployee">ISI Employee</a></li>
+						</ul>
+					</h4>
+					<div class="options">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-user"></i>&nbsp;&nbsp;{{stringUtil('join', " ", obj.titleName, obj.firstName, obj.middleName, obj.lastName)}}</h4>
+
+                            <div class="pull-right">
+                                <a href="#/contactEdit/{{obj._id}}" class="btn btn-primary">Edit</a>
+                                <a href="javascript:;" ng-click="deleteObj()" class="btn btn-primary">Delete</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Individual Detail</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Name</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{stringUtil('join', " ", obj.titleName, obj.firstName, obj.lastName)}}</label>
+                                                </div>
+                                            </div>
+											<div class="form-group">
+                                                <label class="col-sm-6 control-label">Title</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.title}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Email</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.email}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Phone</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.phone}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Mobile</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.mobile}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Fax</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.fax}}</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Company</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2"><a href="#/companyDetail/{{obj.company._id}}">{{obj.company.name}}</a></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Reports To</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2"><a href="#/contactDetail/{{obj.reportTo._id}}">{{obj.reportTo.titleName + ' ' + obj.reportTo.firstName + ' ' + obj.reportTo.lastName}}</a></label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        	<div class="panel panel-primary">
+	                        	<div class="panel-heading">
+									<h4>
+										<ul class="nav nav-tabs">
+											<li class="active"><a data-target="#address" data-toggle="tab">Address Information</a></li>
+											<li class=""><a data-target="#past" data-toggle="tab">Past Experience</a></li>
+											<li class=""><a data-target="#additional" data-toggle="tab">Additional Information</a></li>
+										</ul>
+									</h4>
+									<div class="options">
+									</div>
+								</div>
+                                <div class="panel-body">
+                                	<form class="form-horizontal">
+	                                	<div class="tab-content">
+									    	<div class="tab-pane active" id="address">
+									    		<div class="form-group">
+	                                                <label class="col-sm-3 control-label">Mailing Street</label>
+	                                                <div class="col-sm-9">
+	                                                    <div class="control-label2">{{obj.mailingStreet}}</div>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label class="col-sm-3 control-label">Mailing City</label>
+	                                                <div class="col-sm-9">
+	                                                    <div class="control-label2">{{obj.mailingCity}}</div>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label class="col-sm-3 control-label">Mailing State</label>
+	                                                <div class="col-sm-9">
+	                                                    <div class="control-label2">{{obj.mailingState}}</div>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label class="col-sm-3 control-label">Mailing Zip Code</label>
+	                                                <div class="col-sm-9">
+	                                                    <div class="control-label2">{{obj.mailingZip}}</div>
+	                                                </div>
+	                                            </div>
+									    	</div>
+									    	<div class="tab-pane" id="past">
+									    		<!-- HEADER : BEGIN-->
+		                            			<div class="col-xs-2 no-padding-horizontal text-center">Dates(Year)</div>
+		                            			<div class="col-xs-3 no-padding-horizontal text-center">Company</div>
+		                            			<div class="col-xs-3 no-padding-horizontal text-center">Title</div>
+		                            			<div class="col-xs-4 no-padding-horizontal text-center">Description</div>
+		                            			<!-- HEADER : END -->
+		                            			<div class="col-xs-12">&nbsp;</div>
+		                            			<!-- DATA ROW: BEGIN -->
+		                            			<div class="col-xs-12 no-padding-horizontal" ng-repeat="itemIdx in get_item_count(this, 'pastCount')">
+			                            			<div class="col-xs-2">
+			                            				<input type="text" name="yearRange{{itemIdx}}" id="yearRange{{itemIdx}}" ng-model="obj['yearRange_' + itemIdx]" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-3">
+			                            				<input type="text" name="company{{itemIdx}}" id="company{{itemIdx}}" ng-model="obj['company_' + itemIdx]" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-3">
+			                            				<input type="text" name="title{{itemIdx}}" id="title{{itemIdx}}" ng-model="obj['title_' + itemIdx]" class="full-width" readonly>
+			                            			</div>
+			                            			<div class="col-xs-4">
+			                            				<textarea name="desc{{itemIdx}}" id="desc{{itemIdx}}" ng-maxlength="500" ng-model="obj['desc_' + itemIdx]" cols="50" rows="4" class="full-width disabled-textarea" readonly></textarea>
+			                            			</div>
+			                            			<div class="col-xs-12">&nbsp;</div>
+		                            			</div>
+		                            			<!-- DATA ROW : END -->
+									    	</div>
+									    	<div class="tab-pane" id="additional">
+									    		<div class="form-group">
+	                                                <label class="col-sm-3 control-label">Fax</label>
+	                                                <div class="col-sm-9">
+		                                                <div class="control-label2">{{obj.fax}}</div>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label class="col-sm-3 control-label">Home Phone</label>
+	                                                <div class="col-sm-9">
+		                                                <div class="control-label2">{{obj.homePhone}}</div>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label class="col-sm-3 control-label">Other Phone</label>
+	                                                <div class="col-sm-9">
+		                                                <div class="control-label2">{{obj.otherPhone}}</div>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label class="col-sm-3 control-label">Asst. Phone</label>
+	                                                <div class="col-sm-9">
+		                                                <div class="control-label2">{{obj.assistPhone}}</div>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label class="col-sm-3 control-label">Assistant</label>
+	                                                <div class="col-sm-9">
+		                                                <div class="control-label2">{{obj.assistant}}</div>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label class="col-sm-3 control-label">Department</label>
+	                                                <div class="col-sm-9">
+		                                                <div class="control-label2">{{obj.dept}}</div>
+	                                                </div>
+	                                            </div>
+	                                            <div class="form-group">
+	                                                <label class="col-sm-3 control-label">Birthdate</label>
+	                                                <div class="col-sm-9">
+		                                                <div class="control-label2">{{formatTime(obj.birthDate, 'MM/dd/yy')}}</div>
+	                                                </div>
+	                                            </div>
+									    	</div>
+								    	</div>
+								    </form>
+								</div>
+							</div>
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>System Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-6">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Created By</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.createdBy}}</label>
+                                                    <br>
+                                                    <label>{{formatTime(obj.createdTime)}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Updated By</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{obj.updatedBy}}</label>
+                                                    <br>
+                                                    <label>{{formatTime(obj.updatedTime)}}</label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

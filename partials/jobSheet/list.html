@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Showing {{filteredData.length}} row</h4>
+                            <div class="pull-right">
+                                <a href="#/jobSheetNew" class="btn btn-primary">New Row</a>
+                                <span class="btn btn-primary btn-file">
+                                    Upload Excel<input type="file" id="upload" name="upload" onchange="angular.element(this).scope().uploadFile()" accept=".xlsx"/>
+                                </span>
+                                <a href="javascript:;" ng-click="downloadFile()" class="btn btn-primary ">Download Excel</a>
+                                <a href="javascript:;" ng-click="showColumnPicker = !showColumnPicker" class="btn btn-primary ">Pick Columns</a>
+                            </span>
+                            </div>
+                        </div>
+                        <div ng-show="showColumnPicker" class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="checkbox" ng-repeat="col in cols|slice:start1:end1">
+                                    <label><input type="checkbox" ng-model-options="{ getterSetter: true }" ng-model="col.show"/> {{col.title}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="checkbox" ng-repeat="col in cols|slice:start2:end2">
+                                    <label><input type="checkbox" ng-model-options="{ getterSetter: true }" ng-model="col.show"/> {{col.title}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="checkbox" ng-repeat="col in cols|slice:start3:end3">
+                                    <label><input type="checkbox" ng-model-options="{ getterSetter: true }" ng-model="col.show"/> {{col.title}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="checkbox" ng-repeat="col in cols|slice:start4:end4">
+                                    <label><input type="checkbox" ng-model-options="{ getterSetter: true }" ng-model="col.show"/> {{col.title}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="showColumnPicker" class="col-md-12"><hr></div>
+                        <div class="col-md-12">
+                            <table ng-table-dynamic="objTableParams with cols" show-filter="true" class="table table-bordered table-striped">
+                                <tr ng-repeat="jobSheet in $data">
+                                    <td ng-repeat="col in $columns" ng-bind-html="col.getValue(this, jobSheet)">{{jobSheet[col.field]}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<select ng-options="k as v for (k,v) in $column.data" ng-disabled="$filterRow.disabled" multiple ng-multiple="true" ng-model="params.filter()[name]" class="filter filter-select-multiple form-control" name="{{name}}"> </select>-->
+<script type="text/ng-template" id="customFilter/select.html">
+    <select ng-options="k as v for (k,v) in $column.data" ng-disabled="$filterRow.disabled" multiple ng-multiple="true" ng-model="params.filter()[name]" class="filter filter-select form-control" name="{{name}}"><option style="display:none" value=""></option></select>
+</script>

@@ -1,0 +1,69 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="arrowcrumbs horizontalOverflow">
+			    <a ng-href="#/jobInfoDetail/{{_id}}"><span>Job Information</span></a>
+			    <a ng-href="#/jobInfoServiceOrder{{jobInfo.type}}/{{_id}}"><span>Service Order</span></a>
+			    <a ng-href="#/jobInfoOutgoingTools{{jobInfo.type}}/{{_id}}" class="current"><span>Outgoing Tools Prep</span></a>
+			    <!-- <a ng-href="#/jobInfoJarSets/{{_id}}"><span>Jar Settings</span></a> -->
+			    <a ng-href="#/jobInfoOnSiteReport/{{_id}}"><span>On Site Report</span></a>
+			    <!-- <a ng-href="#/jobInfoExpenseReport/{{_id}}"><span>Expenses Report</span></a> -->
+			</div>
+		</div>
+	</div>
+	<div class="row"><div class="col-md-12">&nbsp;</div></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Open Hole Jar Leak & Continuity Check - HALLIBURTON Detail</h4>
+
+                            <div class="pull-right">
+                                <a ng-if="(jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit'))" ng-href="#/jobInfoOutgoingTools0LeakBurtonNew/{{_id}}" class="btn btn-primary">Add New</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Open Hole Jar Leak & Continuity Check - HALLIBURTON Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                	<form name="formInfo" class="formObj form-horizontal" novalidate>
+                                      	<div class="col-md-12">&nbsp;</div>
+                                      	<div class="col-md-12">
+				                            <table ng-table="objTableParams" show-filter="true" class="table">
+				                                <tr ng-repeat="item in $data">
+				                                    <td data-title="'Jar Model'" sortable="'jarModel'" filter="{ 'jarModel': 'text' }">
+				                                        <a ng-href="#/jobInfoOutgoingTools0LeakBurtonDetail/{{_id + '|' + item._id}}">{{item.jarModel == "0"? 'MCT' : item.jarModel == "1"? 'MCX' : ''}}</a>
+				                                    </td>
+				                                    <td data-title="'Jar Type'" sortable="'jarType'" filter="{ 'jarType': 'text' }">
+				                                        {{item.jarType == "0"? '12-pin' : ''}}
+				                                    </td>
+				                                    <td data-title="'Jar Serial Number'" sortable="'jarSerial'" filter="{ 'jarSerial': 'text' }">
+				                                        {{item.jarSerial}}
+				                                    </td>
+				                                    <td data-title="'Date'" sortable="'date'" filter="{ 'date': 'text' }">
+				                                        {{formatTime(item.date, 'MM/dd/yy')}}
+				                                    </td>
+				                                    <td data-title="'In/Out'" sortable="'inOut'" filter="{ 'inOut': 'text' }">
+				                                        {{item.inOut == "0"? 'Incoming from: ' + item.inOut0Value : item.inOut == "1"? 'Outgoing to: ' + item.inOut1Value : ''}}
+				                                    </td>
+				                                    <td data-title="'Action'">
+				                                    	<a ng-if="(jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit'))" ng-href="#/jobInfoOutgoingTools0LeakBurtonEdit/{{_id + '|' + item._id}}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+				                                        <a ng-if="(jobInfo.status._id != '2' || haveAllAccess('@completeJobEdit'))" href="javascript:;" ng-click="deleteObj(item._id)" class="btn btn-primary"><i class="fa fa-minus"></i></a>
+				                                    </td>
+				                                </tr>
+				                            </table>
+				                        </div>
+                                   	</form>
+                               	</div>
+                        	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

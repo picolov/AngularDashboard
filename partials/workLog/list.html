@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-list"></i>&nbsp;&nbsp;Work Log</h4>
+                            <div class="pull-right">
+                                <a href="#/workLogNewDaily" class="btn btn-primary btn-sm">Log Daily Work</a>
+                                <a href="#/workLogNewWeekly" class="btn btn-primary btn-sm">Log Weekly Plan</a>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-12">
+                        	<form class="form-horizontal">
+                        		<div class="form-group">
+		                        	<label class="col-sm-2 control-label">From Date</label>
+		                            <div class="col-sm-4">
+		                                <div class="input-group date date-picker" id="fromDatePicker">
+		                                    <input type="text" class="form-control" id="fromDate" ng-model="fromDate" placeholder="mm/dd/yy" readonly>
+		                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                                </div>
+		                            </div>
+	                            </div>
+                            </form>
+                        </div>
+                        <div class="col-md-12">
+                        	<form class="form-horizontal">
+                        		<div class="form-group">
+		                        	<label class="col-sm-2 control-label">To Date</label>
+		                            <div class="col-sm-4">
+		                                <div class="input-group date date-picker" id="toDatePicker">
+		                                    <input type="text" class="form-control" id="toDate" ng-model="toDate" placeholder="mm/dd/yy" readonly>
+		                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		                                </div>
+		                            </div>
+	                            </div>
+                            </form>
+                        </div>
+                        <div class="col-md-12">
+                        	<form class="form-horizontal">
+                        		<div class="form-group">
+		                        	<label class="col-sm-2 control-label"></label>
+		                            <div class="col-sm-4">
+	                                    <button ng-disabled="toDate == undefined || fromDate == undefined" ng-click="searchWorkLog()" class="form-control btn btn-primary btn-sm">Search</button>
+		                            </div>
+	                            </div>
+                            </form>
+                        </div>
+                        
+                        <div class="col-md-12">
+                        	&nbsp;
+                        </div>
+                        <div class="col-md-12">
+                        	&nbsp;
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <table ng-table="objTableParams" show-filter="true" class="table ng-table-hide-col-4">
+                                <tr ng-repeat="workLog in $data">
+                                    <td data-title="'Work/Plan Date'" sortable="'workTime'" filter="{ 'workTime': 'text' }">
+                                        <span ng-if="workLog.logType == 'Weekly'">{{formatTime(workLog.workTime, '[W]W/YYYY')}}</span>
+                                        <span ng-if="workLog.logType == 'Daily'">{{formatTime(workLog.workTime, 'D/MM/YYYY')}}</span>
+                                    </td>
+                                    <td data-title="'Log Type'" sortable="'logType'" filter="{ 'logType': 'text' }">
+                                        {{workLog.logType}}
+                                    </td>
+                                    <td data-title="'Description'" sortable="'desc'" filter="{ 'desc': 'text' }">
+                                        {{workLog.desc}}
+                                    </td>
+                                    <td data-title="'Log Date'" sortable="'createdTime'" filter="{ 'createdTime': 'text' }">
+                                        {{formatTime(workLog.createdTime)}}
+                                    </td>
+                                    <td data-title="''">
+                                    	<a class="btn btn-primary btn-sm" href="#/workLogEdit{{workLog.logType}}/{{workLog._id}}">Edit</a>
+                                        <button ng-click="deleteWorkLog(workLog._id)" class="btn btn-danger btn-sm">Delete</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

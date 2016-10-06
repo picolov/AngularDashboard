@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <div class="pull-right">
+
+                                <a ng-show="haveAllAccess('@faqEdit')" ng-href="#/collaborationToolsFaqForm" class="btn btn-primary">New FAQ</a>
+                            </div>
+                            <h4 class="pull-left" style="margin: 0 0 20px;">
+                                <i class="fa fa-share-alt"></i>&nbsp;&nbsp;FAQ
+                            </h4>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table table-condensed">
+                                <tbody>
+                                    <tr ng-table="objTableParams" ng-repeat="faq in data">
+                                        <td style="border: 0;">
+                                            <div class="faq-live">
+                                                <div class="faq-show">
+                                                    <input type="hidden" name="_id" value="{{faq._id}}"/>
+                                                    <h4 class="ui-inblock">{{faq.question}}</h4>&nbsp;&nbsp;
+                                                    <a ng-show="haveAllAccess('@faqEdit')" href="" class="btn-faq btn-goEdit"><i class="fa fa-edit"></i></a>
+                                                    <a ng-show="haveAllAccess('@faqEdit')" href="javascript:;" class="btn-faq btn-goDelete"><i class="fa fa-trash"></i></a>
+                                                    <p>{{faq.answer}}</p>
+                                                </div>
+                                                <div class="faq-edit ui-none">
+                                                    <input type="hidden" name="_id" value="{{faq._id}}"/>
+                                                    <input type="text" class="ui-inblock faq-input" name="question" value="{{faq.question}}">
+                                                    <textarea class="faq-area" name="answer">{{faq.answer}}</textarea>
+                                                	<a href="javascript:;" class="btn-faq btn-goSave" data-mode="faq"><i class="fa fa-floppy-o"></i></a>
+                                                    <a href="" class="btn-faq btn-goBack"><i class="fa fa-times"></i></a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <script>
+                                            loadDomCollab(updateFaqURL, deleteFaqURL);
+                                        </script>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

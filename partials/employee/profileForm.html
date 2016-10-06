@@ -1,0 +1,405 @@
+<div class="container">
+	<div ng-if="userBind" class="row">
+		<div class="col-md-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4>
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="javascript:;">Profile</a></li>
+							<li class=""><a href="#/employeeProfilesActivityLog/{{_id}}">Activity Log</a></li>
+						</ul>
+					</h4>
+					<div class="options">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-user"></i>&nbsp;&nbsp;Employee Detail</h4>
+
+                            <div class="pull-right">
+                            	<span ng-show="formInfo.$invalid" class="label label-danger">form not completed</span>
+                                <a href="javascript:;" ng-click="save()" class="btn btn-primary" ng-disabled="formInfo.$invalid || formAddress.$invalid">Save</a>
+                                <a href="#/myProfile" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        	<div class="panel panel-gray">
+                        		<div class="panel-body">
+                        			<img id="photo" class="img-responsive" alt="Pick an Image" src="">
+                        			<input type="file" id="fileInput">
+                       			</div>
+                 			</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Individual Information</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <form name="formInfo" class="form-horizontal" novalidate>
+                                            
+                                            <div class="form-group">
+                                                <label for="firstName" class="col-sm-3 control-label">First Name</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" ng-maxlength="64" class="form-control"  name="firstName" id="firstName" ng-model="obj.firstName">
+                                                    <p ng-show="formInfo.firstName.$invalid && !formInfo.firstName.$pristine" class="help-block text-danger">Enter a valid employee Name.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nickName" class="col-sm-3 control-label">Nickname</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" ng-maxlength="64" class="form-control"  name="nickName" id="nickName" ng-model="obj.nickName">
+                                                    <p ng-show="formInfo.nickName.$invalid && !formInfo.nickName.$pristine" class="help-block text-danger">Enter a valid employee Name.</p>
+                                                </div>
+												<div class="col-sm-3">
+													<div class="checkbox">
+												    	<label>
+												        	<input type="checkbox" name="isUsingNickName" id="isUsingNickName" ng-model="obj.isUsingNickName" value="1">Use as Firstname
+												    	</label>
+												    </div>
+												</div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" ng-maxlength="64" class="form-control"  name="lastName" id="lastName" ng-model="obj.lastName">
+                                                    <p ng-show="formInfo.lastName.$invalid && !formInfo.lastName.$pristine" class="help-block text-danger">Enter a valid employee Name.</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="positionName" class="col-sm-3 control-label">Position Name</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" ng-maxlength="100" class="form-control"  name="positionName" id="positionName" ng-model="obj.positionName">
+                                                    <p ng-show="formInfo.positionName.$invalid && !formInfo.positionName.$pristine" class="help-block text-danger">Enter a valid position name.</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="position" class="col-sm-3 control-label">Position</label>
+                                                <div class="col-sm-9">
+                                                    <select name="position" id="position" class="form-control" ng-model="obj.position">
+                                                        <option value="">None</option>
+                                                        <option value="Technician">Technician</option>
+                                                        <option value="Sales">Sales</option>
+                                                    </select>
+                                                    <p ng-show="formInfo.position.$invalid && !formInfo.position.$pristine" class="help-block text-danger">Enter a valid position.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="nationality" class="col-sm-3 control-label">Nationality</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" ng-maxlength="64" class="form-control"  name="nationality" id="nationality" ng-model="obj.nationality">
+                                                    <p ng-show="formInfo.nationality.$invalid && !formInfo.nationality.$pristine" class="help-block text-danger">Enter a valid nationality.</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="birthPlace" class="col-sm-3 control-label">Birth Place & Date</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" ng-maxlength="64" class="form-control"  name="birthPlace" id="birthPlace" ng-model="obj.birthPlace">
+                                                    <p ng-show="formInfo.birthPlace.$invalid && !formInfo.birthPlace.$pristine" class="help-block text-danger">Enter a valid Birth Place.</p>
+                                                </div>
+                                                <div class="col-sm-4">
+					                                <div class="input-group date">
+					                                    <input date-picko type="text" class="form-control" ng-model="obj.birthDate" name="birthDate" id="birthDate"/>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+                                                    <p ng-show="formInfo.birthDate.$invalid && !formInfo.birthDate.$pristine" class="help-block text-danger">Enter a valid Birth Date.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email" class="col-sm-3 control-label">Email</label>
+                                                <div class="col-sm-9">
+	                                                <input type="text" ng-maxlength="64" class="form-control"  name="email" id="email" ng-model="obj.email">
+                                                    <p ng-show="formInfo.email.$invalid && !formInfo.email.$pristine" class="help-block text-danger">Enter a valid Email.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="skype" class="col-sm-3 control-label">Skype</label>
+                                                <div class="col-sm-9">
+	                                                <input type="text" ng-maxlength="64" class="form-control"  name="skype" id="skype" ng-model="obj.skype">
+                                                    <p ng-show="formInfo.skype.$invalid && !formInfo.skype.$pristine" class="help-block text-danger">Enter a valid skype adress.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="mobile" class="col-sm-3 control-label">Mobile Phones</label>
+                                                <div class="col-sm-9">
+	                                                <div phone-picko name="mobile" id="mobile" ng-model="obj.mobile"></div>
+                                                    <p ng-show="formInfo.mobile.$invalid && !formInfo.mobile.$pristine" class="help-block text-danger">Enter a valid mobile phones.</p>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                        	<div class="panel">
+                                <div class="panel-heading">
+                                    <h4>
+										<ul class="nav nav-tabs">
+											<li class="active"><a data-target="#address" data-toggle="tab">Address Information</a></li>
+											<li class=""><a data-target="#past" data-toggle="tab">Past Experience</a></li>
+											<li class=""><a data-target="#training" data-toggle="tab">Certification and Training</a></li>
+											<li class=""><a data-target="#education" data-toggle="tab">Education</a></li>
+											<li class=""><a data-target="#hse" data-toggle="tab">HSE Information</a></li>
+										</ul>
+									</h4>
+									<div class="options">
+									</div>
+                                </div>
+                                <div class="panel-body">
+                                	<div class="tab-content">
+									    <div class="tab-pane active" id="address">
+		                                    <div class="col-md-6">
+		                                        <form name="formAddress" class="form-horizontal">
+		                                            <div class="form-group">
+		                                                <label for="street" class="col-sm-6 control-label">Street</label>
+		                                                <div class="col-sm-6">
+		                                                    <input type="text" class="form-control" name="street" id="street" ng-maxlength="100" ng-model="obj.street">
+		                                                    <p ng-show="formAddress.street.$invalid && !formAddress.street.$pristine" class="help-block text-danger">Enter a valid Street.</p>
+		                                                </div>
+		                                            </div>
+		                                            <div class="form-group">
+		                                                <label for="city" class="col-sm-6 control-label">City</label>
+		                                                <div class="col-sm-6">
+		                                                    <input type="text" class="form-control" name="city" id="city" ng-maxlength="100" ng-model="obj.city">
+		                                                    <p ng-show="formAddress.city.$invalid && !formAddress.city.$pristine" class="help-block text-danger">Enter a valid City.</p>
+		                                                </div>
+		                                            </div>
+		                                            <div class="form-group">
+		                                                <label for="state" class="col-sm-6 control-label">State</label>
+		                                                <div class="col-sm-6">
+		                                                    <input type="text" class="form-control" name="state" id="state" ng-maxlength="100" ng-model="obj.state">
+		                                                    <p ng-show="formAddress.state.$invalid && !formAddress.state.$pristine" class="help-block text-danger">Enter a valid State.</p>
+		                                                </div>
+		                                            </div>
+		                                            <div class="form-group">
+		                                                <label for="zip" class="col-sm-6 control-label">Zip Code</label>
+		                                                <div class="col-sm-6">
+		                                                    <input type="text" class="form-control" name="zip" id="zip" ng-maxlength="100" ng-model="obj.zip">
+		                                                    <p ng-show="formAddress.zip.$invalid && !formAddress.zip.$pristine" class="help-block text-danger">Enter a valid Zip Code.</p>
+		                                                </div>
+		                                            </div>
+		                                        </form>
+		                                    </div>
+		                                    <div class="col-md-6">
+		                                    	&nbsp;
+		                                    </div>
+	                            		</div>
+	                            		<div class="tab-pane" id="past">
+	                            			<!-- HEADER : BEGIN-->
+	                            			<div class="col-xs-2 no-padding-horizontal text-center">Dates(Year)</div>
+	                            			<div class="col-xs-3 no-padding-horizontal text-center">Company</div>
+	                            			<div class="col-xs-3 no-padding-horizontal text-center">Title</div>
+	                            			<div class="col-xs-3 no-padding-horizontal text-center">Description</div>
+	                            			<div class="col-xs-1 no-padding-horizontal text-center">Action</div>
+	                            			<!-- HEADER : END -->
+	                            			<div class="col-xs-12">&nbsp;</div>
+	                            			<!-- DATA ROW: BEGIN -->
+	                            			<div class="col-xs-12 no-padding-horizontal" ng-repeat="itemIdx in get_item_count(this, 'pastCount')">
+		                            			<div class="col-xs-2">
+		                            				<input type="text" name="yearRange{{itemIdx}}" id="yearRange{{itemIdx}}" ng-model="obj['yearRange_' + itemIdx]" class="full-width" readonly>
+		                            			</div>
+		                            			<div class="col-xs-3">
+		                            				<input type="text" name="company{{itemIdx}}" id="company{{itemIdx}}" ng-model="obj['company_' + itemIdx]" class="full-width" readonly>
+		                            			</div>
+		                            			<div class="col-xs-3">
+		                            				<input type="text" name="title{{itemIdx}}" id="title{{itemIdx}}" ng-model="obj['title_' + itemIdx]" class="full-width" readonly>
+		                            			</div>
+		                            			<div class="col-xs-3">
+		                            				<textarea name="desc{{itemIdx}}" id="desc{{itemIdx}}" ng-maxlength="500" ng-model="obj['desc_' + itemIdx]" cols="50" rows="4" class="full-width disabled-textarea" readonly></textarea>
+		                            			</div>
+		                            			<div class="col-xs-1">
+		                            				<a href="javascript:;" ng-click="delete_item(obj, itemIdx, 'pastCount', 'yearRange', 'company', 'title', 'desc')" class="control-label fa fa-minus"></a>
+		                            			</div>
+		                            			<div class="col-xs-12">&nbsp;</div>
+	                            			</div>
+	                            			<!-- DATA ROW : END -->
+	                            			
+	                            			<!-- ADD ROW : BEGIN -->
+	                            			<div class="col-xs-12">&nbsp;</div>
+	                            			<div class="col-xs-12 no-padding-horizontal">
+		                            			<div class="col-xs-2">
+		                            				<input type="text" name="yearRange" id="yearRange" ng-model="yearRange" ui-mask="9999 - 9999" model-view-value="true" class="full-width enabled-textfield">
+		                            			</div>
+		                            			<div class="col-xs-3">
+		                            				<input type="text" name="company" id="company" ng-model="company" class="full-width enabled-textfield">
+		                            			</div>
+		                            			<div class="col-xs-3">
+		                            				<input type="text" name="title" id="title" ng-model="title" class="full-width enabled-textfield">
+		                            			</div>
+		                            			<div class="col-xs-3">
+		                            				<textarea name="desc" id="desc" ng-maxlength="500" ng-model="desc" cols="50" rows="4" class="full-width enabled-textarea"></textarea>
+		                            			</div>
+		                            			<div class="col-xs-1">
+		                            				<a href="javascript:;" ng-click="add_item(this, 'pastCount', 'yearRange', 'company', 'title', 'desc')" class="control-label fa fa-plus"></a>
+		                            			</div>
+	                            			</div>
+	                            			<!-- ADD ROW : END -->
+	                            		</div>
+								    	<div class="tab-pane" id="training">
+								    		<!-- HEADER : BEGIN-->
+	                            			<div class="col-xs-5 no-padding-horizontal text-center">Name</div>
+	                            			<div class="col-xs-3 no-padding-horizontal text-center">Completed</div>
+	                            			<div class="col-xs-3 no-padding-horizontal text-center">Expired</div>
+	                            			<div class="col-xs-1 no-padding-horizontal text-center">Action</div>
+	                            			<!-- HEADER : END -->
+	                            			<div class="col-xs-12">&nbsp;</div>
+	                            			<!-- DATA ROW: BEGIN -->
+	                            			<div class="col-xs-12 no-padding-horizontal" ng-repeat="itemIdx in get_item_count(this, 'trainingCount')">
+		                            			<div class="col-xs-5">
+		                            				<input type="text" name="trainingName{{itemIdx}}" id="trainingName{{itemIdx}}" ng-model="obj['trainingName_' + itemIdx]" class="full-width" readonly>
+		                            			</div>
+		                            			<div class="col-xs-3">
+		                            				<input type="text" name="trainingCompleted{{itemIdx}}" id="trainingCompleted{{itemIdx}}" ng-model="obj['trainingCompleted_' + itemIdx]" class="full-width" readonly>
+		                            			</div>
+		                            			<div class="col-xs-3">
+		                            				<input ng-if="obj['trainingExpired_' + itemIdx] != '0000-00-00'" type="text" name="trainingExpired{{itemIdx}}" id="trainingExpired{{itemIdx}}" ng-model="obj['trainingExpired_' + itemIdx]" class="full-width" readonly>
+		                            				<label ng-if="obj['trainingExpired_' + itemIdx] == '0000-00-00'">-- none --</label>
+		                            			</div>
+		                            			<div class="col-xs-1">
+		                            				<a href="javascript:;" ng-click="delete_item(obj, itemIdx, 'trainingCount', 'trainingName', 'trainingCompleted', 'trainingExpired')" class="control-label fa fa-minus"></a>
+		                            			</div>
+		                            			<div class="col-xs-12">&nbsp;</div>
+	                            			</div>
+	                            			<!-- DATA ROW : END -->
+	                            			<!-- ADD ROW : BEGIN -->
+	                            			<div class="col-xs-12">&nbsp;</div>
+	                            			<div class="col-xs-12 no-padding-horizontal">
+		                            			<div class="col-xs-5">
+		                            				<input type="text" name="trainingName" id="trainingName" ng-model="trainingName" class="full-width enabled-textfield">
+		                            			</div>
+		                            			<div class="col-xs-3">
+		                            				<input type="text" name="trainingCompleted" id="trainingCompleted" ng-model="trainingCompleted" ui-mask="9999-99-99" model-view-value="true" class="full-width enabled-textfield">
+		                            			</div>
+		                            			<div class="col-xs-3">
+		                            				<input type="text" name="trainingExpired" id="trainingExpired" ng-model="trainingExpired" ui-mask="9999-99-99" model-view-value="true" class="full-width enabled-textfield">
+		                            			</div>
+		                            			<div class="col-xs-1">
+		                            				<a href="javascript:;" ng-click="add_item(this, 'trainingCount', 'trainingName', 'trainingCompleted', 'trainingExpired')" class="control-label fa fa-plus"></a>
+		                            			</div>
+	                            			</div>
+	                            			<!-- ADD ROW : END -->
+								    	</div>
+								    	<div class="tab-pane" id="education">
+								    		<!-- HEADER : BEGIN-->
+	                            			<div class="col-xs-2 no-padding-horizontal text-center">Level</div>
+	                            			<div class="col-xs-2 no-padding-horizontal text-center">Major</div>
+	                            			<div class="col-xs-3 no-padding-horizontal text-center">Inst.</div>
+	                            			<div class="col-xs-2 no-padding-horizontal text-center">Start</div>
+	                            			<div class="col-xs-2 no-padding-horizontal text-center">End</div>
+	                            			<div class="col-xs-1 no-padding-horizontal text-center">Action</div>
+	                            			<!-- HEADER : END -->
+	                            			<div class="col-xs-12">&nbsp;</div>
+	                            			<!-- DATA ROW: BEGIN -->
+	                            			<div class="col-xs-12 no-padding-horizontal" ng-repeat="itemIdx in get_item_count(this, 'educationCount')">
+		                            			<div class="col-xs-2">
+		                            				<input type="text" name="educationLevel{{itemIdx}}" id="educationLevel{{itemIdx}}" ng-model="obj['educationLevel_' + itemIdx]" class="full-width" readonly>
+		                            			</div>
+		                            			<div class="col-xs-2">
+		                            				<input type="text" name="educationMajor{{itemIdx}}" id="educationMajor{{itemIdx}}" ng-model="obj['educationMajor_' + itemIdx]" class="full-width" readonly>
+		                            			</div>
+		                            			<div class="col-xs-3">
+		                            				<input type="text" name="educationInstitution{{itemIdx}}" id="educationInstitution{{itemIdx}}" ng-model="obj['educationInstitution_' + itemIdx]" class="full-width" readonly>
+		                            			</div>
+		                            			<div class="col-xs-2">
+		                            				<input type="text" name="educationStart{{itemIdx}}" id="educationStart{{itemIdx}}" ng-model="obj['educationStart_' + itemIdx]" class="full-width" readonly>
+		                            			</div>
+		                            			<div class="col-xs-2">
+		                            				<input type="text" name="educationEnd{{itemIdx}}" id="educationEnd{{itemIdx}}" ng-model="obj['educationEnd_' + itemIdx]" class="full-width" readonly>
+		                            			</div>
+		                            			<div class="col-xs-1">
+		                            				<a href="javascript:;" ng-click="delete_item(obj, itemIdx, 'educationCount', 'educationLevel', 'educationMajor', 'educationInstitution', 'educationStart', 'educationEnd')" class="control-label fa fa-minus"></a>
+		                            			</div>
+		                            			<div class="col-xs-12">&nbsp;</div>
+	                            			</div>
+	                            			<!-- DATA ROW : END -->
+	                            			<!-- ADD ROW : BEGIN -->
+	                            			<div class="col-xs-12">&nbsp;</div>
+	                            			<div class="col-xs-12 no-padding-horizontal">
+		                            			<div class="col-xs-2">
+		                            				<input type="text" name="educationLevel" id="educationLevel" ng-model="educationLevel" class="full-width enabled-textfield">
+		                            			</div>
+		                            			<div class="col-xs-2">
+		                            				<input type="text" name="educationMajor" id="educationMajor" ng-model="educationMajor" class="full-width enabled-textfield">
+		                            			</div>
+		                            			<div class="col-xs-3">
+		                            				<input type="text" name="educationInstitution" id="educationInstitution" ng-model="educationInstitution" class="full-width enabled-textfield">
+		                            			</div>
+		                            			<div class="col-xs-2">
+		                            				<input type="text" name="educationStart" id="educationStart" ng-model="educationStart" ui-mask="9999-99-99" model-view-value="true" class="full-width enabled-textfield">
+		                            			</div>
+		                            			<div class="col-xs-2">
+		                            				<input type="text" name="educationEnd" id="educationEnd" ng-model="educationEnd" ui-mask="9999-99-99" model-view-value="true" class="full-width enabled-textfield">
+		                            			</div>
+		                            			<div class="col-xs-1">
+		                            				<a href="javascript:;" ng-click="add_item(this, 'educationCount', 'educationLevel', 'educationMajor', 'educationInstitution', 'educationStart', 'educationEnd')" class="control-label fa fa-plus"></a>
+		                            			</div>
+	                            			</div>
+	                            			<!-- ADD ROW : END -->
+								    	</div>
+								    	<div class="tab-pane" id="hse">
+								    		<div class="col-md-12">
+		                                        <form name="formHse" class="form-horizontal">
+		                                            <div class="form-group">
+		                                                <label for="cardNo" class="col-sm-3 control-label">Card No</label>
+		                                                <div class="col-sm-9">
+			                                                <input type="text" ng-maxlength="64" class="form-control"  name="cardNo" id="cardNo" ng-model="obj.cardNo">
+		                                                    <p ng-show="formHse.cardNo.$invalid && !formHse.cardNo.$pristine" class="help-block text-danger">Enter a valid Card Number.</p>
+		                                                </div>
+		                                            </div>
+		                                            <div class="form-group">
+		                                                <label for="medicalExpiryDate" class="col-sm-3 control-label">Offshore Medical Expiry Date</label>
+		                                                <div class="col-sm-9">
+							                                <div class="input-group date">
+							                                    <input date-picko type="text" class="form-control" ng-model="obj.medicalExpiryDate" name="medicalExpiryDate" id="medicalExpiryDate"/>
+							                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							                                </div>
+		                                                    <p ng-show="formHse.medicalExpiryDate.$invalid && !formHse.medicalExpiryDate.$pristine" class="help-block text-danger">Enter a valid Medical Expiry Date.</p>
+		                                                </div>
+		                                            </div>
+		                                            <div class="form-group">
+		                                                <label for="survivalExpiryDate" class="col-sm-3 control-label">Offshore Survival Expiry Date</label>
+		                                                <div class="col-sm-9">
+							                                <div class="input-group date">
+							                                    <input date-picko type="text" class="form-control" ng-model="obj.survivalExpiryDate" name="survivalExpiryDate" id="survivalExpiryDate"/>
+							                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							                                </div>
+		                                                    <p ng-show="formHse.survivalExpiryDate.$invalid && !formHse.survivalExpiryDate.$pristine" class="help-block text-danger">Enter a valid Survival Expiry Date.</p>
+		                                                </div>
+		                                            </div>
+		                                            <div class="form-group">
+		                                                <label for="h2sExpiryDate" class="col-sm-3 control-label">H2S Certification Expiry Date</label>
+		                                                <div class="col-sm-9">
+							                                <div class="input-group date">
+							                                    <input date-picko type="text" class="form-control" ng-model="obj.h2sExpiryDate" name="h2sExpiryDate" id="h2sExpiryDate"/>
+							                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							                                </div>
+		                                                    <p ng-show="formHse.h2sExpiryDate.$invalid && !formHse.h2sExpiryDate.$pristine" class="help-block text-danger">Enter a valid H2S Certification Expiry Date.</p>
+		                                                </div>
+		                                            </div>
+		                                        </form>
+		                                    </div>
+								    	</div>
+									</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

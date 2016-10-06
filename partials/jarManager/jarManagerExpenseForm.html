@@ -1,0 +1,513 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-building"></i>&nbsp;&nbsp;Expense Report Detail</h4>
+
+                            <div class="pull-right">
+                            	<span ng-show="formInfo.$invalid" class="label label-danger">form not completed</span>
+                                <a href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+                                <a ng-href="#/jarManagerExpenseList" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>Expense Report Form</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="title" class="col-sm-3 control-label">Title</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="title" id="title" ng-maxlength="100" ng-model="obj.title">
+                                                    <p ng-show="formInfo.title.$invalid && !formInfo.title.$pristine" class="help-block text-danger">Enter a valid Title.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+	                                            <label for="address" class="col-sm-3 control-label">Address</label>
+	                                            <div class="col-sm-9">
+	                                                <textarea name="address" id="address" ng-maxlength="500" ng-model="obj.address" cols="50" rows="4" class="form-control"></textarea>
+	                                                <p ng-show="formInfo.address.$invalid && !formInfo.address.$pristine" class="help-block text-danger">not a valid address.</p>
+	                                            </div>
+	                                        </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        	<div class="form-group">
+				                            	<label for="fromDate" class="col-sm-3 control-label">From Date</label>
+				                            	<div class="col-sm-9">
+				                           			<div class="input-group date">
+					                                	<input date-picko type="text" class="form-control" ng-model="obj.fromDate" name="fromDate" id="fromDate"/>
+					                                	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+				                                 	<p ng-show="formInfo.fromDate.$invalid && !formInfo.fromDate.$pristine" class="help-block text-danger">not a valid Date.</p>
+				                             	</div>
+				                       		</div>
+				                       		<div class="form-group">
+				                            	<label for="toDate" class="col-sm-3 control-label">To Date</label>
+				                            	<div class="col-sm-9">
+				                           			<div class="input-group date">
+					                                	<input date-picko type="text" class="form-control" ng-model="obj.toDate" name="toDate" id="toDate"/>
+					                                	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                </div>
+				                                 	<p ng-show="formInfo.toDate.$invalid && !formInfo.toDate.$pristine" class="help-block text-danger">not a valid Date.</p>
+				                             	</div>
+				                       		</div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<hr>
+                                        </div>
+                                        <div class="col-xs-1 no-padding-horizontal text-center">Date</div>
+                                        <div class="col-xs-1 no-padding-horizontal text-center">Location</div>
+                                        <div class="col-xs-1 no-padding-horizontal text-center">Description</div>
+                                        <div class="col-xs-9 no-padding-horizontal text-center">
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Meals</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Parking</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Phone</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Entertain</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Airfare</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Rental</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Motel</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Meeting</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Gas</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Office Sup</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">Misc</div>
+                                        	<div class="col-xs-1 no-padding-horizontal text-center">RTA</div>
+                                        </div>
+                                        <!-- "Col 1" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date1" name="date1" id="date1"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location1" id="location1" ng-maxlength="10" ng-model="obj.location1"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc1" id="desc1" ng-maxlength="100" ng-model="obj.desc1"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal1" id="meal1" ng-maxlength="10" ng-model="obj.meal1"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking1" id="parking1" ng-maxlength="10" ng-model="obj.parking1"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone1" id="phone1" ng-maxlength="10" ng-model="obj.phone1"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain1" id="entertain1" ng-maxlength="10" ng-model="obj.entertain1"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare1" id="airfare1" ng-maxlength="10" ng-model="obj.airfare1"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental1" id="rental1" ng-maxlength="10" ng-model="obj.rental1"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel1" id="motel1" ng-maxlength="10" ng-model="obj.motel1"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting1" id="meeting1" ng-maxlength="10" ng-model="obj.meeting1"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas1" id="gas1" ng-maxlength="10" ng-model="obj.gas1"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup1" id="sup1" ng-maxlength="10" ng-model="obj.sup1"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc1" id="misc1" ng-maxlength="10" ng-model="obj.misc1"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta1" id="rta1" ng-maxlength="10" ng-model="obj.rta1"></div>
+                                        </div>
+                                        <!-- "Col 2" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date2" name="date2" id="date2"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location2" id="location2" ng-maxlength="10" ng-model="obj.location2"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc2" id="desc2" ng-maxlength="100" ng-model="obj.desc2"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal2" id="meal2" ng-maxlength="10" ng-model="obj.meal2"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking2" id="parking2" ng-maxlength="10" ng-model="obj.parking2"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone2" id="phone2" ng-maxlength="10" ng-model="obj.phone2"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain2" id="entertain2" ng-maxlength="10" ng-model="obj.entertain2"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare2" id="airfare2" ng-maxlength="10" ng-model="obj.airfare2"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental2" id="rental2" ng-maxlength="10" ng-model="obj.rental2"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel2" id="motel2" ng-maxlength="10" ng-model="obj.motel2"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting2" id="meeting2" ng-maxlength="10" ng-model="obj.meeting2"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas2" id="gas2" ng-maxlength="10" ng-model="obj.gas2"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup2" id="sup2" ng-maxlength="10" ng-model="obj.sup2"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc2" id="misc2" ng-maxlength="10" ng-model="obj.misc2"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta2" id="rta2" ng-maxlength="10" ng-model="obj.rta2"></div>
+                                        </div>
+                                        <!-- "Col 3" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date3" name="date3" id="date3"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location3" id="location3" ng-maxlength="10" ng-model="obj.location3"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc3" id="desc3" ng-maxlength="100" ng-model="obj.desc3"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal3" id="meal3" ng-maxlength="10" ng-model="obj.meal3"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking3" id="parking3" ng-maxlength="10" ng-model="obj.parking3"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone3" id="phone3" ng-maxlength="10" ng-model="obj.phone3"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain3" id="entertain3" ng-maxlength="10" ng-model="obj.entertain3"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare3" id="airfare3" ng-maxlength="10" ng-model="obj.airfare3"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental3" id="rental3" ng-maxlength="10" ng-model="obj.rental3"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel3" id="motel3" ng-maxlength="10" ng-model="obj.motel3"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting3" id="meeting3" ng-maxlength="10" ng-model="obj.meeting3"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas3" id="gas3" ng-maxlength="10" ng-model="obj.gas3"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup3" id="sup3" ng-maxlength="10" ng-model="obj.sup3"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc3" id="misc3" ng-maxlength="10" ng-model="obj.misc3"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta3" id="rta3" ng-maxlength="10" ng-model="obj.rta3"></div>
+                                        </div>
+                                        <!-- "Col 4" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date4" name="date4" id="date4"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location4" id="location4" ng-maxlength="10" ng-model="obj.location4"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc4" id="desc4" ng-maxlength="100" ng-model="obj.desc4"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal4" id="meal4" ng-maxlength="10" ng-model="obj.meal4"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking4" id="parking4" ng-maxlength="10" ng-model="obj.parking4"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone4" id="phone4" ng-maxlength="10" ng-model="obj.phone4"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain4" id="entertain4" ng-maxlength="10" ng-model="obj.entertain4"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare4" id="airfare4" ng-maxlength="10" ng-model="obj.airfare4"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental4" id="rental4" ng-maxlength="10" ng-model="obj.rental4"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel4" id="motel4" ng-maxlength="10" ng-model="obj.motel4"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting4" id="meeting4" ng-maxlength="10" ng-model="obj.meeting4"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas4" id="gas4" ng-maxlength="10" ng-model="obj.gas4"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup4" id="sup4" ng-maxlength="10" ng-model="obj.sup4"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc4" id="misc4" ng-maxlength="10" ng-model="obj.misc4"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta4" id="rta4" ng-maxlength="10" ng-model="obj.rta4"></div>
+                                        </div>
+                                        <!-- "Col 5" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date5" name="date5" id="date5"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location5" id="location5" ng-maxlength="10" ng-model="obj.location5"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc5" id="desc5" ng-maxlength="100" ng-model="obj.desc5"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal5" id="meal5" ng-maxlength="10" ng-model="obj.meal5"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking5" id="parking5" ng-maxlength="10" ng-model="obj.parking5"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone5" id="phone5" ng-maxlength="10" ng-model="obj.phone5"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain5" id="entertain5" ng-maxlength="10" ng-model="obj.entertain5"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare5" id="airfare5" ng-maxlength="10" ng-model="obj.airfare5"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental5" id="rental5" ng-maxlength="10" ng-model="obj.rental5"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel5" id="motel5" ng-maxlength="10" ng-model="obj.motel5"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting5" id="meeting5" ng-maxlength="10" ng-model="obj.meeting5"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas5" id="gas5" ng-maxlength="10" ng-model="obj.gas5"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup5" id="sup5" ng-maxlength="10" ng-model="obj.sup5"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc5" id="misc5" ng-maxlength="10" ng-model="obj.misc5"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta5" id="rta5" ng-maxlength="10" ng-model="obj.rta5"></div>
+                                        </div>
+                                        <!-- "Col 6" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date6" name="date6" id="date6"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location6" id="location6" ng-maxlength="10" ng-model="obj.location6"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc6" id="desc6" ng-maxlength="100" ng-model="obj.desc6"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal6" id="meal6" ng-maxlength="10" ng-model="obj.meal6"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking6" id="parking6" ng-maxlength="10" ng-model="obj.parking6"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone6" id="phone6" ng-maxlength="10" ng-model="obj.phone6"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain6" id="entertain6" ng-maxlength="10" ng-model="obj.entertain6"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare6" id="airfare6" ng-maxlength="10" ng-model="obj.airfare6"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental6" id="rental6" ng-maxlength="10" ng-model="obj.rental6"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel6" id="motel6" ng-maxlength="10" ng-model="obj.motel6"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting6" id="meeting6" ng-maxlength="10" ng-model="obj.meeting6"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas6" id="gas6" ng-maxlength="10" ng-model="obj.gas6"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup6" id="sup6" ng-maxlength="10" ng-model="obj.sup6"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc6" id="misc6" ng-maxlength="10" ng-model="obj.misc6"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta6" id="rta6" ng-maxlength="10" ng-model="obj.rta6"></div>
+                                        </div>
+                                        <!-- "Col 7" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date7" name="date7" id="date7"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location7" id="location7" ng-maxlength="10" ng-model="obj.location7"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc7" id="desc7" ng-maxlength="100" ng-model="obj.desc7"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal7" id="meal7" ng-maxlength="10" ng-model="obj.meal7"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking7" id="parking7" ng-maxlength="10" ng-model="obj.parking7"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone7" id="phone7" ng-maxlength="10" ng-model="obj.phone7"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain7" id="entertain7" ng-maxlength="10" ng-model="obj.entertain7"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare7" id="airfare7" ng-maxlength="10" ng-model="obj.airfare7"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental7" id="rental7" ng-maxlength="10" ng-model="obj.rental7"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel7" id="motel7" ng-maxlength="10" ng-model="obj.motel7"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting7" id="meeting7" ng-maxlength="10" ng-model="obj.meeting7"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas7" id="gas7" ng-maxlength="10" ng-model="obj.gas7"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup7" id="sup7" ng-maxlength="10" ng-model="obj.sup7"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc7" id="misc7" ng-maxlength="10" ng-model="obj.misc7"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta7" id="rta7" ng-maxlength="10" ng-model="obj.rta7"></div>
+                                        </div>
+                                        <!-- "Col 8" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date8" name="date8" id="date8"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location8" id="location8" ng-maxlength="10" ng-model="obj.location8"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc8" id="desc8" ng-maxlength="100" ng-model="obj.desc8"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal8" id="meal8" ng-maxlength="10" ng-model="obj.meal8"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking8" id="parking8" ng-maxlength="10" ng-model="obj.parking8"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone8" id="phone8" ng-maxlength="10" ng-model="obj.phone8"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain8" id="entertain8" ng-maxlength="10" ng-model="obj.entertain8"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare8" id="airfare8" ng-maxlength="10" ng-model="obj.airfare8"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental8" id="rental8" ng-maxlength="10" ng-model="obj.rental8"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel8" id="motel8" ng-maxlength="10" ng-model="obj.motel8"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting8" id="meeting8" ng-maxlength="10" ng-model="obj.meeting8"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas8" id="gas8" ng-maxlength="10" ng-model="obj.gas8"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup8" id="sup8" ng-maxlength="10" ng-model="obj.sup8"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc8" id="misc8" ng-maxlength="10" ng-model="obj.misc8"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta8" id="rta8" ng-maxlength="10" ng-model="obj.rta8"></div>
+                                        </div>
+                                        <!-- "Col 9" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date9" name="date9" id="date9"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location9" id="location9" ng-maxlength="10" ng-model="obj.location9"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc9" id="desc9" ng-maxlength="100" ng-model="obj.desc9"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal9" id="meal9" ng-maxlength="10" ng-model="obj.meal9"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking9" id="parking9" ng-maxlength="10" ng-model="obj.parking9"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone9" id="phone9" ng-maxlength="10" ng-model="obj.phone9"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain9" id="entertain9" ng-maxlength="10" ng-model="obj.entertain9"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare9" id="airfare9" ng-maxlength="10" ng-model="obj.airfare9"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental9" id="rental9" ng-maxlength="10" ng-model="obj.rental9"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel9" id="motel9" ng-maxlength="10" ng-model="obj.motel9"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting9" id="meeting9" ng-maxlength="10" ng-model="obj.meeting9"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas9" id="gas9" ng-maxlength="10" ng-model="obj.gas9"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup9" id="sup9" ng-maxlength="10" ng-model="obj.sup9"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc9" id="misc9" ng-maxlength="10" ng-model="obj.misc9"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta9" id="rta9" ng-maxlength="10" ng-model="obj.rta9"></div>
+                                        </div>
+                                        <!-- "Col 10" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date10" name="date10" id="date10"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location10" id="location10" ng-maxlength="10" ng-model="obj.location10"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc10" id="desc10" ng-maxlength="100" ng-model="obj.desc10"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal10" id="meal10" ng-maxlength="10" ng-model="obj.meal10"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking10" id="parking10" ng-maxlength="10" ng-model="obj.parking10"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone10" id="phone10" ng-maxlength="10" ng-model="obj.phone10"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain10" id="entertain10" ng-maxlength="10" ng-model="obj.entertain10"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare10" id="airfare10" ng-maxlength="10" ng-model="obj.airfare10"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental10" id="rental10" ng-maxlength="10" ng-model="obj.rental10"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel10" id="motel10" ng-maxlength="10" ng-model="obj.motel10"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting10" id="meeting10" ng-maxlength="10" ng-model="obj.meeting10"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas10" id="gas10" ng-maxlength="10" ng-model="obj.gas10"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup10" id="sup10" ng-maxlength="10" ng-model="obj.sup10"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc10" id="misc10" ng-maxlength="10" ng-model="obj.misc10"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta10" id="rta10" ng-maxlength="10" ng-model="obj.rta10"></div>
+                                        </div>
+                                        <!-- "Col 11" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date11" name="date11" id="date11"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location11" id="location11" ng-maxlength="10" ng-model="obj.location11"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc11" id="desc11" ng-maxlength="100" ng-model="obj.desc11"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal11" id="meal11" ng-maxlength="10" ng-model="obj.meal11"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking11" id="parking11" ng-maxlength="10" ng-model="obj.parking11"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone11" id="phone11" ng-maxlength="10" ng-model="obj.phone11"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain11" id="entertain11" ng-maxlength="10" ng-model="obj.entertain11"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare11" id="airfare11" ng-maxlength="10" ng-model="obj.airfare11"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental11" id="rental11" ng-maxlength="10" ng-model="obj.rental11"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel11" id="motel11" ng-maxlength="10" ng-model="obj.motel11"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting11" id="meeting11" ng-maxlength="10" ng-model="obj.meeting11"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas11" id="gas11" ng-maxlength="10" ng-model="obj.gas11"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup11" id="sup11" ng-maxlength="10" ng-model="obj.sup11"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc11" id="misc11" ng-maxlength="10" ng-model="obj.misc11"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta11" id="rta11" ng-maxlength="10" ng-model="obj.rta11"></div>
+                                        </div>
+                                        <!-- "Col 12" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date12" name="date12" id="date12"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location12" id="location12" ng-maxlength="10" ng-model="obj.location12"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc12" id="desc12" ng-maxlength="100" ng-model="obj.desc12"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal12" id="meal12" ng-maxlength="10" ng-model="obj.meal12"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking12" id="parking12" ng-maxlength="10" ng-model="obj.parking12"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone12" id="phone12" ng-maxlength="10" ng-model="obj.phone12"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain12" id="entertain12" ng-maxlength="10" ng-model="obj.entertain12"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare12" id="airfare12" ng-maxlength="10" ng-model="obj.airfare12"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental12" id="rental12" ng-maxlength="10" ng-model="obj.rental12"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel12" id="motel12" ng-maxlength="10" ng-model="obj.motel12"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting12" id="meeting12" ng-maxlength="10" ng-model="obj.meeting12"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas12" id="gas12" ng-maxlength="10" ng-model="obj.gas12"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup12" id="sup12" ng-maxlength="10" ng-model="obj.sup12"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc12" id="misc12" ng-maxlength="10" ng-model="obj.misc12"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta12" id="rta12" ng-maxlength="10" ng-model="obj.rta12"></div>
+                                        </div>
+                                        <!-- "Col 13" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date13" name="date13" id="date13"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location13" id="location13" ng-maxlength="10" ng-model="obj.location13"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc13" id="desc13" ng-maxlength="100" ng-model="obj.desc13"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal13" id="meal13" ng-maxlength="10" ng-model="obj.meal13"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking13" id="parking13" ng-maxlength="10" ng-model="obj.parking13"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone13" id="phone13" ng-maxlength="10" ng-model="obj.phone13"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain13" id="entertain13" ng-maxlength="10" ng-model="obj.entertain13"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare13" id="airfare13" ng-maxlength="10" ng-model="obj.airfare13"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental13" id="rental13" ng-maxlength="10" ng-model="obj.rental13"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel13" id="motel13" ng-maxlength="10" ng-model="obj.motel13"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting13" id="meeting13" ng-maxlength="10" ng-model="obj.meeting13"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas13" id="gas13" ng-maxlength="10" ng-model="obj.gas13"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup13" id="sup13" ng-maxlength="10" ng-model="obj.sup13"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc13" id="misc13" ng-maxlength="10" ng-model="obj.misc13"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta13" id="rta13" ng-maxlength="10" ng-model="obj.rta13"></div>
+                                        </div>
+                                        <!-- "Col 14" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date14" name="date14" id="date14"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location14" id="location14" ng-maxlength="10" ng-model="obj.location14"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc14" id="desc14" ng-maxlength="100" ng-model="obj.desc14"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal14" id="meal14" ng-maxlength="10" ng-model="obj.meal14"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking14" id="parking14" ng-maxlength="10" ng-model="obj.parking14"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone14" id="phone14" ng-maxlength="10" ng-model="obj.phone14"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain14" id="entertain14" ng-maxlength="10" ng-model="obj.entertain14"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare14" id="airfare14" ng-maxlength="10" ng-model="obj.airfare14"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental14" id="rental14" ng-maxlength="10" ng-model="obj.rental14"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel14" id="motel14" ng-maxlength="10" ng-model="obj.motel14"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting14" id="meeting14" ng-maxlength="10" ng-model="obj.meeting14"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas14" id="gas14" ng-maxlength="10" ng-model="obj.gas14"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup14" id="sup14" ng-maxlength="10" ng-model="obj.sup14"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc14" id="misc14" ng-maxlength="10" ng-model="obj.misc14"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta14" id="rta14" ng-maxlength="10" ng-model="obj.rta14"></div>
+                                        </div>
+                                        <!-- "Col 15" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date15" name="date15" id="date15"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location15" id="location15" ng-maxlength="10" ng-model="obj.location15"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc15" id="desc15" ng-maxlength="100" ng-model="obj.desc15"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal15" id="meal15" ng-maxlength="10" ng-model="obj.meal15"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking15" id="parking15" ng-maxlength="10" ng-model="obj.parking15"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone15" id="phone15" ng-maxlength="10" ng-model="obj.phone15"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain15" id="entertain15" ng-maxlength="10" ng-model="obj.entertain15"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare15" id="airfare15" ng-maxlength="10" ng-model="obj.airfare15"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental15" id="rental15" ng-maxlength="10" ng-model="obj.rental15"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel15" id="motel15" ng-maxlength="10" ng-model="obj.motel15"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting15" id="meeting15" ng-maxlength="10" ng-model="obj.meeting15"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas15" id="gas15" ng-maxlength="10" ng-model="obj.gas15"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup15" id="sup15" ng-maxlength="10" ng-model="obj.sup15"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc15" id="misc15" ng-maxlength="10" ng-model="obj.misc15"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta15" id="rta15" ng-maxlength="10" ng-model="obj.rta15"></div>
+                                        </div>
+                                        <!-- "Col 16" -->
+                                        <div class="col-xs-1 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.date16" name="date16" id="date16"/></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="location16" id="location16" ng-maxlength="10" ng-model="obj.location16"></div>
+                                        <div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="desc16" id="desc16" ng-maxlength="100" ng-model="obj.desc16"></div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meal16" id="meal16" ng-maxlength="10" ng-model="obj.meal16"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="parking16" id="parking16" ng-maxlength="10" ng-model="obj.parking16"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="phone16" id="phone16" ng-maxlength="10" ng-model="obj.phone16"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="entertain16" id="entertain16" ng-maxlength="10" ng-model="obj.entertain16"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="airfare16" id="airfare16" ng-maxlength="10" ng-model="obj.airfare16"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rental16" id="rental16" ng-maxlength="10" ng-model="obj.rental16"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="motel16" id="motel16" ng-maxlength="10" ng-model="obj.motel16"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="meeting16" id="meeting16" ng-maxlength="10" ng-model="obj.meeting16"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="gas16" id="gas16" ng-maxlength="10" ng-model="obj.gas16"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="sup16" id="sup16" ng-maxlength="10" ng-model="obj.sup16"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="misc16" id="misc16" ng-maxlength="10" ng-model="obj.misc16"></div>
+                                        	<div class="col-xs-1 no-padding-horizontal"><input type="text" class="full-width" name="rta16" id="rta16" ng-maxlength="10" ng-model="obj.rta16"></div>
+                                        </div>
+                                        <!-- "Col Total" -->
+                                        <div class="col-xs-1 no-padding-horizontal">&nbsp;</div>
+                                        <div class="col-xs-1 no-padding-horizontal">&nbsp;</div>
+                                        <div class="col-xs-1 no-padding-horizontal">Total</div>
+                                        <div class="col-xs-9 no-padding-horizontal">
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'meal',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'parking',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'phone',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'entertain',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'airfare',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'rental',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'motel',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'meeting',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'gas',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'sup',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">{{addNotNull(this,'misc',1,16)}}</div>
+                                        	<div class="col-xs-1 no-padding-horizontal">&nbsp;</div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        	<hr>
+                                        </div>
+                                        <div class="col-xs-6">
+                                        	<!-- "Col 1" -->
+	                                        <div class="col-xs-2 no-padding-horizontal text-center">Date</div>
+	                                        <div class="col-xs-5 no-padding-horizontal text-center">Description</div>
+	                                        <div class="col-xs-3 no-padding-horizontal text-center">Amount</div>
+	                                        <div class="col-xs-2 no-padding-horizontal text-center">RTA</div>
+                                        	<!-- "Col 1" -->
+	                                        <div class="col-xs-2 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.specialDate1" name="specialDate1" id="specialDate1"/></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><input type="text" class="full-width" name="specialDesc1" id="specialDesc1" ng-maxlength="100" ng-model="obj.specialDesc1"></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><input type="text" class="full-width" name="specialAmount1" id="specialAmount1" ng-maxlength="10" ng-model="obj.specialAmount1"></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><input type="text" class="full-width" name="specialRta1" id="specialRta1" ng-maxlength="10" ng-model="obj.specialRta1"></div>
+	                                        <!-- "Col 2" -->
+	                                        <div class="col-xs-2 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.specialDate2" name="specialDate2" id="specialDate2"/></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><input type="text" class="full-width" name="specialDesc2" id="specialDesc2" ng-maxlength="100" ng-model="obj.specialDesc2"></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><input type="text" class="full-width" name="specialAmount2" id="specialAmount2" ng-maxlength="10" ng-model="obj.specialAmount2"></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><input type="text" class="full-width" name="specialRta2" id="specialRta2" ng-maxlength="10" ng-model="obj.specialRta2"></div>
+	                                        <!-- "Col 3" -->
+	                                        <div class="col-xs-2 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.specialDate3" name="specialDate3" id="specialDate3"/></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><input type="text" class="full-width" name="specialDesc3" id="specialDesc3" ng-maxlength="100" ng-model="obj.specialDesc3"></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><input type="text" class="full-width" name="specialAmount3" id="specialAmount3" ng-maxlength="10" ng-model="obj.specialAmount3"></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><input type="text" class="full-width" name="specialRta3" id="specialRta3" ng-maxlength="10" ng-model="obj.specialRta3"></div>
+	                                        <!-- "Col 4" -->
+	                                        <div class="col-xs-2 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.specialDate4" name="specialDate4" id="specialDate4"/></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><input type="text" class="full-width" name="specialDesc4" id="specialDesc4" ng-maxlength="100" ng-model="obj.specialDesc4"></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><input type="text" class="full-width" name="specialAmount4" id="specialAmount4" ng-maxlength="10" ng-model="obj.specialAmount4"></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><input type="text" class="full-width" name="specialRta4" id="specialRta4" ng-maxlength="10" ng-model="obj.specialRta4"></div>
+	                                        <!-- "Col 5" -->
+	                                        <div class="col-xs-2 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.specialDate5" name="specialDate5" id="specialDate5"/></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><input type="text" class="full-width" name="specialDesc5" id="specialDesc5" ng-maxlength="100" ng-model="obj.specialDesc5"></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><input type="text" class="full-width" name="specialAmount5" id="specialAmount5" ng-maxlength="10" ng-model="obj.specialAmount5"></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><input type="text" class="full-width" name="specialRta5" id="specialRta5" ng-maxlength="10" ng-model="obj.specialRta5"></div>
+	                                        <!-- "Col 6" -->
+	                                        <div class="col-xs-2 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.specialDate6" name="specialDate6" id="specialDate6"/></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><input type="text" class="full-width" name="specialDesc6" id="specialDesc6" ng-maxlength="100" ng-model="obj.specialDesc6"></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><input type="text" class="full-width" name="specialAmount6" id="specialAmount6" ng-maxlength="10" ng-model="obj.specialAmount6"></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><input type="text" class="full-width" name="specialRta6" id="specialRta6" ng-maxlength="10" ng-model="obj.specialRta6"></div>
+	                                        <!-- "Col 7" -->
+	                                        <div class="col-xs-2 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.specialDate7" name="specialDate7" id="specialDate7"/></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><input type="text" class="full-width" name="specialDesc7" id="specialDesc7" ng-maxlength="100" ng-model="obj.specialDesc7"></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><input type="text" class="full-width" name="specialAmount7" id="specialAmount7" ng-maxlength="10" ng-model="obj.specialAmount7"></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><input type="text" class="full-width" name="specialRta7" id="specialRta7" ng-maxlength="10" ng-model="obj.specialRta7"></div>
+	                                        <!-- "Col 8" -->
+	                                        <div class="col-xs-2 no-padding-horizontal"><input date-picko type="text" class="full-width" ng-model="obj.specialDate8" name="specialDate8" id="specialDate8"/></div>
+	                                        <div class="col-xs-5 no-padding-horizontal"><input type="text" class="full-width" name="specialDesc8" id="specialDesc8" ng-maxlength="100" ng-model="obj.specialDesc8"></div>
+	                                        <div class="col-xs-3 no-padding-horizontal"><input type="text" class="full-width" name="specialAmount8" id="specialAmount8" ng-maxlength="10" ng-model="obj.specialAmount8"></div>
+	                                        <div class="col-xs-2 no-padding-horizontal"><input type="text" class="full-width" name="specialRta8" id="specialRta8" ng-maxlength="10" ng-model="obj.specialRta8"></div>
+	                                        <!-- "Col Total" -->
+	                                        <div class="col-xs-2 no-padding-horizontal">&nbsp;</div>
+	                                        <div class="col-xs-5 no-padding-horizontal">Total</div>
+	                                        <div class="col-xs-3 no-padding-horizontal">{{addNotNull(this,'specialAmount',1,8)}}</div>
+	                                        <div class="col-xs-2 no-padding-horizontal">&nbsp;</div>
+	                                        
+                                        </div>
+                                        
+                                        <div class="col-xs-6">
+                                        	<div class="form-group">
+                                                <label class="col-sm-6 control-label">Total Expense Above</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{
+                                                    addNotNull(this,'meal',1,16) + 
+                                                    addNotNull(this,'parking',1,16) +
+                                                    addNotNull(this,'phone',1,16) +
+                                                    addNotNull(this,'entertain',1,16) +
+                                                    addNotNull(this,'airfare',1,16) +
+                                                    addNotNull(this,'rental',1,16) +
+                                                    addNotNull(this,'motel',1,16) +
+                                                    addNotNull(this,'meeting',1,16) +
+                                                    addNotNull(this,'gas',1,16) +
+                                                    addNotNull(this,'sup',1,16) +
+                                                    addNotNull(this,'misc',1,16)
+                                                    }}</label>
+                                                </div>
+                                            </div>
+                                        	<div class="form-group">
+                                                <label for="advance" class="col-sm-6 control-label">Employee Advance</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control" name="advance" id="advance" ng-maxlength="100" ng-model="obj.advance">
+                                                    <p ng-show="formInfo.advance.$invalid && !formInfo.advance.$pristine" class="help-block text-danger">Enter a valid value.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="returned" class="col-sm-6 control-label">Advance Returned</label>
+                                                <div class="col-sm-6">
+                                                    <input type="text" class="form-control" name="returned" id="returned" ng-maxlength="100" ng-model="obj.returned">
+                                                    <p ng-show="formInfo.returned.$invalid && !formInfo.returned.$pristine" class="help-block text-danger">Enter a valid value.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Special Expense</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{addNotNull(this,'specialAmount',1,8)}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-6 control-label">Total for Report</label>
+                                                <div class="col-sm-6">
+                                                    <label class="control-label2">{{
+                                                    addNotNull(this,'meal',1,16) + 
+                                                    addNotNull(this,'parking',1,16) +
+                                                    addNotNull(this,'phone',1,16) +
+                                                    addNotNull(this,'entertain',1,16) +
+                                                    addNotNull(this,'airfare',1,16) +
+                                                    addNotNull(this,'rental',1,16) +
+                                                    addNotNull(this,'motel',1,16) +
+                                                    addNotNull(this,'meeting',1,16) +
+                                                    addNotNull(this,'gas',1,16) +
+                                                    addNotNull(this,'sup',1,16) +
+                                                    addNotNull(this,'misc',1,16) +
+                                                    addNotNull(this,'specialAmount',1,8)
+                                                    }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

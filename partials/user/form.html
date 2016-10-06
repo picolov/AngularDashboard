@@ -1,0 +1,126 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 clearfix">
+                            <h4 class="pull-left" style="margin: 0 0 20px;"><i class="fa fa-user"></i>&nbsp;&nbsp;User Detail</h4>
+
+                            <div class="pull-right">
+                                <span ng-show="formInfo.$invalid || formAddress.$invalid || !obj.role || obj.role.length == 0" class="label label-danger">form not completed</span>
+                                <a href="javascript:;" ng-click="save()" class="btn btn-primary" ng-disabled="formInfo.$invalid || formAddress.$invalid || !obj.role || obj.role.length == 0">Save</a>
+                            </div>
+                        </div>
+                        <div class="col-md-12 ">
+                            <div class="panel panel-gray">
+                                <div class="panel-heading">
+                                    <h4>User Information</h4>
+                                    <div class="options">
+                                        <div><small>* = Required Information</small></div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-9">
+                                        <form name="formInfo" class="formObj form-horizontal" novalidate>
+                                        	<div class="form-group">
+                                                <label for="middleName" class="col-sm-3 control-label">Username <span style="color:red">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" maxlength="100" class="form-control"  name="username" id="username" ng-model="obj.username" required>
+                                                    <p ng-show="formInfo.username.$invalid && !formInfo.username.$pristine" class="help-block text-danger">Enter a valid username.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="employee" class="col-sm-3 control-label">Employee</label>
+                                                <div class="col-sm-9">
+		                                            <ui-select name="employee" id="employee" ng-model="obj.employee" ng-disabled="disabled" on-select="selectEmployee($item, $model)">
+		                                                <ui-select-match allow-clear placeholder="Search...">{{$select.selected.employeeName}}</ui-select-match>
+		                                                <ui-select-choices repeat="employee in profileList | filter: { employeeName: $select.search }">
+		                                                    <span ng-bind-html="employee.employeeName | highlight: $select.search"></span>
+		                                                </ui-select-choices>
+		                                            </ui-select>
+		                                            <p ng-show="formInfo.employee.$invalid && !formInfo.employee.$pristine" class="help-block text-danger">not a valid Employee.</p>
+		                                        </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="firstName" class="col-sm-3 control-label">First Name <span style="color:red">*</span></label>
+                                                <div class="col-sm-2">
+                                                    <select name="titleName" id="titleName" class="form-control" ng-model="obj.titleName">
+                                                        <option value="">None</option>
+                                                        <option value="Mr">Mr</option>
+                                                        <option value="Ms">Ms</option>
+                                                        <option value="Mrs">Mrs</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-7" style="padding: 0;">
+                                                    <input type="text" maxlength="100" required class="form-control"  name="firstName" id="firstName" ng-model="obj.firstName" required>
+                                                    <p ng-show="formInfo.firstName.$invalid && !formInfo.firstName.$pristine" class="help-block text-danger">Enter a valid firstname.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="middleName" class="col-sm-3 control-label">Middle Name</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" maxlength="100" class="form-control"  name="middleName" id="middleName" ng-model="obj.middleName">
+                                                    <p ng-show="formInfo.middleName.$invalid && !formInfo.middleName.$pristine" class="help-block text-danger">Enter a valid middlename.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" maxlength="100" class="form-control"  name="lastName" id="lastName" ng-model="obj.lastName">
+                                                    <p ng-show="formInfo.lastName.$invalid && !formInfo.lastName.$pristine" class="help-block text-danger">Enter a valid lastname.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email" class="col-sm-3 control-label">Email <span style="color:red">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" maxlength="100" class="form-control" ng-pattern="REGEX_EMAIL" name="email" id="email" ng-model="obj.email" required>
+                                                    <p ng-show="formInfo.email.$invalid && !formInfo.email.$pristine" class="help-block text-danger">Enter a valid email.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="phone" class="col-sm-3 control-label">Phone</label>
+                                                <div class="col-sm-9">
+                                                	<div phone-picko name="phone" id="phone" ng-model="obj.phone"></div>
+                                                    <p ng-show="formInfo.phone.$invalid && !formInfo.phone.$pristine" class="help-block text-danger">not a valid phone number.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="mobile" class="col-sm-3 control-label">Mobile</label>
+                                                <div class="col-sm-9">
+                                                    <div phone-picko name="mobile" id="mobile" ng-model="obj.mobile"></div>
+                                                    <p ng-show="formInfo.mobile.$invalid && !formInfo.mobile.$pristine" class="help-block text-danger">not a valid mpbile phone number.</p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="role" class="col-sm-3 control-label">Role <span style="color:red">*</span></label>
+                                                <div class="col-sm-9">
+                                                	<ui-select multiple id="role" ng-model="obj.role" ng-disabled="disabled" required>
+													    <ui-select-match allow-clear placeholder="Search...">{{$item.name}}</ui-select-match>
+													    <ui-select-choices repeat="role._id as role in roles | filter: {name: $select.search}">
+													      <div ng-bind-html="role.name | highlight: $select.search"></div>
+													    </ui-select-choices>
+													</ui-select>
+                                                    <p ng-show="formInfo.role.$invalid && !formInfo.role.$pristine" class="help-block text-danger">not a valid role.</p>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Needed for the droplist so it will not get truncated by the screen height -->
+            <br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+        </div>
+    </div>
+</div>
