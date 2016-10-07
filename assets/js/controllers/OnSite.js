@@ -2616,8 +2616,12 @@ dashboardControllers.controller('JobOnSiteTechDataDetailController', function($s
 	};
 	$scope.sentEmail = function() {
 		var email = $('#emailTo').val();
-		var output = sharedService.getDataFromServer(getTechDataDetailPdfURL + "?_id=" + $scope._id + "&email=" + email);
-		alert(output.message);
+		if (!email) {
+			alert("please fill the email address to be sent");
+		} else {
+			var output = sharedService.getDataFromServer(getTechDataDetailPdfURL + "?_id=" + $scope._id + "&email=" + email);
+			alert(output.message);
+		}
 	};
 
 	output = sharedService.getDataFromServer(getJarSetsOpenHoleByJobURL + "/_id/" + $scope._id);
